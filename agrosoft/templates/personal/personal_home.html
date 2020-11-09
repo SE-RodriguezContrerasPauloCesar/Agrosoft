@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<body>
+    <h1>Personal</h1>
+    {% if request.user.is_authenticated %}
+    <h2>{{ user.first_name }}</h2>
+    {% endif %}
+    <a href="{% url 'home_logout' %}">Cerrar Sesión</a>
+</body>
+</html>

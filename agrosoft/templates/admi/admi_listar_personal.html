@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<body>
+    <h1>
+        LISTA DE PERSONAL
+    </h1>
+    {% for message in messages %}
+        {{ message }}
+    {% endfor %}
+
+    {% if personal %}
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">DNI</th>
+                <th scope="col">Nombres</th>
+                <th scope="col">Apellidos</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in personal %}
+            <tr>
+                <td>
+                    {{p.username}}
+                </td>
+                <td>
+                    {{p.first_name}}
+                </td>
+                <td>
+                    {{p.last_name}}
+                </td>
+                <td>
+                    acciones
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>       
+    </table>
+    {% else %}
+    <p>No tiene personal registrado</p>
+    {% endif %}
+</body>
+
+</html>

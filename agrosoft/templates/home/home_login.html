@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+
+<body>
+    <h1>Login</h1>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <input name="dni" type="text" placeholder="DNI" required>
+        <input type="password" placeholder="Contraseña" name="contra" required>
+        <button type="submit">Ingresar</button>
+    </form>
+    {% for message in messages %}
+        {{ message }}
+    {% endfor %}
+</body>
+</html>

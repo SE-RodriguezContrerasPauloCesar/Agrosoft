@@ -15,7 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from agrosoft.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', home_login, name='home_login'),
+    path('administrador/home', admi_home, name='admi_home'),
+    path('personal/home/<int:personal_id>', personal_home, name='personal_home'),
+    path('salir/', home_logout, name='home_logout'),
+    path('administrador/personal/agregar/', admi_agregar_personal, name='admi_agregar_personal'),
+    path('administrador/personal/lista/', admi_listar_personal, name='admi_listar_personal'),
 ]

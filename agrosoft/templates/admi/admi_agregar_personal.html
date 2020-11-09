@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<body>
+    <h1>Registrar Nuevo Personal</h1>
+    {% for message in messages %}
+        {{ message }}
+    {% endfor %}
+    {% if formulario.errors %}
+        <p>{{ formulario.first_name.errors.as_text }}</p>
+        <p>{{ formulario.last_name.errors.as_text }}</p>
+        <p>{{ formulario.password1.errors.as_text }}</p>
+        <p>{{ formulario.password2.errors.as_text }}</p>
+    {% endif %}
+    <form method="POST" action="">
+        {% csrf_token %}
+        DNI:{{formulario.username}} </br>
+        {% if formulario.username.errors %}
+            <p>* Ya existe un usuario con este DNI</p>
+        {% endif %}
+        Nombres:{{formulario.first_name}}  </br>
+        Apellidos:{{formulario.last_name}} </br>
+        Contraseña:{{formulario.password1}} </br>
+        Repita su Contraseña:{{formulario.password2}} </br>
+        <button type="submit">Agregar Personal</button>
+    </form>
+</body>
+</html>
