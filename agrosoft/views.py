@@ -52,7 +52,7 @@ def admi_agregar_personal(request):
             personal = formulario.save()
             grupo = Group.objects.get(name='Personal')
             personal.groups.add(grupo)
-            messages.info(request,'Personal Agregado en el Sistema')
+            messages.info(request,'Usuario registrado con éxito')
             return redirect(reverse('admi_home'))
     else:
         formulario = PersonalFormulario()
