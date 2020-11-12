@@ -1,45 +1,73 @@
-<!DOCTYPE html>
-<body>
-    <h1>
-        LISTA DE PERSONAL
-    </h1>
-    {% for message in messages %}
-        {{ message }}
-    {% endfor %}
+{% extends 'admi/admi_base.html' %}
+{% load static %}
+{% block container %}
 
-    {% if personal %}
-    <table>
-        <thead>
-            <tr>
-                <th scope="col">DNI</th>
-                <th scope="col">Nombres</th>
-                <th scope="col">Apellidos</th>
-                <th scope="col">Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for p in personal %}
-            <tr>
-                <td>
-                    {{p.username}}
-                </td>
-                <td>
-                    {{p.first_name}}
-                </td>
-                <td>
-                    {{p.last_name}}
-                </td>
-                <td>
-                    <a href="{% url 'admi_eliminar_personal' p.id %}" onclick="return confirm('¿Está seguro de eliminar este Personal')">Eliminar</a>
-                    <a href="{% url 'admi_editar_personal' p.id %}" >Editar</a>
-                </td>
-            </tr>
+    <!-- List of registered calls  -->
+
+<div class="main-panel">
+    <div class="content">
+        <div class="container-fluid shadow-sm bg-light p-3">
+            <h2>
+                <i class="fa fa-list-alt" style="color: #73daad;"></i>
+                Mi Personal
+            </h2>
+            <div class="dropdown-divider"></div>
+            <div class="call-add my-3">
+                <a class="btn btn-agrosoft" style="margin-left: 84%;" href="{% url 'admi_agregar_personal' %}">
+                    <i class="fa fa-hand-pointer-o"></i>
+                    Agregar Personal
+                </a>
+            </div>
+            {% for message in messages %}
+            <div class="alert alert-primary" role="alert">
+                    {{ message }}
+            </div>
             {% endfor %}
-        </tbody>       
-    </table>
-    {% else %}
-    <p>No tiene personal registrado</p>
-    {% endif %}
-</body>
+            
+            <!-- Table of registers  -->
+            {% if personal %}
+            <div class="table-responsive shadow-sm" style="border-radius: 9px;">
+                <table class="table table-bordered">
+                    <thead style="background: linear-gradient(120deg,#73daad,#73daad);" class="text-center">
+                        <tr>
+                            <th scope="col">DNI</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Apellidos</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    {% for p in personal %}
+                    <tbody>
+                        <tr>
+                            <td>
+                                {{p.username}}
+                            </td>
+                            <td>
+                                {{p.first_name}}
+                            </td>
+                            <td>
+                                {{p.last_name}}
+                            </td>
+                            <td>
+                                <a href="{% url 'admi_editar_personal' p.id %}" ><i class="fas fa-edit fa-lg" style="color: #31c536"></i></a>
+                                <a href="{% url 'admi_eliminar_personal' p.id %}" onclick="return confirm('¿Está seguro de eliminar este Personal')"><i class="fas fa-trash" style="color: #31c536"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+            <!-- End of table of registers  -->
+            {% else %}
+            <div class="container-fluid">
+                <div class="alert alert-primary">
+                    <p>No tiene personal registrado.</p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
 
-</html>
+    
+{% endblock %}

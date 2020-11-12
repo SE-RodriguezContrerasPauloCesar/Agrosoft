@@ -1,20 +1,70 @@
+{% extends 'admi/admi_base.html' %}
 {% load static %}
-
-<!DOCTYPE html>
-    <body>
-        <h1>Modificar Personal</h1>
-        <form method="POST">
-            {% csrf_token %}
-            DNI:{{form.username}} </br>
-            {% if form.username.errors %}
-                <p>* Ya existe un usuario con este DNI</p>
+{% block container %}
+<div class="main-panel">
+    <div class="content">
+        <div class="container-fluid shadow-sm bg-light p-3">
+            <h1>  
+                <i class="fas fa-folder-plus" style="color: #31c536"></i> 
+                Modificar Personal
+            </h1>
+            <div class="dropdown-divider"></div>
+            {% if formulario.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {% if formulario.username.errors %}
+                        <p>* Ya existe un usuario con este DNI</p>
+                    {% endif %}
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                    <p>{{ formulario.first_name.errors.as_text }}</p>
+                    <p>{{ formulario.last_name.errors.as_text }}</p>
+                    <p>{{ formulario.password1.errors.as_text }}</p>
+                    <p>{{ formulario.password2.errors.as_text }}</p>
+                </div>
             {% endif %}
-            Nombres:{{form.first_name}}  </br>
-            Apellidos:{{form.last_name}} </br>
-            Contraseña:{{form.password1}} </br>
-            Repita su Contraseña:{{form.password2}} </br>
-            <button type="submit">Modificar Datos</button>
-        </form>
+            
+            <form method="POST" action="">
+                {% csrf_token %}
+                <div>
+                    <div>
+                        <label for="username">DNI</label></br>
+                        <input type="text" id="username" name="username" class="form-control" value='{{form.username}}'>
+                    </div>
+                    
+                    <div>
+                        <label for="firts_name">Nombre</label></br>
+                        <input type="text" id="first_name" name="first_name" value='{{form.first_name}}' class="form-control">
+                    </div>
+                    <div>
+                        <label for="last_name">Apellidos</label></br>
+                        <input type="text" id="last_name" name="last_name" class="form-control" value='{{form.last_name}}'>
+                    </div>
+                    <div>
+                        <label for="password1">Contraseña</label></br>
+                        <input type="password" id="password1" name="password1" class="form-control">
+                    </div>
+                    <ul>
+                        <li>La contraseña no puede asemejarse tanto a su información personal.</li>
+                        <li>La contraseña debe contener almenso 8 caracteres.</li>
+                        <li>La contraseña no puede ser una clave común.</li>
+                        <li>La contraseña no puede contener solo numeros.</li>
+                    </ul>
+                    <div>
+                        <label for="password2">Repita su Contraseña</label></br>
+                        <input type="password" id="password2" name="password2" class="form-control">
+                    </div>
+                    
+                </div>
+                <button type="submit" class="btn btn-agrosoft px-4 my-3">Modificar Personal</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+</form>
+{% endblock %}
+
         
-    </body>
-</html>
+        
+    

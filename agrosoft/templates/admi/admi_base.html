@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	
+    <title>Administrador</title>
+    <!-- site icons favicon -->
+    <link rel="icon" href="{% static 'images/fevicon/LogoHS.png' %}" type="image/png" />
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="{% static 'css/admi.css'%}"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+</head>
+
+<body>
+<div class="wrapper">
+<!-- Header admin-->
+<div class="shadow-sm p-1 fixed-top">
+    <nav class="navbar navbar-admin navbar-expand-sm">
+        <!-- Image and text -->
+        <nav class="navbar navbar-light">
+            <div class="navbar-brand admin-logo">
+                <img src="{% static 'images/logo.JPG' %}" width="120" height="35" class="d-inline-block align-top"
+                    alt="">
+                
+            </div>
+        </nav>
+            <!-- Header Navigation Bar -->
+            <div class="ml-auto p-2 bd-highlight">
+                <!-- Admin info-->
+                <div class="btn-group">
+                    <a type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <i class="far fa-address-book" aria-hidden="true"></i>
+                        {% if request.user.is_authenticated %}
+                            <span> {{ user.first_name }} {{ user.last_name }} </span>
+                        {% endif %}
+                        
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right agrosoft-admin-perfil">
+                        
+                        
+                        <a class="dropdown-item close-sesion-admin" href="{% url 'home_logout' %}"><i class="fa fa-power-off"></i> Cerrar Sesión</a>
+                    </div>
+                </div>
+                <!-- End Admin info-->
+                </ul>
+                <!-- End Header Navigation Bar -->
+            </div>
+    </nav>
+</div>
+<!-- End Header admin-->
+{% block container %}
+	
+{% endblock %}
+	<!-- Side Bar -->
+<div class="sidebar-admin-agrosoft shadow" >    
+    <div class="menu-v-admin">
+        <div class="accordion" id="accordionExample">
+            <div class="menu-v-item">
+                <div class="menu-v-title-admin">
+                    <div class="btn text-left" type="button" data-toggle="collapse" data-target="#collapseOne"
+                        aria-expanded="true" aria-controls="collapseOne">
+                        <i class="far fa-address-book" aria-hidden="true"></i>
+                        <div class="title"><a href="{% url 'admi_listar_personal' %}">Personal</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-v-item">
+                <div class="menu-v-title-admin">
+                    <div class="btn text-left" type="button" data-toggle="collapse" data-target="#collapseTwo"
+                        aria-expanded="true" aria-controls="collapseOne">
+                        <i class="far fa-address-book" aria-hidden="true"></i>
+                        <div class="title"><a href="">Lotes</a></div>
+                        
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<!-- End Side Bar -->
+</div>
+
+
+
+<!-- Bootstrap core JavaScript -->
+<!-- JS, Popper.js, and jQuery -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+{% block scripts %}
+
+{% endblock %}
+
+
+</body>
+</html>

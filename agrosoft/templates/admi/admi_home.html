@@ -1,15 +1,7 @@
+{% extends 'admi/admi_base.html' %}
 {% load static %}
+{% block container %}
 
-<!DOCTYPE html>
-<html>
-    <body>
-        <h1>ADMINISTRADOR</h1>
-        {% for message in messages %}
-            {{ message }}</br>
-        {% endfor %}
-        <a href="{% url 'admi_agregar_personal' %}">Agregar Personal</a>
-        <a href="{% url 'admi_listar_personal' %}">Listar Personal</a>
-        <a href="{% url 'home_logout' %}">Cerrar Sesión</a>
         
-    </body>
-</html>
+
+{% endblock %}
