@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from agrosoft.views import *
 
 urlpatterns = [
@@ -25,4 +27,4 @@ urlpatterns = [
     path('salir/', home_logout, name='home_logout'),
     path('administrador/personal/agregar/', admi_agregar_personal, name='admi_agregar_personal'),
     path('administrador/personal/lista/', admi_listar_personal, name='admi_listar_personal'),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

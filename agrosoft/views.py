@@ -25,7 +25,7 @@ def home_login(request):
                 else:
                     return redirect('admi_home')
         else:
-            messages.error(request, 'DNI o Contraseña incorrectos')
+            messages.error(request, 'DNI y/o Contraseña Incorrecto')
             return redirect(reverse('home_login'))
     return render(request, 'home/home_login.html')
 
