@@ -68,3 +68,27 @@ def  admi_listar_personal(request):
         'personal': personal,
     }
     return render(request, 'admi/admi_listar_personal.html', context)
+
+# Administrador Eliminar Personal
+def admi_eliminar_personal(request, personal_id):
+    personal = User.objects.get(id = personal_id)
+    personal.delete()
+    return redirect('admi_home')
+
+# Administrador Editar Personal
+def admi_editar_personal(request, personal_id):
+    personal = User.objects.get(id = personal_id)
+    if request.method == 'GET':
+        form = PersonalFormulario(instance = personal)
+        context = {
+            'form': form
+        }
+    else:
+        form = PersonalFormulario(request.POST, instance = personal)
+        context = {
+            'form': form
+        }
+        if form.is_valid():
+            form.save()
+            return redirect('admi_home')
+    return render(request, 'admi/admi_editar_personal.html', context)

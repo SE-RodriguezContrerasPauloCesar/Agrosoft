@@ -30,7 +30,8 @@
                     {{p.last_name}}
                 </td>
                 <td>
-                    acciones
+                    <a href="{% url 'admi_eliminar_personal' p.id %}" onclick="return confirm('¿Está seguro de eliminar este Personal')">Eliminar</a>
+                    <a href="{% url 'admi_editar_personal' p.id %}" >Editar</a>
                 </td>
             </tr>
             {% endfor %}

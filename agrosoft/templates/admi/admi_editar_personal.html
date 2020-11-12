@@ -1,0 +1,20 @@
+{% load static %}
+
+<!DOCTYPE html>
+    <body>
+        <h1>Modificar Personal</h1>
+        <form method="POST">
+            {% csrf_token %}
+            DNI:{{form.username}} </br>
+            {% if form.username.errors %}
+                <p>* Ya existe un usuario con este DNI</p>
+            {% endif %}
+            Nombres:{{form.first_name}}  </br>
+            Apellidos:{{form.last_name}} </br>
+            Contraseña:{{form.password1}} </br>
+            Repita su Contraseña:{{form.password2}} </br>
+            <button type="submit">Modificar Datos</button>
+        </form>
+        
+    </body>
+</html>
