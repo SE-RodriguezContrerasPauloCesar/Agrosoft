@@ -9,13 +9,13 @@
         <div class="container-fluid shadow-sm bg-light p-3">
             <h2>
                 <i class="fa fa-list-alt" style="color: #73daad;"></i>
-                Mi Personal
+                Mis Usuarios
             </h2>
             <div class="dropdown-divider"></div>
             <div class="call-add my-3">
-                <a class="btn btn-agrosoft" style="margin-left: 84%;" href="{% url 'admi_agregar_personal' %}">
+                <a class="btn btn-agrosoft" style="margin-left: 84%;" href="{% url 'admi_agregar_usuario' %}">
                     <i class="fa fa-hand-pointer-o"></i>
-                    Agregar Personal
+                    Agregar Usuario
                 </a>
             </div>
             {% for message in messages %}
@@ -25,7 +25,7 @@
             {% endfor %}
             
             <!-- Table of registers  -->
-            {% if personal %}
+            {% if usuario %}
             <div class="table-responsive shadow-sm" style="border-radius: 9px;">
                 <table class="table table-bordered">
                     <thead style="background: linear-gradient(120deg,#73daad,#73daad);" class="text-center">
@@ -36,7 +36,7 @@
                             <th scope="col">Acciones</th>
                         </tr>
                     </thead>
-                    {% for p in personal %}
+                    {% for p in usuario %}
                     <tbody>
                         <tr>
                             <td>
@@ -49,8 +49,8 @@
                                 {{p.last_name}}
                             </td>
                             <td>
-                                <a href="{% url 'admi_editar_personal' p.id %}" ><i class="fas fa-edit fa-lg" style="color: #31c536"></i></a>
-                                <a href="{% url 'admi_eliminar_personal' p.id %}" onclick="return confirm('¿Está seguro de eliminar este Personal')"><i class="fas fa-trash" style="color: #31c536"></i></a>
+                                <a href="{% url 'admi_editar_usuario' p.id %}" ><i class="fas fa-edit fa-lg" style="color: #31c536"></i></a>
+                                <a href="{% url 'admi_eliminar_usuario' p.id %}" onclick="return confirm('¿Está seguro de eliminar este Usuario')"><i class="fas fa-trash" style="color: #31c536"></i></a>
                             </td>
                         </tr>
                     </tbody>
@@ -61,7 +61,7 @@
             {% else %}
             <div class="container-fluid">
                 <div class="alert alert-primary">
-                    <p>No tiene personal registrado.</p>
+                    <p>No tiene usuarios registrados.</p>
                 </div>
             </div>
             {% endif %}

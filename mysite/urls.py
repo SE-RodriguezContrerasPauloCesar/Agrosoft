@@ -23,11 +23,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_login, name='home_login'),
     path('administrador/home', admi_home, name='admi_home'),
-    path('personal/home/<int:personal_id>', personal_home, name='personal_home'),
+    path('usuario/home/<int:usuario_id>', usuario_home, name='usuario_home'),
     path('salir/', home_logout, name='home_logout'),
 
-    path('administrador/personal/agregar/', admi_agregar_personal, name='admi_agregar_personal'),
-    path('administrador/personal/lista/', admi_listar_personal, name='admi_listar_personal'),
-    path('administrador/personal/eliminar/<int:personal_id>', admi_eliminar_personal, name='admi_eliminar_personal'),
-    path('administrador/personal/editar/<int:personal_id>', admi_editar_personal, name='admi_editar_personal'),
+    path('administrador/usuario/agregar/', admi_agregar_usuario, name='admi_agregar_usuario'),
+    path('administrador/usuario/lista/', admi_listar_usuario, name='admi_listar_usuario'),
+    path('administrador/usuario/eliminar/<int:usuario_id>', admi_eliminar_usuario, name='admi_eliminar_usuario'),
+    path('administrador/usuario/editar/<int:usuario_id>', admi_editar_usuario, name='admi_editar_usuario'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

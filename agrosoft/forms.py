@@ -4,7 +4,7 @@ from django.forms import inlineformset_factory
 from django import forms
 from .models import *
 
-class PersonalFormulario(UserCreationForm):
+class UsuarioFormulario(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'password1', 'password2')

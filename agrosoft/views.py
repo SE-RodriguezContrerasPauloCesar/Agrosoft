@@ -15,13 +15,13 @@ def home_login(request):
     if request.method == 'POST':
         dni = request.POST.get('dni')
         contra = request.POST.get('contra')
-        usuario = authenticate(username = dni, password = contra)
-        if usuario is not None:
-            if usuario.is_active:
-                login(request, usuario)
-                if usuario.groups.filter(name='Personal').exists():
-                    personal = User.objects.get(username = usuario)
-                    return redirect('personal_home', personal.id)
+        usuario_ = authenticate(username = dni, password = contra)
+        if usuario_ is not None:
+            if usuario_.is_active:
+                login(request, usuario_)
+                if usuario_.groups.filter(name='Usuario').exists():
+                    usuario = User.objects.get(username = usuario_)
+                    return redirect('usuario_home', usuario.id)
                 else:
                     return redirect('admi_home')
         else:
@@ -37,58 +37,58 @@ def home_logout(request):
 def admi_home(request):
     return render(request, 'admi/admi_home.html')
 
-def personal_home(request, personal_id):
-    personal = User.objects.get(pk = personal_id)
+def usuario_home(request, usuario_id):
+    usuario = User.objects.get(pk = usuario_id)
     context = {
-        'personal': personal,
+        'usuario': usuario,
     }
-    return render(request, 'personal/personal_home.html', context)
+    return render(request, 'usuario/usuario_home.html', context)
 
-# Administrador Personal
-def admi_agregar_personal(request):
+# Administrador Usuario
+def admi_agregar_usuario(request):
     if request.method == 'POST':
-        formulario = PersonalFormulario(request.POST)
+        formulario = UsuarioFormulario(request.POST)
         if formulario.is_valid():
-            personal = formulario.save()
-            grupo = Group.objects.get(name='Personal')
-            personal.groups.add(grupo)
+            usuario = formulario.save()
+            grupo = Group.objects.get(name='Usuario')
+            usuario.groups.add(grupo)
             messages.info(request,'Usuario registrado con éxito')
             return redirect(reverse('admi_home'))
     else:
-        formulario = PersonalFormulario()
+        formulario = UsuarioFormulario()
     context = {
         'formulario': formulario
     }
-    return render(request, 'admi/admi_agregar_personal.html', context)
+    return render(request, 'admi/admi_agregar_usuario.html', context)
 
-# Administrador Listar Personal
-def  admi_listar_personal(request):
-    personal = User.objects.filter(groups__name='Personal')
+# Administrador Listar Usuario
+def  admi_listar_usuario(request):
+    usuario = User.objects.filter(groups__name='Usuario')
     context = {
-        'personal': personal,
+        'usuario': usuario,
     }
-    return render(request, 'admi/admi_listar_personal.html', context)
+    return render(request, 'admi/admi_listar_usuario.html', context)
 
-# Administrador Eliminar Personal
-def admi_eliminar_personal(request, personal_id):
-    personal = User.objects.get(id = personal_id)
-    personal.delete()
+# Administrador Eliminar Usuario
+def admi_eliminar_usuario(request, usuario_id):
+    usuario = User.objects.get(id = usuario_id)
+    usuario.delete()
     return redirect('admi_home')
 
-# Administrador Editar Personal
-def admi_editar_personal(request, personal_id):
-    personal = User.objects.get(id = personal_id)
+# Administrador Editar Usuario
+def admi_editar_usuario(request, usuario_id):
+    usuario = User.objects.get(id = usuario_id)
     if request.method == 'GET':
-        form = PersonalFormulario(instance = personal)
+        form = UsuarioFormulario(instance = usuario)
         context = {
             'form': form
         }
     else:
-        form = PersonalFormulario(request.POST, instance = personal)
+        form = UsuarioFormulario(request.POST, instance = usuario)
         context = {
             'form': form
         }
         if form.is_valid():
             form.save()
             return redirect('admi_home')
-    return render(request, 'admi/admi_editar_personal.html', context)
+    return render(request, 'admi/admi_editar_usuario.html', context)
