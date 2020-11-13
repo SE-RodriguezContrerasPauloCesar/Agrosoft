@@ -13,9 +13,9 @@ from .models import *
 
 def home_login(request):
     if request.method == 'POST':
-        dni = request.POST.get('dni')
+        use = request.POST.get('usuario')
         contra = request.POST.get('contra')
-        usuario_ = authenticate(username = dni, password = contra)
+        usuario_ = authenticate(username = use, password = contra)
         if usuario_ is not None:
             if usuario_.is_active:
                 login(request, usuario_)

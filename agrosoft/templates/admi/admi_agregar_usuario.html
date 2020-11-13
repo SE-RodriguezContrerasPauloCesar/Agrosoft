@@ -12,7 +12,7 @@
             {% if formulario.errors %}
                 <div class="alert alert-danger" role="alert">
                     {% if formulario.username.errors %}
-                        <p>* Ya existe un usuario con este DNI</p>
+                        <p>* Ya existe un usuario con este Usuario</p>
                     {% endif %}
                     {% for message in messages %}
                         {{ message }}
@@ -28,7 +28,7 @@
                 {% csrf_token %}
                 <div>
                     <div>
-                        <label for="username">DNI</label></br>
+                        <label for="username">Usuario</label></br>
                         <input type="text" id="username" name="username" class="form-control">
                     </div>
                     
