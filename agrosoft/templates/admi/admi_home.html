@@ -1,7 +1,18 @@
 {% extends 'admi/admi_base.html' %}
 {% load static %}
 {% block container %}
-
-        
+<div class="main-panel">
+    <div class="content">
+        <div class="container-fluid shadow-sm bg-light p-3">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-primary" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %} 
+        </div>
+    </div>
+</div> 
 
 {% endblock %}

@@ -90,5 +90,6 @@ def admi_editar_usuario(request, usuario_id):
         }
         if form.is_valid():
             form.save()
+            messages.info(request, 'Usuario actualizado')
             return redirect('admi_home')
     return render(request, 'admi/admi_editar_usuario.html', context)

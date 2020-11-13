@@ -2,7 +2,7 @@
     padding: 0px;
     padding-right: 30px;
     padding-left: 50px;
-    
+    background-color: #ffffff;
 }
 .agrosoft-notification-content,
 .agrosoft-admin-perfil {
@@ -54,8 +54,7 @@
     display: none;
     }
     .navbar-nav {
-    display: inline-block;
-    
+    display: inline-block;    
     }
     .agrosoft-notification-content {
     position: absolute;
@@ -131,3 +130,4 @@ th {
     text-align: inherit;
     color: #3c4141;
 }
+

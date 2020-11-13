@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+
 
 # Create your models here.
 
@@ -71,4 +73,10 @@ class Inventario(models.Model):
     fecha_Ingreso = models.DateField('Fecha de Ingreso', null=False)
     fecha_Salida = models.DateField('Fecha de Salida', null=False)
     estadoRegistro = models.CharField('Estado de Registros', max_length=2)
+
+class Usuario(models.Model):
+    user = models.OneToOneField(User, on_delete = models.CASCADE)
+
+    def __str__(self):
+        return self.user.username
 
