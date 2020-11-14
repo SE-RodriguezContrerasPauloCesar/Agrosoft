@@ -1,0 +1,567 @@
+@import url('https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap');
+
+.fondo {
+  background-image: url("../../static/img/universidad-min.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+.title-jaku {
+  background: linear-gradient(120deg, #3182c5be, #33b0e2be);
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.title-jaku h1 {
+  color: #fff;
+  border-left: 2px solid #fbaa34;
+  padding-left: 10px;
+  margin-bottom: 50px;
+  font-size: calc(1.5em + 1.5vw);
+}
+.bg-content-jaku {
+  top: -90px;
+  position: relative;
+  background-color: #33b0e242;
+  border-radius: 15px;
+  width: 85%;
+  margin: auto;
+  padding: 10px;
+}
+.content-jaku {
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 50px;
+}
+
+@media (max-width: 360px) {
+  .title-jaku {
+    height: 250px;
+  }
+  .title-jaku h1 {
+    padding: 0px;
+    font-size: 50px;
+  }
+}
+
+/*Organigrama*/
+.org-chart {
+  display: block;
+  clear: both;
+  margin-bottom: 30px;
+  position: relative;
+}
+.org-chart.cf:before,
+.org-chart.cf:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */
+}
+.org-chart.cf:after {
+  clear: both;
+}
+.org-chart.cf {
+  *zoom: 1;
+}
+.org-chart ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.org-chart ul li {
+  position: relative;
+}
+.org-chart ul li span i {
+  font-size: 50px;
+  color: #bdc3c7;
+  background-color: #fff;
+  width: 75px;
+  padding: 10px;
+  margin: auto;
+  border: 2px dashed orange;
+}
+.org-chart ul li span {
+  display: block;
+  text-align: center;
+}
+.org-chart ul li span div {
+  position: relative;
+  display: block;
+  border: 1px solid #33b0e242;
+  font-size: 12px;
+  padding: 10px 0px;
+}
+.org-chart .board {
+  width: 70%;
+  margin: 0 auto;
+  display: block;
+  position: relative;
+}
+.org-chart .board:before {
+  content: "";
+  display: block;
+  position: absolute;
+  height: 280px;
+  width: 0px;
+  border-left: 2px solid orange;
+  margin-left: 49%;
+  top: 90px;
+}
+.org-chart ul.columnOne {
+  height: 100px;
+  position: relative;
+  width: 100%;
+  display: block;
+  clear: both;
+}
+.org-chart ul.columnOne li {
+  width: 30%;
+  margin: 0px auto;
+}
+.org-chart ul.columnTwo {
+  position: relative;
+  width: 100%;
+  display: block;
+  height: 80px;
+  clear: both;
+}
+.org-chart ul.columnTwo li:first-child {
+  width: 30%;
+  float: left;
+}
+.org-chart ul.columnTwo li {
+  width: 30%;
+  float: right;
+}
+.org-chart ul.columnTwo:before {
+  content: "";
+  display: block;
+  position: relative;
+  width: 80%;
+  border-top: 2px solid orange;
+  margin: 0 auto;
+  top: 100%;
+}
+.org-chart ul.columnThree {
+  position: relative;
+  width: 100%;
+  display: block;
+  clear: both;
+}
+.org-chart ul.columnThree li:first-child {
+  width: 30%;
+  float: left;
+  margin-left: 0;
+}
+.org-chart ul.columnThree li {
+  width: 30%;
+  margin-left: 5%;
+  float: left;
+}
+.org-chart ul.columnThree li:last-child {
+  width: 30%;
+  float: right;
+  margin-left: 0;
+}
+.org-chart ul.columnThree:before {
+  content: "";
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 10px;
+  border-top: 2px solid orange;
+  margin: 0 auto;
+  top: 40px;
+}
+.org-chart .departments {
+  margin: auto;
+  width: 80%;
+  display: block;
+  clear: both;
+  margin-top: 100px;
+}
+.org-chart .departments:before {
+  content: "";
+  display: block;
+  width: 66%;
+  height: 50px;
+  border-top: 2px solid orange;
+  border-left: 2px solid orange;
+  border-right: 2px solid orange;
+  margin: 0 auto;
+}
+.org-chart .department {
+  width: 29%;
+  float: left;
+  margin: 0px 2%;
+}
+@media all and (max-width: 800px) {
+  .content-jaku {
+    padding: 5px;
+  }
+  .org-chart .board {
+    width: 100%;
+  }
+  .org-chart ul li span i {
+    font-size: 20px;
+    width: 60%;
+  }
+  .org-chart ul li span div {
+    font-size: 10px;
+  }
+  .org-chart .departments {
+    width: 100%;
+  }
+}
+/* Mision - Vision*/
+.jaku-mision-vision-content {
+  background: linear-gradient(120deg, #3182c5be, #33b0e2be);
+}
+.title-jaku-mision,
+.title-jaku-vision {
+  margin: auto;
+}
+.title-jaku-mision h1,
+.title-jaku-vision h1 {
+  margin-left: 20%;
+  font-size: 80px;
+  color: #fff;
+  border-left: 10px solid #fbaa34;
+  padding-left: 20px;
+}
+.bg-content-mision-jaku,
+.bg-content-vision-jaku {
+  background-color: #086f9794;
+  border-radius: 15px;
+  width: 85%;
+  margin: auto;
+  padding: 10px;
+}
+.content-mision-jaku,
+.content-vision-jaku {
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 50px;
+}
+
+/* Directorio - Mentores*/
+
+.jaku-Directorio-Mentores {
+  background: linear-gradient(120deg, #3182c5be, #33b0e2be);
+}
+.bg-content-dir-mentores-jaku {
+  background-color: #086f9794;
+  border-radius: 15px;
+  width: 85%;
+  margin: auto;
+  padding: 10px;
+}
+.content-dir-mentores {
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 50px;
+}
+.directorio-jaku h1,
+.mentores-jaku h1 {
+  border-left: 5px solid orange;
+  padding-left: 10px;
+}
+.carddm {
+  margin: 1% 2%;
+}
+.our-team {
+  padding: 30px 0 40px;
+  background-color: #fff;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.our-team .picture {
+  display: inline-block;
+  height: 200px;
+  width: 200px;
+  margin-bottom: 50px;
+  z-index: 1;
+  position: relative;
+}
+
+.our-team .picture::before {
+  content: "";
+  width: 100%;
+  height: 0;
+  border-radius: 50%;
+  background-color: #3182c5;
+  position: absolute;
+  top: 260%;
+  right: 0;
+  left: 0;
+  opacity: 0.9;
+  transform: scale(3);
+  transition: all 0.3s linear 0s;
+}
+
+.our-team:hover .picture::before {
+  height: 100%;
+}
+
+.our-team .picture::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  border: 3px solid #3182c5;
+}
+
+.our-team .picture img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  transform: scale(1);
+  transition: all 0.9s ease 0s;
+}
+.our-team:hover .picture img {
+  box-shadow: 0 0 0 5px #f7f5ec;
+  transform: scale(0.9);
+}
+.our-team .title {
+  display: block;
+  font-size: 15px;
+  color: #4e5052;
+}
+.our-team .name {
+  font-size: 18px;
+}
+@media all and (max-width: 800px) {
+  .bg-content-dir-mentores-jaku {
+    padding: 5px;
+  }
+  .content-dir-mentores {
+    padding: 10px;
+  }
+}
+
+/* JAKU News*/
+.new-leading,
+.news-list {
+  margin-top: 20px;
+}
+.new,
+.news-list {
+  width: 80%;
+  margin: auto;
+}
+.new img {
+  border: 1px solid orange;
+  display: block;
+  margin: auto;
+  width: 100%;
+}
+.new .title a {
+  font-size: 3vh;
+  font-weight: bold;
+}
+/*News List*/
+.news-list img {
+  width: 100%;
+}
+
+/*Contact*/
+.container-contact {
+  width: 70%;
+  margin: auto;
+  background-color: #fff;
+  border-radius: 5px;
+}
+.bg-contact {
+  background-color: #3180c5c7;
+  padding: 50px 0px;
+}
+.title-contact h1 {
+  padding-left: 5px;
+}
+
+/*Event Detail*/
+.bg-event-detail{
+  background: linear-gradient(120deg, #3182c5, #33b0e2);
+}
+.event-detail-title,.event-content-detail{
+  width: 100%;
+  margin: auto;
+}
+.event-detail-title{
+  width: 100%;
+  justify-content: center;
+  color: #fff;
+  padding: 50px;
+}
+.event-detail-title h1 p{
+  font-family: 'Julius Sans One', sans-serif;
+  border-bottom: 5px solid orange;
+}
+
+.event-content-detail .detail-content{
+  margin: 5px 20px;
+  padding: 50px;
+  background-color: #fff;
+}
+.event-content-detail .date-event{
+  margin: 5px 20px;
+}
+.event-content-detail .detail-content .event-image img{
+  width: 100%;
+}
+
+.event-d {
+	background-color: #fff;
+	border-radius: 10px;
+	box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+	display: flex;
+	max-width: 100%;
+	margin: 20px;
+	overflow: hidden;
+	width: 700px;
+}
+
+.event-d h6 {
+	opacity: 0.6;
+	margin: 0;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+}
+
+.event-d h2 {
+	letter-spacing: 1px;
+	margin: 10px 0;
+}
+
+.event-d-preview {
+	background-color: orange;
+	color: #fff;
+  padding: 30px;
+	max-width: 250px;
+}
+
+.event-d-info {
+	padding: 30px;
+	position: relative;
+	width: 100%;
+}
+
+/*List Event*/
+.card-img{
+  width: 100%;
+  height: 200px;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  display: block;
+  overflow: hidden;
+}
+
+.card-img img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: all 0.25s ease;
+}
+.card-new {
+  margin-right: 25px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0, 1);
+  background-color: #fff;
+  width: 100%;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0px 13px 10px -7px rgba(0, 0, 0, 0.1);
+}
+.card-new:hover {
+  box-shadow: 0px 30px 18px -8px rgba(0, 0, 0, 0.1);
+  transform: scale(1.05, 1.05);
+}
+
+.card-info {
+  min-height: 330px;
+  z-index: 2;
+  background-color: #fff;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  padding: 16px 16px;
+}
+
+.card-category {
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 2px;
+  font-weight: 500;
+  color: #868686;
+}
+
+.card-title {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+.card-title a:hover {
+  color: #3182c5;
+}
+/*Call Detail*/
+.bg-call{
+  background: linear-gradient(120deg, #3182c5, #33b0e2);
+}
+
+/* List Calls*/
+.list-calls{
+  background: linear-gradient(120deg, #3182c5, #33b0e2);
+  padding: 20px 0px;
+}
+.content-call {
+  padding: 20px;
+  width: 90%;
+  margin: auto;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+/* Ventures */
+.bg-ventures{
+  background: linear-gradient(120deg, #3182c5, #33b0e2);
+}
+.ventures-content{
+  background-color: white;
+  width: 90%;
+  margin: auto;
+}
+.winner{
+  padding: 10px;
+  align-items: center;
+  border-bottom: 5px solid #3182c5;
+}
+.winner .winner-img{
+  width: 80%;
+  margin: auto;
+}
+.winner-img img{
+  width: 100%;
+}
+.title-winner{
+  border-bottom: 2px solid #3182c5;
+}
+.list-winner{
+  width: 80%;
+  text-align: center;
+  margin: auto;
+  line-height: 300px;
+}
+.list-winner .w1, .w2{
+  border: 1px solid #ecf0f1;
+  margin: 30px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+.list-winner .w1 img,.w2 img{
+  vertical-align: middle;
+  width: 80%;
+}

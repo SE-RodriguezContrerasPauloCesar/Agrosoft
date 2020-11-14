@@ -11,6 +11,9 @@ from .models import *
 
 # Create your views here.
 
+def home(request):    
+    return render(request, 'home/home.html')
+
 def home_login(request):
     if request.method == 'POST':
         use = request.POST.get('usuario')
@@ -29,10 +32,22 @@ def home_login(request):
             return redirect(reverse('home_login'))
     return render(request, 'home/home_login.html')
 
+def home_historia(request):    
+    return render(request, 'home/home_historia.html')
+
+def home_misionvision(request):    
+    return render(request, 'home/home_misionvision.html')
+
+def home_productos(request):    
+    return render(request, 'home/home_productos.html')
+
+def home_contact(request):    
+    return render(request, 'home/home_contact.html')
+
 def home_logout(request):
     logout(request)
     messages.error(request,'')
-    return redirect(reverse('home_login'))
+    return redirect(reverse('home'))
 
 def admi_home(request):
     return render(request, 'admi/admi_home.html')
