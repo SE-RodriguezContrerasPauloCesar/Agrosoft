@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap');
+
+.fondo {
+  background-image: url("../../static/img/universidad-min.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+.title-jaku {
+  background: linear-gradient(120deg, #0e8b2dbe, #27a15abe);
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.title-jaku h1 {
+  color: #fff;
+  border-left: 2px solid #fbaa34;
+  padding-left: 10px;
+  margin-bottom: 50px;
+  font-size: calc(1.5em + 1.5vw);
+}
+.bg-content-jaku {
+  top: -90px;
+  position: relative;
+  background-color: #33b0e242;
+  border-radius: 15px;
+  width: 85%;
+  margin: auto;
+  padding: 10px;
+}
+.bg-content-jaku2 {
+  top: -50px;
+  position: relative;
+  background-color: #33b0e242;
+  border-radius: 15px;
+  width: 85%;
+  margin: auto;
+  padding: 10px;
+}
+.content-jaku {
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 50px;
+}
+
+@media (max-width: 360px) {
+  .title-jaku {
+    height: 250px;
+  }
+  .title-jaku h1 {
+    padding: 0px;
+    font-size: 50px;
+  }
+}
+
+/* Mision - Vision*/
+.jaku-mision-vision-content {
+  background: linear-gradient(120deg, #12a89cbe, #34855fbe);
+}
+.title-jaku-mision,
+.title-jaku-vision,
+.title-jaku-compromiso {
+  margin: auto;
+}
+.title-jaku-mision h1,
+.title-jaku-vision h1 {
+  margin-left: 20%;
+  font-size: 80px;
+  color: #fff;
+  border-left: 10px solid #fbaa34;
+  padding-left: 20px;
+}
+
+.title-jaku-compromiso h1 {
+  margin-left: 20%;
+  font-size: 70px;
+  color: #fff;
+  border-left: 10px solid #fbaa34;
+  padding-left: 20px;
+}
+
+.bg-content-mision-jaku,
+.bg-content-vision-jaku,
+.bg-content-compromiso-jaku {
+  background-color: #b6b6b694;
+  border-radius: 15px;
+  width: 85%;
+  margin: auto;
+  padding: 10px;
+}
+.content-mision-jaku,
+.content-vision-jaku,
+.content-compromiso-jaku {
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 50px;
+}
+
+/* Directorio - Mentores*/
+.jaku-Directorio-Mentores {
+  background: linear-gradient(120deg, #0b917abe, #08944ebe);
+}
+.bg-content-dir-mentores-jaku {
+  background-color: #0d683a94;
+  border-radius: 15px;
+  width: 85%;
+  margin: auto;
+  padding: 10px;
+}
+.content-dir-mentores {
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 50px;
+}
+.directorio-jaku h1,
+.mentores-jaku h1 {
+  border-left: 5px solid orange;
+  padding-left: 10px;
+}
+.carddm {
+  margin: 1% 2%;
+}
+.our-team {
+  padding: 30px 0 40px;
+  background-color: #fff;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.our-team .picture {
+  display: inline-block;
+  height: 200px;
+  width: 200px;
+  margin-bottom: 50px;
+  z-index: 1;
+  position: relative;
+}
+
+.our-team .picture::before {
+  content: "";
+  width: 100%;
+  height: 0;
+  border-radius: 50%;
+  background-color: #0e9e26;
+  position: absolute;
+  top: 260%;
+  right: 0;
+  left: 0;
+  opacity: 0.9;
+  transform: scale(3);
+  transition: all 0.3s linear 0s;
+}
+
+.our-team:hover .picture::before {
+  height: 100%;
+}
+
+.our-team .picture::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  border: 3px solid #11b880;
+}
+
+.our-team .picture img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  transform: scale(1);
+  transition: all 0.9s ease 0s;
+}
+.our-team:hover .picture img {
+  box-shadow: 0 0 0 5px #f7f5ec;
+  transform: scale(0.9);
+}
+.our-team .title {
+  display: block;
+  font-size: 15px;
+  color: #4e5052;
+}
+.our-team .name {
+  font-size: 18px;
+}
+@media all and (max-width: 800px) {
+  .bg-content-dir-mentores-jaku {
+    padding: 5px;
+  }
+  .content-dir-mentores {
+    padding: 10px;
+  }
+}
+
+/*Contact*/
+.container-contact {
+  width: 70%;
+  margin: auto;
+  background-color: #fff;
+  border-radius: 5px;
+}
+.bg-contact {
+  background-color: #217c5ec7;
+  padding: 50px 0px;
+}
+.title-contact h1 {
+  padding-left: 5px;
+}
+
