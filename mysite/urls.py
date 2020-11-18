@@ -20,12 +20,17 @@ from django.conf.urls.static import static
 from agrosoft.views import *
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', home_login, name='home_login'),
-    path('administrador/home', admi_home, name='admi_home'),
-    path('usuario/home/<int:usuario_id>', usuario_home, name='usuario_home'),
+    path('admin/', admin.site.urls),    
+    path('', home, name='home'),
+    path('historia', home_historia, name ='home_historia'),    
+    path('mision-vision', home_misionvision, name='home_misionvision'),
+    path('productos', home_productos, name='home_productos'),
+    path('contactenos', home_contact, name = 'home_contact'),
+    path('login', home_login, name='home_login'),
     path('salir/', home_logout, name='home_logout'),
 
+    path('administrador/home', admi_home, name='admi_home'),
+    path('usuario/home/<int:usuario_id>', usuario_home, name='usuario_home'),    
     path('administrador/usuario/agregar/', admi_agregar_usuario, name='admi_agregar_usuario'),
     path('administrador/usuario/lista/', admi_listar_usuario, name='admi_listar_usuario'),
     path('administrador/usuario/eliminar/<int:usuario_id>', admi_eliminar_usuario, name='admi_eliminar_usuario'),

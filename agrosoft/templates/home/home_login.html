@@ -12,7 +12,12 @@
         
     </head>
     <body>
-
+        <div class="card-wrapper">
+            <div class="text-center">
+                <!-- <img src="{% static 'images/agrosoftlogo.png' %}" style="width: 30%;"class=" rounded-circle shadow"> -->
+                <img src="{% static 'images/agrosoftlogo.png' %}" style="width: 30%;">
+            </div>
+        </div>
         
         <div class="login-page">
             {% for message in messages %}
@@ -27,6 +32,7 @@
                     <input name="contra" type="password" placeholder="Ingrese su Contraseña"/>
                     <button type="submit">Iniciar Sesión</button>
                 </form>
+                <a href="{% url 'home' %}"> Volver a la página web</a>
             </div>
         </div>
 
