@@ -9,8 +9,7 @@ from django.contrib import messages
 from django.urls import reverse
 from .models import *
 
-# Create your views here.
-
+# Views de la página web e inicio de sesión.
 def home(request):    
     return render(request, 'home/home.html')
 
@@ -49,6 +48,7 @@ def home_logout(request):
     messages.error(request,'')
     return redirect(reverse('home'))
 
+# Views del sistema web - administrador
 def admi_home(request):
     return render(request, 'admi/admi_home.html')
 
