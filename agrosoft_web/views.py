@@ -9,16 +9,16 @@ from django.urls import reverse
 
 # Views de la página web e inicio de sesión.
 def home(request):    
-    return render(request, 'home/home.html')
+    return render(request, 'agrosoft_web/home.html', locals())
 
 def home_historia(request):    
-    return render(request, 'home/home_historia.html')
+    return render(request, 'agrosoft_web/home_historia.html')
 
 def home_misionvision(request):    
-    return render(request, 'home/home_misionvision.html')
+    return render(request, 'agrosoft_web/home_misionvision.html')
 
 def home_productos(request):    
-    return render(request, 'home/home_productos.html')
+    return render(request, 'agrosoft_web/home_productos.html')
 
 def home_contact(request):    
-    return render(request, 'home/home_contact.html')
+    return render(request, 'agrosoft_web/home_contact.html')

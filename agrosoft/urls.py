@@ -22,7 +22,7 @@ from .views import *
 app_name = 'agrosoft'
 
 urlpatterns = [     
-    path('', system_home, name='home'),   
+    path('', system_home, name='home123'),   
     path('administrador/home', admi_home, name='admi_home'),
     path('usuario/home/<int:usuario_id>', usuario_home, name='usuario_home'),    
     path('administrador/usuario/agregar/', admi_agregar_usuario, name='admi_agregar_usuario'),

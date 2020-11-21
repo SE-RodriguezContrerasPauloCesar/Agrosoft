@@ -8,16 +8,17 @@ from .forms import *
 from django.contrib import messages
 from django.urls import reverse
 from .models import *
+from django.db.models import Q
 
 # Views de la página web e inicio de sesión.
 #here it checks if the user is user or admin type
 def system_home(request):
-	if request.user.groups.filter(name='Emprendedor').exists(): 
-		return redirect(reverse('common:entrepreneurhome'))
-	if request.user.groups.filter(Q(name='Administrador') | Q(name='Personal')).exists(): 
-		return redirect(reverse('common:adminhome'))
+	if request.user.groups.filter(name='Usuario').exists(): 
+		return redirect(reverse('agrosoft:usuariohome'))
+	if request.user.groups.filter(Q(name='Administrador')).exists(): 
+		return redirect(reverse('agrosoft:adminhome'))
 	else:
-		return redirect(reverse('accounts:login'))
+		return redirect(reverse('agrosoft_accounts:login'))
 
 
 # Views del sistema web - administrador
