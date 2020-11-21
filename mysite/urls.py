@@ -14,25 +14,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
-from agrosoft.views import *
 
 urlpatterns = [
-    path('admin/', admin.site.urls),    
-    path('', home, name='home'),
-    path('historia', home_historia, name ='home_historia'),    
-    path('mision-vision', home_misionvision, name='home_misionvision'),
-    path('productos', home_productos, name='home_productos'),
-    path('contactenos', home_contact, name = 'home_contact'),
-    path('login', home_login, name='home_login'),
-    path('salir/', home_logout, name='home_logout'),
+    path('', include('agrosoft_web.urls', namespace='agrosoft_web')),
+    path('sistema-en-linea/', include('agrosoft.urls', namespace='agrosoft')),    
+    path('agrosoft_accounts/', include('agrosoft_accounts.urls', namespace='agrosoft_accounts')),
+    path('accounts/api/', include('rest_auth.urls')),
+    path('admin/', admin.site.urls),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) 
 
-    path('administrador/home', admi_home, name='admi_home'),
-    path('usuario/home/<int:usuario_id>', usuario_home, name='usuario_home'),    
-    path('administrador/usuario/agregar/', admi_agregar_usuario, name='admi_agregar_usuario'),
-    path('administrador/usuario/lista/', admi_listar_usuario, name='admi_listar_usuario'),
-    path('administrador/usuario/eliminar/<int:usuario_id>', admi_eliminar_usuario, name='admi_eliminar_usuario'),
-    path('administrador/usuario/editar/<int:usuario_id>', admi_editar_usuario, name='admi_editar_usuario'),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+if settings.DEBUG:  # pragma: no cover
+    import debug_toolbar
+    urlpatterns = [
+        path(r'__debug__/', include(debug_toolbar.urls)),
+        path(r'rest_framework/api-auth/', include('rest_framework.urls',
+                                                  namespace='rest_framework'))
+    ] + urlpatterns

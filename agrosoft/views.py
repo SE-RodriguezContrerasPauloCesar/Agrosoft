@@ -10,43 +10,15 @@ from django.urls import reverse
 from .models import *
 
 # Views de la página web e inicio de sesión.
-def home(request):    
-    return render(request, 'home/home.html')
+#here it checks if the user is user or admin type
+def system_home(request):
+	if request.user.groups.filter(name='Emprendedor').exists(): 
+		return redirect(reverse('common:entrepreneurhome'))
+	if request.user.groups.filter(Q(name='Administrador') | Q(name='Personal')).exists(): 
+		return redirect(reverse('common:adminhome'))
+	else:
+		return redirect(reverse('accounts:login'))
 
-def home_login(request):
-    if request.method == 'POST':
-        use = request.POST.get('usuario')
-        contra = request.POST.get('contra')
-        usuario_ = authenticate(username = use, password = contra)
-        if usuario_ is not None:
-            if usuario_.is_active:
-                login(request, usuario_)
-                if usuario_.groups.filter(name='Usuario').exists():
-                    usuario = User.objects.get(username = usuario_)
-                    return redirect('usuario_home', usuario.id)
-                else:
-                    return redirect('admi_home')
-        else:
-            messages.error(request, 'DNI y/o Contraseña Incorrecto')
-            return redirect(reverse('home_login'))
-    return render(request, 'home/home_login.html')
-
-def home_historia(request):    
-    return render(request, 'home/home_historia.html')
-
-def home_misionvision(request):    
-    return render(request, 'home/home_misionvision.html')
-
-def home_productos(request):    
-    return render(request, 'home/home_productos.html')
-
-def home_contact(request):    
-    return render(request, 'home/home_contact.html')
-
-def home_logout(request):
-    logout(request)
-    messages.error(request,'')
-    return redirect(reverse('home'))
 
 # Views del sistema web - administrador
 def admi_home(request):

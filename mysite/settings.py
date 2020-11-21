@@ -37,6 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'agrosoft.apps.AgrosoftConfig',
+    'agrosoft_accounts.apps.AgrosoftAccountsConfig',
+    'agrosoft_web.apps.AgrosoftWebConfig',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'django_filters',
+    'rest_auth',
 ]
 
 MIDDLEWARE = [
@@ -103,9 +109,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'es-es'
+LANGUAGE_CODE = 'es'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Lima'
 
 USE_I18N = True
 
@@ -119,3 +125,29 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# Internal IPs
+
+INTERNAL_IPS = [
+    '127.0.0.1', 'localhost'
+]
+
+# Django auth
+
+LOGIN_REDIRECT_URL = '/sistema-en-linea'
+LOGIN_URL = '/agrosoft_accounts/login'
+LOGOUT_REDIRECT_URL = '/'
+
+
+# Rest authentication
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        # 'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
+}
