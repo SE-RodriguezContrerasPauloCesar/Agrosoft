@@ -1,4 +1,4 @@
-{% extends 'agrosoft/admi_base.html' %}
+{% include 'agrosoft/layout.html' with active_page='user' %}
 {% load static %}
 {% block container %}
 <div class="main-panel">
@@ -56,7 +56,7 @@
                     
                 </div>
                 <button type="submit" class="btn btn-agrosoft px-4 my-3">Modificar Usuario</button>
-                <a href="{% url 'agrosoft:userlist' %}" class="btn btn-agrosoft px-4 my-3">Cancelar</a>
+                <a href="{% url 'agrosoft:listarusuarios' %}" class="btn btn-agrosoft px-4 my-3">Cancelar</a>
             </form>
             
         </div>

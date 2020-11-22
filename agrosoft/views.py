@@ -19,7 +19,7 @@ def system_home(request):
 		return redirect(reverse('agrosoft_accounts:login'))
 
 # Views de la Gestión de Lotes
-def show_lotes(request):
+def listar_lotes(request):
     title = 'Lista de convocatorias'
     context = {
 		"title": title		
@@ -29,7 +29,7 @@ def show_lotes(request):
 
 
 
-
+# Views de la Gestión de Usuarios
 # Administrador Listar Usuario
 def listar_usuario(request):
     usuario = User.objects.filter(groups__name='Administrador')
@@ -38,15 +38,10 @@ def listar_usuario(request):
     }
     return render(request, 'agrosoft/usuarios/listar_usuarios.html', context)
 
-#shows user detail
-def detalle_usuario(request, user_id):
-	title = 'Detalle de usuario'
-	user = models.User.objects.prefetch_related('groups').get(pk=user_id)
-
-	return render(request, 'agrosoft/usuarios/detalle_usuario.html', locals())
-
 # Administrador Usuario
 def agregar_usuario(request):
+    groups = Group.objects.exclude(name='Emprendedor').exclude(name='Mentor')
+    
     if request.method == 'POST':
         formulario = UsuarioFormulario(request.POST)
         if formulario.is_valid():
@@ -54,13 +49,20 @@ def agregar_usuario(request):
             grupo = Group.objects.get(name='Administrador')
             usuario.groups.add(grupo)
             messages.info(request,'Usuario registrado con éxito')
-            return redirect(reverse('agrosoft:adminhome'))
+            return redirect(reverse('agrosoft:listarusuarios'))
     else:
         formulario = UsuarioFormulario()
     context = {
         'formulario': formulario
     }
     return render(request, 'agrosoft/usuarios/agregar_usuario.html', context)
+
+#shows user detail
+def detalle_usuario(request, usuario_id):
+	title = 'Detalle de usuario'
+	usuario = User.objects.get(id = usuario_id)
+
+	return render(request, 'agrosoft/usuarios/detalle_usuario.html', locals())
 
 # Administrador Editar Usuario
 def editar_usuario(request, usuario_id):
