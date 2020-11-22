@@ -1,4 +1,4 @@
-{% extends 'admi/admi_base.html' %}
+{% extends 'agrosoft/admi_base.html' %}
 {% load static %}
 {% block container %}
 
@@ -13,7 +13,7 @@
             </h2>
             <div class="dropdown-divider"></div>
             <div class="call-add my-3">
-                <a class="btn btn-agrosoft" style="margin-left: 84%;" href="{% url 'admi_agregar_usuario' %}">
+                <a class="btn btn-agrosoft" style="margin-left: 84%;" href="{% url 'agrosoft:createuser' %}">
                     <i class="fa fa-hand-pointer-o"></i>
                     Agregar Usuario
                 </a>
@@ -49,8 +49,8 @@
                                 {{p.last_name}}
                             </td>
                             <td>
-                                <a href="{% url 'admi_editar_usuario' p.id %}" ><i class="fas fa-edit fa-lg" style="color: #31c536"></i></a>
-                                <a href="{% url 'admi_eliminar_usuario' p.id %}" onclick="return confirm('¿Está seguro de eliminar este Usuario')"><i class="fas fa-trash" style="color: #31c536"></i></a>
+                                <a href="{% url 'agrosoft:edituser' p.id %}" ><i class="fas fa-edit fa-lg" style="color: #31c536"></i></a>
+                                <a href="{% url 'agrosoft:deleteuser' p.id %}" onclick="return confirm('¿Está seguro de eliminar este Usuario')"><i class="fas fa-trash" style="color: #31c536"></i></a>
                             </td>
                         </tr>
                     </tbody>

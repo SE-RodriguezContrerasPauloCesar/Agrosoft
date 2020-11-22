@@ -1,32 +1,15 @@
-"""mysite URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/2.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
-from django.contrib import admin
-from django.urls import path
-from django.conf import settings
-from django.conf.urls.static import static
-from .views import *
+from django.urls import include, path
+from . import views
 
 app_name = 'agrosoft'
 
 urlpatterns = [     
-    path('', system_home, name='home123'),   
-    path('administrador/home', admi_home, name='admi_home'),
-    path('usuario/home/<int:usuario_id>', usuario_home, name='usuario_home'),    
-    path('administrador/usuario/agregar/', admi_agregar_usuario, name='admi_agregar_usuario'),
-    path('administrador/usuario/lista/', admi_listar_usuario, name='admi_listar_usuario'),
-    path('administrador/usuario/eliminar/<int:usuario_id>', admi_eliminar_usuario, name='admi_eliminar_usuario'),
-    path('administrador/usuario/editar/<int:usuario_id>', admi_editar_usuario, name='admi_editar_usuario'),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    path('', views.system_home, name='home'),  
+    path('administrador/', views.show_lotes, name='adminhome'),     
+	path('usuario/', views.listar_usuario, name='userlist'),
+	path('usuario/<int:usuario_id>/', views.detalle_usuario, name='userdetail'),
+	path('usuario/agregar/', views.agregar_usuario, name='createuser'),
+	path('usuario/editar/<int:usuario_id>/', views.editar_usuario, name='edituser'),
+	path('usuario/eliminar/<int:usuario_id>/', views.eliminar_usuario, name='deleteuser'),
+
+]

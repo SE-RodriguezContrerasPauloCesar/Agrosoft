@@ -11,60 +11,59 @@ from .models import *
 from django.db.models import Q
 
 # Views de la página web e inicio de sesión.
-#here it checks if the user is user or admin type
-def system_home(request):
-	if request.user.groups.filter(name='Usuario').exists(): 
-		return redirect(reverse('agrosoft:usuariohome'))
-	if request.user.groups.filter(Q(name='Administrador')).exists(): 
+# Checks if the user is user or admin type
+def system_home(request):	
+	if request.user.groups.filter(Q(name='Administrador') | Q(name='Personal')).exists(): 
 		return redirect(reverse('agrosoft:adminhome'))
 	else:
 		return redirect(reverse('agrosoft_accounts:login'))
 
+# Views de la Gestión de Lotes
+def show_lotes(request):
+    title = 'Lista de convocatorias'
+    context = {
+		"title": title		
+	}
+    return render(request, 'agrosoft/lotes/listar_lotes.html', context)
 
-# Views del sistema web - administrador
-def admi_home(request):
-    return render(request, 'admi/admi_home.html')
 
-def usuario_home(request, usuario_id):
-    usuario = User.objects.get(pk = usuario_id)
+
+
+
+# Administrador Listar Usuario
+def listar_usuario(request):
+    usuario = User.objects.filter(groups__name='Administrador')
     context = {
         'usuario': usuario,
     }
-    return render(request, 'usuario/usuario_home.html', context)
+    return render(request, 'agrosoft/usuarios/listar_usuarios.html', context)
+
+#shows user detail
+def detalle_usuario(request, user_id):
+	title = 'Detalle de usuario'
+	user = models.User.objects.prefetch_related('groups').get(pk=user_id)
+
+	return render(request, 'agrosoft/usuarios/detalle_usuario.html', locals())
 
 # Administrador Usuario
-def admi_agregar_usuario(request):
+def agregar_usuario(request):
     if request.method == 'POST':
         formulario = UsuarioFormulario(request.POST)
         if formulario.is_valid():
             usuario = formulario.save()
-            grupo = Group.objects.get(name='Usuario')
+            grupo = Group.objects.get(name='Administrador')
             usuario.groups.add(grupo)
             messages.info(request,'Usuario registrado con éxito')
-            return redirect(reverse('admi_home'))
+            return redirect(reverse('agrosoft:adminhome'))
     else:
         formulario = UsuarioFormulario()
     context = {
         'formulario': formulario
     }
-    return render(request, 'admi/admi_agregar_usuario.html', context)
-
-# Administrador Listar Usuario
-def  admi_listar_usuario(request):
-    usuario = User.objects.filter(groups__name='Usuario')
-    context = {
-        'usuario': usuario,
-    }
-    return render(request, 'admi/admi_listar_usuario.html', context)
-
-# Administrador Eliminar Usuario
-def admi_eliminar_usuario(request, usuario_id):
-    usuario = User.objects.get(id = usuario_id)
-    usuario.delete()
-    return redirect('admi_home')
+    return render(request, 'agrosoft/usuarios/agregar_usuario.html', context)
 
 # Administrador Editar Usuario
-def admi_editar_usuario(request, usuario_id):
+def editar_usuario(request, usuario_id):
     usuario = User.objects.get(id = usuario_id)
     if request.method == 'GET':
         form = UsuarioFormulario(instance = usuario)
@@ -79,5 +78,11 @@ def admi_editar_usuario(request, usuario_id):
         if form.is_valid():
             form.save()
             messages.info(request, 'Usuario actualizado')
-            return redirect('admi_home')
-    return render(request, 'admi/admi_editar_usuario.html', context)
+            return redirect('agrosoft:adminhome')
+    return render(request, 'agrosoft/usuarios/editar_usuario.html', context)
+
+# Administrador Eliminar Usuario
+def eliminar_usuario(request, usuario_id):
+    usuario = User.objects.get(id = usuario_id)
+    usuario.delete()
+    return redirect('agrosoft:adminhome')

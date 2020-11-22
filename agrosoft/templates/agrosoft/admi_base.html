@@ -23,7 +23,7 @@
         <!-- Image and text -->
         <nav class="navbar navbar-light">
             <div class="navbar-brand admin-logo">
-                <img src="{% static 'images/logo.JPG' %}" width="120" height="35" class="d-inline-block align-top"
+                <img src="{% static 'img/agrosoftlogo.png' %}" width="120" height="35" class="d-inline-block align-top"
                     alt="">
                 
             </div>
@@ -43,7 +43,7 @@
                     <div class="dropdown-menu dropdown-menu-right agrosoft-admin-perfil">
                         
                         
-                        <a class="dropdown-item close-sesion-admin" href="{% url 'home_logout' %}"><i class="fa fa-power-off"></i> Cerrar Sesión</a>
+                        <a class="dropdown-item close-sesion-admin" href="{% url 'agrosoft_accounts:logout' %}"><i class="fa fa-power-off"></i> Cerrar Sesión</a>
                     </div>
                 </div>
                 <!-- End Admin info-->
@@ -65,7 +65,7 @@
                     <div class="btn text-left" type="button" data-toggle="collapse" data-target="#collapseOne"
                         aria-expanded="true" aria-controls="collapseOne">
                         <i class="far fa-address-book" aria-hidden="true"></i>
-                        <div class="title"><a href="{% url 'admi_listar_usuario' %}">Usuario</a></div>
+                        <div class="title"><a href="{% url 'agrosoft:userlist' %}">Usuario</a></div>
                     </div>
                 </div>
             </div>
