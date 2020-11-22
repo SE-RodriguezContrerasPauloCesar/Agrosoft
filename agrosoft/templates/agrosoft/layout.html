@@ -115,9 +115,9 @@
                         <p>Gestión de Usuarios</p>
                     </a>                                                    
                 </li>
-                <li class="nav-item d-inline-flex {% if active_page == 'call' %} active{% endif %}"
+                <li class="nav-item d-inline-flex {% if active_page == 'cultivo' %} active{% endif %}"
                     style="max-width: 100%;">
-                    <a href="">
+                    <a href="{% url 'agrosoft:listarcultivos' %}">
                         <i class="fa fa-tree"></i>
                         <p>Gestión de Cultivos</p>
                     </a>                                    
@@ -192,13 +192,7 @@
                 $(this).modal('show');
             });
         }
-
-        (document).ready(function(){ 
-        $('.nav-item').on("click", function(){
-        $('.nav-item').removeClass('active');
-        $(this).addClass('active');
-        });
-        });
+        
     </script>
     {% load static %}
     <script src="{% static 'js/validation-form.js'%}"></script>    
