@@ -18,3 +18,16 @@ class UsuarioFormulario(UserCreationForm):
                     'title':'No poner espacios en blanco al inicio, al final o seguidos.',
                 }
             )
+
+class CultivoFormulario(forms.ModelForm):
+    class Meta:
+        model = Cultivo
+        fields = ('nombre', 'tipo', 'precio')
+    def __init__(self, *args, **kwargs):
+        super(CultivoFormulario, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update(
+                {
+                    'class': 'form-control',                    
+                }
+            )

@@ -28,9 +28,8 @@ def listar_lotes(request):
 
 
 
-
 # Views de la Gestión de Usuarios
-# Administrador Listar Usuario
+# Listar Usuarios registrados
 def listar_usuario(request):
     usuario = User.objects.filter(groups__name='Administrador')
     context = {
@@ -38,9 +37,9 @@ def listar_usuario(request):
     }
     return render(request, 'agrosoft/usuarios/listar_usuarios.html', context)
 
-# Administrador Usuario
+# Agregar un nuevo Usuario
 def agregar_usuario(request):
-    groups = Group.objects.exclude(name='Emprendedor').exclude(name='Mentor')
+    groups = Group.objects.exclude(name='Administrador').exclude(name='Personal')
     
     if request.method == 'POST':
         formulario = UsuarioFormulario(request.POST)
@@ -57,14 +56,14 @@ def agregar_usuario(request):
     }
     return render(request, 'agrosoft/usuarios/agregar_usuario.html', context)
 
-#shows user detail
+# Mostrar detalle de un usuario
 def detalle_usuario(request, usuario_id):
 	title = 'Detalle de usuario'
 	usuario = User.objects.get(id = usuario_id)
 
 	return render(request, 'agrosoft/usuarios/detalle_usuario.html', locals())
 
-# Administrador Editar Usuario
+# Editar un Usuario
 def editar_usuario(request, usuario_id):
     usuario = User.objects.get(id = usuario_id)
     if request.method == 'GET':
@@ -80,11 +79,71 @@ def editar_usuario(request, usuario_id):
         if form.is_valid():
             form.save()
             messages.info(request, 'Usuario actualizado')
-            return redirect('agrosoft:adminhome')
+            return redirect('agrosoft:listarusuarios')
     return render(request, 'agrosoft/usuarios/editar_usuario.html', context)
 
-# Administrador Eliminar Usuario
+# Eliminar un Usuario registrado
 def eliminar_usuario(request, usuario_id):
     usuario = User.objects.get(id = usuario_id)
     usuario.delete()
-    return redirect('agrosoft:adminhome')
+    messages.info(request, 'Usuario eliminado con éxito')
+    return redirect('agrosoft:listarusuarios')
+
+# Views de la Gestión de Cultivos
+# Listar Cultivos registrados
+def listar_cultivo(request):
+    query_set = Cultivo.objects.all()
+    cultivos = reversed(list(query_set))
+    context = {
+        'cultivos': cultivos,        
+    }
+    return render(request, 'agrosoft/cultivos/listar_cultivos.html', context)      
+
+# Agregar un nuevo Cultivo
+def agregar_cultivo(request):    
+    
+    if request.method == 'POST':
+        formulario = CultivoFormulario(request.POST)
+        if formulario.is_valid():
+            cultivo = formulario.save()                        
+            messages.info(request,'Cultivo registrado con éxito')
+            return redirect(reverse('agrosoft:listarcultivos'))
+    else:
+        formulario = CultivoFormulario()
+    context = {
+        'formulario': formulario
+    }
+    return render(request, 'agrosoft/cultivos/agregar_cultivo.html', context)
+
+# Mostrar detalle de un cultivo
+def detalle_cultivo(request, cultivo_id):
+	title = 'Detalle de Cultivo'
+	cultivo = Cultivo.objects.get(id = cultivo_id)
+
+	return render(request, 'agrosoft/cultivos/detalle_cultivo.html', locals())
+
+# Editar un Cultivo
+def editar_cultivo(request, cultivo_id):
+    cultivo = Cultivo.objects.get(id = cultivo_id)
+    if request.method == 'GET':
+        form = CultivoFormulario(instance = cultivo)
+        context = {
+            'form': form
+        }
+    else:
+        form = CultivoFormulario(request.POST, instance = cultivo)
+        context = {
+            'form': form
+        }
+        if form.is_valid():
+            form.save()
+            messages.info(request, 'Cultivo actualizado')
+            return redirect('agrosoft:listarcultivos')
+    return render(request, 'agrosoft/cultivos/editar_cultivo.html', context)
+
+# Eliminar un Cultivo registrado
+def eliminar_cultivo(request, cultivo_id):
+    cultivo = Cultivo.objects.get(id = cultivo_id)
+    cultivo.delete()
+    messages.info(request, 'Cultivo eliminado')
+    return redirect('agrosoft:listarcultivos')
