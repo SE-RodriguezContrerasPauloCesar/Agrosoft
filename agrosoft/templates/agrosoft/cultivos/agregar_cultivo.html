@@ -1,0 +1,50 @@
+{% include 'agrosoft/layout.html' with active_page='cultivo' %}
+{% load static %}
+{% block container %}
+<div class="main-panel">
+    <div class="content">
+        <div class="container-fluid shadow-sm bg-light p-3">
+            <h1>  
+                <i class="fas fa-folder-plus" style="color: #31c536"></i> 
+                Agregar Nuevo Cultivo
+            </h1>
+            <div class="dropdown-divider"></div>
+            {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+                {% if form.cultivos.errors %}
+                    <p>* Ya existe un cultivo con este Usuario</p>
+                {% endif %}
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+                <p>{{ form.nombre.errors.as_text }}</p>
+                <p>{{ form.tipo.errors.as_text }}</p>
+                <p>{{ form.precio.errors.as_text }}</p>                    
+            </div>
+        {% endif %}
+            
+            <form method="POST" action="">
+                {% csrf_token %}
+                <div>
+                    <div>
+                        <label for="nombre">Nombre</label></br>
+                        <input type="text" id="nombre" name="nombre" class="form-control">
+                    </div>
+                    
+                    <div>
+                        <label for="tipo">Tipo</label></br>
+                        <input type="text" id="tipo" name="tipo" class="form-control">
+                    </div>
+                    <div>
+                        <label for="precio">Precio</label></br>
+                        <input type="number" id="precio" name="precio" step=".01" class="form-control">
+                    </div>                                                                             
+                </div>
+                <button type="submit" class="btn btn-agrosoft px-4 my-3">Agregar Cultivo</button>
+                <a href="{% url 'agrosoft:listarcultivos' %}" class="btn btn-agrosoft px-4 my-3">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
