@@ -7,8 +7,7 @@
     <b>{{ user.username }}</b>, <a href="{% url 'agrosoft_accounts:logout' %}">¿Cerrar sesión?</a>
 {% else %}
 <div class="card fat">
-    <div class="card-body">
-      <h4 class="card-title">Login</h4>              
+    <div class="card-body">      
         <form action="." method="post">
             {% csrf_token %}
             {{ form.non_field_errors }}            
@@ -20,23 +19,19 @@
             </div>
             {% endfor %}
 
-
             {% if request.GET.next %}
               <input type="hidden" name="next" value="{{request.GET.next}}" />
             {% endif %}
-            <div class="form-group no-margin">
-              <button type="submit" class="btn btn-primary btn-block">
+            <div class="form-group no-margin mb-2">
+              <button type="submit" class="btn btn-success btn-block">
                 Ingresar
               </button>
-            </div>
-            <br>
-        
-        
+            </div>                          
         </form>
-        <a href="{% url 'agrosoft_web:home' %}"> Volver a la página web</a>
+        
+        <a class="btn btn-secondary btn-block" href="{% url 'agrosoft_web:home' %}"> Volver a la página web</a>
     </div>
 </div>
 {% endif %}
 </body>
-
 {% endblock %}
