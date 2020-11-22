@@ -24,25 +24,27 @@
                 </div>
             {% endif %}
             
-            <form method="POST" action="">
+            <form method="POST" action="" class="needs-validation required"  novalidate enctype="multipart/form-data">
                 {% csrf_token %}
                 <div>
                     <div>
                         <label for="username">Usuario</label></br>
-                        <input type="text" id="username" name="username" class="form-control">
+                        <input type="text" id="username" name="username" class="form-control" required pattern="^((\S+ )*\S+)?$" 
+                        title="No poner espacios en blanco al inicio, al final o seguidos." data-toggle="tooltip" data-placement="left">
                     </div>
                     
                     <div>
                         <label for="firts_name">Nombre</label></br>
-                        <input type="text" id="first_name" name="first_name" class="form-control">
+                        <input type="text" id="first_name" name="first_name" class="form-control" equired pattern="^((\S+ )*\S+)?$">
                     </div>
                     <div>
                         <label for="last_name">Apellidos</label></br>
-                        <input type="text" id="last_name" name="last_name" class="form-control">
-                    </div>
+                        <input type="text" id="last_name" name="last_name" class="form-control" equired pattern="^((\S+ )*\S+)?$">
+                    </div>                    
                     <div>
                         <label for="password1">Contraseña</label></br>
-                        <input type="password" id="password1" name="password1" class="form-control">
+                        <input type="password" id="password1" name="password1" class="form-control" required pattern="^\S+$" 
+                        title="No se aceptan espacios en blanco en la contraseña." data-toggle="tooltip" data-placement="left">
                     </div>
                     <ul>
                         <li>La contraseña no puede asemejarse tanto a su información de Usuario.</li>
@@ -52,7 +54,7 @@
                     </ul>
                     <div>
                         <label for="password2">Repita su Contraseña</label></br>
-                        <input type="password" id="password2" name="password2" class="form-control">
+                        <input type="password" id="password2" name="password2" class="form-control" required pattern="^\S+$" title="No se aceptan espacios en blanco en la contraseña." data-toggle="tooltip" data-placement="left">
                     </div>
                     
                 </div>
