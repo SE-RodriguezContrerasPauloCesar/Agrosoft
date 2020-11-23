@@ -20,13 +20,61 @@ def system_home(request):
 
 # Views de la Gestión de Lotes
 def listar_lotes(request):
-    title = 'Lista de convocatorias'
+    query_set = Lote.objects.all()
+    lotes = reversed(list(query_set))
     context = {
-		"title": title		
-	}
-    return render(request, 'agrosoft/lotes/listar_lotes.html', context)
+        'lotes': lotes,        
+    }
+    return render(request, 'agrosoft/lotes/listar_lotes.html', context)   
 
+# Agregar un nuevo Lote
+def agregar_lote(request):    
+    
+    if request.method == 'POST':
+        formulario = LoteFormulario(request.POST)
+        if formulario.is_valid():            
+            lote = formulario.save()                        
+            messages.info(request,'Lote registrado con éxito')
+            return redirect(reverse('agrosoft:listarlotes'))
+    else:
+        formulario = LoteFormulario()
+    context = {
+        'formulario': formulario
+    }
+    return render(request, 'agrosoft/lotes/agregar_lote.html', context)
 
+# Mostrar detalle de un Lote
+def detalle_lote(request, lote_id):
+	title = 'Detalle de Lote'
+	lote = Lote.objects.get(id = lote_id)
+
+	return render(request, 'agrosoft/lotes/detalle_lote.html', locals())
+
+# Editar un Lote
+def editar_lote(request, lote_id):
+    lote = Lote.objects.get(id = lote_id)
+    if request.method == 'GET':
+        form = LoteFormulario(instance = lote)
+        context = {
+            'form': form
+        }
+    else:
+        form = LoteFormulario(request.POST, instance = lote)
+        context = {
+            'form': form
+        }
+        if form.is_valid():
+            form.save()
+            messages.info(request, 'Lote actualizado')
+            return redirect('agrosoft:listarlotes')
+    return render(request, 'agrosoft/lotes/editar_lote.html', context)
+
+# Eliminar un Lote registrado
+def eliminar_lote(request, lote_id):
+    lote = Lote.objects.get(id = lote_id)
+    lote.delete()
+    messages.info(request, 'Lote eliminado')
+    return redirect('agrosoft:listarlotes')
 
 # Views de la Gestión de Usuarios
 # Listar Usuarios registrados

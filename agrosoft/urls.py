@@ -20,4 +20,8 @@ urlpatterns = [
 	path('cultivo/eliminar/<int:cultivo_id>/', views.eliminar_cultivo, name='eliminarcultivo'),
 
 	path('lotes/', views.listar_lotes, name='listarlotes'),
+	path('lotes/<int:lote_id>/', views.detalle_lote, name='detallelote'),
+	path('lotes/agregar/', views.agregar_lote, name='agregarlote'),
+	path('lotes/editar/<int:lote_id>/', views.editar_lote, name='editarlote'),
+	path('lotes/eliminar/<int:lote_id>/', views.eliminar_lote, name='eliminarlote'),
 ]

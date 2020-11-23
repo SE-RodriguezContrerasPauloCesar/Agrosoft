@@ -31,3 +31,16 @@ class CultivoFormulario(forms.ModelForm):
                     'class': 'form-control',                    
                 }
             )
+
+class LoteFormulario(forms.ModelForm):
+    class Meta:
+        model = Lote
+        fields = ('nombre', 'area', 'fecha_riego', 'produ')
+    def __init__(self, *args, **kwargs):
+        super(LoteFormulario, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update(
+                {
+                    'class': 'form-control',                    
+                }
+            )
