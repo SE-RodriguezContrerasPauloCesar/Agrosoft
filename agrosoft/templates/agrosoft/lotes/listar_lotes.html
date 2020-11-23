@@ -3,7 +3,9 @@
 {% block container %}
 
     <!-- List of registered calls  -->
-
+<head>
+    <title>Lista de Lotes</title>
+</head>  
 <div class="main-panel">
     <div class="content">        
         <div class="container-fluid shadow-sm bg-light p-3">
@@ -95,7 +97,7 @@
             <div class="dropdown-divider"></div>
             <div class="call-add my-3">
                 <a class="btn btn-agrosoft"  href="{% url 'agrosoft:agregarlote' %}">
-                    <i class="fa fa-hand-pointer-o"></i>
+                    <i class="fa fa-plus-square"></i>
                     Agregar Lote
                 </a>
             </div>
@@ -109,7 +111,7 @@
             {% if lotes %}
             <div class="table-responsive shadow-sm" style="border-radius: 9px;">
                 <table class="table table-bordered">
-                    <thead style="background: linear-gradient(120deg,#73daad,#73daad);" class="text-center">
+                    <thead style="background: linear-gradient(120deg,#37db73,#3adf97);" class="text-center">
                         <tr>
                             <th scope="col">Nombre</th>
                             <th scope="col">Area</th>
@@ -164,7 +166,7 @@
                         <div class="card-body">
                             <p class="fw-bold mt-0">Producción Total</p>
                             <h4><b>S/. 3,018</b></h4>
-                            <a href="#" class="btn btn-primary btn-full text-left mt-3 mb-3"><i class="la la-plus"></i> Ver registros</a>
+                            <a href="#" class="btn btn-success btn-full text-left mt-3 mb-3"><i class="la la-plus"></i> Ver registros</a>
                         </div>									
                     </div>
                 </div>

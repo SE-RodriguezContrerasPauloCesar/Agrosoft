@@ -15,7 +15,7 @@
 }
 .title-jaku h1 {
   color: #fff;
-  border-left: 2px solid #fbaa34;
+  border-left: 2px solid #ffffff;
   padding-left: 10px;
   margin-bottom: 50px;
   font-size: calc(1.5em + 1.5vw);
@@ -109,13 +109,13 @@
   padding: 10px;
 }
 .content-dir-mentores {
-  background-color: #fff;
+  background-color: rgb(255, 255, 255);
   border-radius: 15px;
   padding: 50px;
 }
 .directorio-jaku h1,
 .mentores-jaku h1 {
-  border-left: 5px solid orange;
+  border-left: 5px solid rgb(255, 255, 255);
   padding-left: 10px;
 }
 .carddm {
@@ -123,7 +123,7 @@
 }
 .our-team {
   padding: 30px 0 40px;
-  background-color: #fff;
+  background-color: rgb(255, 255, 255);
   text-align: center;
   overflow: hidden;
   position: relative;

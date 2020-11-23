@@ -1,6 +1,13 @@
 body {
-  background-color: rgb(208, 214, 208);
   
+  background: url("../../static/images/cool-background.png");
+  
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 /* Events Jaku */
