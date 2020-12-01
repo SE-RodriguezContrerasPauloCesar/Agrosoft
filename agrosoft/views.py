@@ -195,3 +195,12 @@ def eliminar_cultivo(request, cultivo_id):
     cultivo.delete()
     messages.info(request, 'Cultivo eliminado')
     return redirect('agrosoft:listarcultivos')
+
+# Views de la Gestion de Enfermedad
+def listar_enfermedad(request):
+    query_set = Enfermedad.objects.all()
+    enfermedades = reversed(list(query_set))
+    context = {
+        'enfermedad': enfermedades,        
+    }
+    return render(request, 'agrosoft/enfermedades/listar_enfermedades.html', context)     
