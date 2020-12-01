@@ -28,4 +28,5 @@ urlpatterns = [
 	path('enfermedades/', views.listar_enfermedad, name='listarenfermedades'),
 	path('enfermedades/agregar/', views.agregar_enfermedad, name='agregarenfermedad'),
 	path('enfermedades/editar/<int:enfermedad_id>/', views.editar_enfermedad, name='editarenfermedad'),
+	path('enfermedades/eliminar/<int:enfermedad_id>/', views.eliminar_enfermedad, name='eliminarenfermedad'),
 ]

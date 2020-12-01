@@ -239,3 +239,10 @@ def editar_enfermedad(request, enfermedad_id):
             messages.info(request, 'Enfermedad actualizada')
             return redirect('agrosoft:listarenfermedades')
     return render(request, 'agrosoft/enfermedades/editar_enfermedad.html', context)
+
+# Eliminar un Enfermedad registrada
+def eliminar_enfermedad(request, enfermedad_id):
+    enfermedad = Enfermedad.objects.get(id = enfermedad_id)
+    enfermedad.delete()
+    messages.info(request, 'Enfermedad eliminada')
+    return redirect('agrosoft:listarenfermedades')
