@@ -44,3 +44,16 @@ class LoteFormulario(forms.ModelForm):
                     'class': 'form-control',                    
                 }
             )
+
+class EnfermedadFormulario(forms.ModelForm):
+    class Meta:
+        model = Enfermedad
+        fields = ('nombre', 'descripcion')
+    def __init__(self, *args, **kwargs):
+        super(EnfermedadFormulario, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update(
+                {
+                    'class': 'form-control',                    
+                }
+            )

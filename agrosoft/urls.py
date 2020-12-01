@@ -26,4 +26,5 @@ urlpatterns = [
 	path('lotes/eliminar/<int:lote_id>/', views.eliminar_lote, name='eliminarlote'),
 
 	path('enfermedades/', views.listar_enfermedad, name='listarenfermedades'),
+	path('enfermedades/agregar/', views.agregar_enfermedad, name='agregarenfermedad'),
 ]

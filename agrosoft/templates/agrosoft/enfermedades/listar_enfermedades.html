@@ -1,4 +1,4 @@
-{% include 'agrosoft/layout.html' with active_page='cultivo' %}
+{% include 'agrosoft/layout.html' with active_page='enfermedad' %}
 {% load static %}
 {% block container %}
 
@@ -16,7 +16,7 @@
             <div class="dropdown-divider"></div>
             <div class="call-add my-3">
                 {% if perms.auth.add_user %}
-                <a class="btn btn-agrosoft" href="{% url 'agrosoft:agregarcultivo' %}">
+                <a class="btn btn-agrosoft" href="{% url 'agrosoft:agregarenfermedad' %}">
                     <i class="fa fa-plus-square"></i>
                     Agregar Enfermedad
                 </a>
@@ -39,7 +39,6 @@
                             <th scope="col">Acciones</th>
                         </tr>
                     </thead>
-                   
                     <tbody>
                         {% for p in enfermedades %}
                         <tr>

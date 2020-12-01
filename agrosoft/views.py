@@ -197,10 +197,26 @@ def eliminar_cultivo(request, cultivo_id):
     return redirect('agrosoft:listarcultivos')
 
 # Views de la Gestion de Enfermedad
+# Listar Enfermedades Registradas
 def listar_enfermedad(request):
     query_set = Enfermedad.objects.all()
     enfermedades = reversed(list(query_set))
     context = {
-        'enfermedad': enfermedades,        
+        'enfermedades': enfermedades,        
     }
     return render(request, 'agrosoft/enfermedades/listar_enfermedades.html', context)     
+
+# Agregar nueva Enfermedad
+def agregar_enfermedad(request):
+    if request.method == 'POST':
+        formulario = EnfermedadFormulario(request.POST)
+        if formulario.is_valid():
+            cultivo = formulario.save()                        
+            messages.info(request,'Enfermedad registrada con éxito')
+            return redirect(reverse('agrosoft:listarenfermedades'))
+    else:
+        formulario = EnfermedadFormulario()
+    context = {
+        'formulario': formulario
+    }
+    return render(request, 'agrosoft/enfermedades/agregar_enfermedad.html', context)
