@@ -220,3 +220,22 @@ def agregar_enfermedad(request):
         'formulario': formulario
     }
     return render(request, 'agrosoft/enfermedades/agregar_enfermedad.html', context)
+
+# Editar un Enfermedad
+def editar_enfermedad(request, enfermedad_id):
+    enfermedad = Enfermedad.objects.get(id = enfermedad_id)
+    if request.method == 'GET':
+        form = EnfermedadFormulario(instance = enfermedad)
+        context = {
+            'form': form
+        }
+    else:
+        form = EnfermedadFormulario(request.POST, instance = enfermedad)
+        context = {
+            'form': form
+        }
+        if form.is_valid():
+            form.save()
+            messages.info(request, 'Enfermedad actualizada')
+            return redirect('agrosoft:listarenfermedades')
+    return render(request, 'agrosoft/enfermedades/editar_enfermedad.html', context)
