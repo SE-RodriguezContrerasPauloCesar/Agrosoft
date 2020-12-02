@@ -40,5 +40,6 @@ urlpatterns = [
 	path('personal/', views.listar_personal, name='listarpersonal'),
 	path('personal/<int:personal_id>/', views.detalle_personal, name='detallepersonal'),
 	path('personal/agregar/', views.agregar_personal, name='agregarpersonal'),
+	path('personal/editar/<int:personal_id>/', views.editar_personal, name='editarpersonal'),
 	path('personal/eliminar/<int:personal_id>/', views.eliminar_personal, name='eliminarpersonal'),
 ]

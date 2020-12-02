@@ -349,3 +349,22 @@ def detalle_personal(request, personal_id):
 	title = 'Detalle de Personal'
 	personal = Trabajador.objects.get(id = personal_id)
 	return render(request, 'agrosoft/personal/detalle_personal.html', locals())
+
+# Editar Personal
+def editar_personal(request, personal_id):
+    personal = Trabajador.objects.get(id = personal_id)
+    if request.method == 'GET':
+        form = PersonalFormulario(instance = personal)
+        context = {
+            'form': form
+        }
+    else:
+        form = PersonalFormulario(request.POST, instance = personal)
+        context = {
+            'form': form
+        }
+        if form.is_valid():
+            form.save()
+            messages.info(request, 'Personal actualizado')
+            return redirect('agrosoft:listarpersonal')
+    return render(request, 'agrosoft/personal/editar_personal.html', context)
