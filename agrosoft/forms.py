@@ -70,3 +70,16 @@ class FertilizanteFormulario(forms.ModelForm):
                     'class': 'form-control',                    
                 }
             )
+
+class PersonalFormulario(forms.ModelForm):
+    class Meta:
+        model = Trabajador
+        fields = ('dni', 'nombre', 'apellido', 'fecha_nacimiento', 'horas_trabajo', 'genero')
+    def __init__(self, *args, **kwargs):
+        super(PersonalFormulario, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update(
+                {
+                    'class': 'form-control',                    
+                }
+            )

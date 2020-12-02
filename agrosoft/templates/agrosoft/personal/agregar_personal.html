@@ -1,0 +1,52 @@
+{% include 'agrosoft/layout.html' with active_page='fertilizante' %}
+{% load static %}
+{% block container %}
+<div class="main-panel">
+    <div class="content">
+        <div class="container-fluid shadow-sm bg-light p-3">
+            <h1>  
+                <i class="fas fa-folder-plus" style="color: #31c536"></i> 
+                Agregar Nuevo Personal
+            </h1>
+            <div class="dropdown-divider"></div>
+            {% if formulario.errors %}
+            <div class="alert alert-danger" role="alert">
+                {% if formulario.dni.errors %}
+                    <p>* Ya existe la Enfermedad</p>
+                {% endif %}
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+                <p>{{ formulario.nombre.errors.as_text }}</p>
+                <p>{{ formulario.apellido.errors.as_text }}</p>
+                <p>{{ formulario.fecha_nacimiento.errors.as_text }}</p>
+                <p>{{ formulario.horas_trabajo.errors.as_text }}</p>
+                <p>{{ formulario.genero.errors.as_text }}</p>
+            </div>
+        {% endif %}
+            
+            <form method="POST" action="" class="needs-validation required"  novalidate enctype="multipart/form-data">                {% csrf_token %}
+                <div>DNI</div>
+                {{formulario.dni}}
+                <div>Nombre</div>
+                {{formulario.nombre}}
+                <div>Apellidos</div>
+                {{formulario.apellido}}
+                <div>Género</div>
+                {{formulario.genero}}
+                
+                <div>
+                    <label for="fecha_nacimiento">Fecha Nacimiento</label></br>
+                    <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" class="form-control">
+                </div> 
+                
+                <div>Horas de Trabajo</div>
+                {{formulario.horas_trabajo}}
+                <button type="submit" class="btn btn-agrosoft px-4 my-3">Agregar Personal</button>
+                <a href="{% url 'agrosoft:listarpersonal' %}" class="btn btn-agrosoft px-4 my-3">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

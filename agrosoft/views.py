@@ -321,3 +321,18 @@ def listar_personal(request):
         'personal': personal,
     }
     return render(request, 'agrosoft/personal/listar_personal.html', context)
+
+# Agregar nuevo Personal
+def agregar_personal(request):
+    if request.method == 'POST':
+        formulario = PersonalFormulario(request.POST)
+        if formulario.is_valid():
+            personal = formulario.save()                        
+            messages.info(request,'Personal registrado con éxito')
+            return redirect(reverse('agrosoft:listarpersonal'))
+    else:
+        formulario = PersonalFormulario()
+    context = {
+        'formulario': formulario
+    }
+    return render(request, 'agrosoft/personal/agregar_personal.html', context)
