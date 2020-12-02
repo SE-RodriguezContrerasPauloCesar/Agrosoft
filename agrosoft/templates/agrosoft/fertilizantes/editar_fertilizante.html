@@ -1,4 +1,4 @@
-{% include 'agrosoft/layout.html' with active_page='enfermedad' %}
+{% include 'agrosoft/layout.html' with active_page='fertilizante' %}
 {% load static %}
 {% block container %}
 <div class="main-panel">
@@ -6,20 +6,21 @@
         <div class="container-fluid shadow-sm bg-light p-3">
             <h1>  
                 <i class="fas fa-pencil-alt" style="color: #31c536"></i> 
-                Editar Cultivo
+                Editar Fertilizante
             </h1>
             <div class="dropdown-divider"></div>
             {% if form.errors %}
                 <div class="alert alert-danger" role="alert">
-                    {% if form.enfermedades.errors %}
+                    {% if form.fertilizantes.errors %}
                         <p>* Ya existe una Enfermedad con ese nombre</p>
                     {% endif %}
                     {% for message in messages %}
                         {{ message }}
                     {% endfor %}
                     <p>{{ form.nombre.errors.as_text }}</p>
-                    <p>{{ form.tipo.errors.as_text }}</p>
-                    <p>{{ form.precio.errors.as_text }}</p>                    
+                    <p>{{ form.marca.errors.as_text }}</p>
+                    <p>{{ form.descripcion.errors.as_text }}</p>
+                    <p>{{ form.beneficios.errors.as_text }}</p>
                 </div>
             {% endif %}
             
@@ -31,13 +32,20 @@
                         {{form.nombre}}
                     </div>
                     <div>
-                        <label>Descripción</label></br>
+                        <label>Marca</label>
+                        {{form.marca}}
+                    </div>
+                    <div>
+                        <label>Descripción</label>
                         {{form.descripcion}}
-                    </div>                                                    
-                    
+                    </div>
+                    <div>
+                        <label>Beneficios</label>
+                        {{form.beneficios}}
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-agrosoft px-4 my-3">Modificar Enfermedad</button>
-                <a href="{% url 'agrosoft:listarenfermedades' %}" class="btn btn-agrosoft px-4 my-3">Cancelar</a>
+                <button type="submit" class="btn btn-agrosoft px-4 my-3">Modificar Fertilizante</button>
+                <a href="{% url 'agrosoft:listarfertilizantes' %}" class="btn btn-agrosoft px-4 my-3">Cancelar</a>
             </form>
             
         </div>

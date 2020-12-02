@@ -292,3 +292,22 @@ def eliminar_fertilizante(request, fertilizante_id):
     fertilizante.delete()
     messages.info(request, 'Fertilizante eliminado')
     return redirect('agrosoft:listarfertilizantes')
+
+# Editar Fertilizante
+def editar_fertilizante(request, fertilizante_id):
+    fertilizante = Fertilizante.objects.get(id = fertilizante_id)
+    if request.method == 'GET':
+        form = FertilizanteFormulario(instance = fertilizante)
+        context = {
+            'form': form
+        }
+    else:
+        form = FertilizanteFormulario(request.POST, instance = fertilizante)
+        context = {
+            'form': form
+        }
+        if form.is_valid():
+            form.save()
+            messages.info(request, 'Fertilizante actualizado')
+            return redirect('agrosoft:listarfertilizantes')
+    return render(request, 'agrosoft/fertilizantes/editar_fertilizante.html', context)
