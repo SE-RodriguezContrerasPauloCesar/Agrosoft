@@ -311,3 +311,13 @@ def editar_fertilizante(request, fertilizante_id):
             messages.info(request, 'Fertilizante actualizado')
             return redirect('agrosoft:listarfertilizantes')
     return render(request, 'agrosoft/fertilizantes/editar_fertilizante.html', context)
+
+# Views de la Gestion de Personal
+# Listar personal Registradas
+def listar_personal(request):
+    query_set = Trabajador.objects.all()
+    personal = reversed(list(query_set))
+    context = {
+        'personal': personal,
+    }
+    return render(request, 'agrosoft/personal/listar_personal.html', context)

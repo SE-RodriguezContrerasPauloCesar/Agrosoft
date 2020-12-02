@@ -1,0 +1,86 @@
+{% include 'agrosoft/layout.html' with active_page='fertilizante' %}
+{% load static %}
+{% block container %}
+
+<!-- Lista de registro de Fertilizantes -->
+<head>
+    <title>Lista de Personal</title>
+</head>  
+<div class="main-panel">
+    <div class="content">
+        <div class="container-fluid shadow-sm bg-light p-3">
+            <h2>
+                <i class="fa fa-universal-access" style="color: #73daad;"></i>
+                Mi Personal
+            </h2>
+            <div class="dropdown-divider"></div>
+            <div class="call-add my-3">
+                {% if perms.auth.add_user %}
+                <a class="btn btn-agrosoft" href="{% url 'agrosoft:agregarfertilizante' %}">
+                    <i class="fa fa-plus-square"></i>
+                    Agregar Personal
+                </a>
+                {% endif %}
+            </div>
+            {% for message in messages %}
+            <div class="alert alert-primary" role="alert">
+                    {{ message }}
+            </div>
+            {% endfor %}
+            
+            <!-- Tabla de Registros  -->
+            {% if personal %}
+            <div class="table-responsive shadow-sm" style="border-radius: 9px;">
+                <table class="table table-bordered">
+                    <thead style="background: linear-gradient(120deg,#37db73,#3adf97);" class="text-center">
+                        <tr>
+                            <th scope="col">DNI</th>
+                            <th scope="col">Apellidos, Nombre</th>
+                            <th scope="col">Género</th>
+                            <th scope="col">Horas de Trabajo</th>
+                            <th scope="col">Acciones</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for p in personal %}
+                        <tr>
+                            <td> {{p.DNI}}</td>
+                            <td> {{p.apellido}}, {{p.nombre}}</td>
+                            <td> {{p.genero}}</td>
+                            <td> {{p.horas_trabajo}}</td>
+                            <td class="jaku-actions">
+                                <ul>
+									<li>                                        
+                                        <a onclick="abrirModal('{% url 'agrosoft:detallefertilizante' p.id %}')" class="ver" data-toggle="tooltip"
+                                        title="Ver" data-placement="top"><i class="fas fa-eye fa-lg"></i></a>
+                                        <a class="editar" href="{% url 'agrosoft:editarfertilizante' p.id %}" data-toggle="tooltip"
+                                        title="Editar" data-placement="top"><i class="fas fa-edit fa-lg"></i></a>
+                                        <a class="eliminar" href="{% url 'agrosoft:eliminarfertilizante' p.id %}" onclick="return confirm('¿Está seguro de eliminar este Fertilizante?')" data-toggle="tooltip"
+                                        title="Editar" data-placement="top"><i class="fas fa-trash"></i></a>																				
+                                    </li>
+                                </ul>                     
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    
+                </table>
+            </div>
+            
+            {% else %}
+            <div class="container-fluid">
+                <div class="alert alert-primary">
+                    <p>No tiene Personal Registrado.</p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="modal" id="mostrar"></div>
+    <!-- Footer -->
+    {% include "agrosoft_web/footer-agrosoft.html" %}
+    <!-- End Footer -->
+
+</div>    
+{% endblock %}
