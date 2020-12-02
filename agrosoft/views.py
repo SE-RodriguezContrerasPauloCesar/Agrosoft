@@ -343,3 +343,9 @@ def eliminar_personal(request, personal_id):
     personal.delete()
     messages.info(request, 'Personal eliminado')
     return redirect('agrosoft:listarpersonal')
+
+# Mostrar detalle de Personal
+def detalle_personal(request, personal_id):
+	title = 'Detalle de Personal'
+	personal = Trabajador.objects.get(id = personal_id)
+	return render(request, 'agrosoft/personal/detalle_personal.html', locals())
