@@ -278,3 +278,10 @@ def agregar_fertilizante(request):
         'formulario': formulario
     }
     return render(request, 'agrosoft/fertilizantes/agregar_fertilizante.html', context)
+
+# Mostrar detalle de Fertilizante
+def detalle_fertilizante(request, fertilizante_id):
+	title = 'Detalle de Fertilizante'
+	fertilizante = Fertilizante.objects.get(id = fertilizante_id)
+
+	return render(request, 'agrosoft/fertilizantes/detalle_fertilizante.html', locals())
