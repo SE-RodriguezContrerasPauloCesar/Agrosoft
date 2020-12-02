@@ -285,3 +285,10 @@ def detalle_fertilizante(request, fertilizante_id):
 	fertilizante = Fertilizante.objects.get(id = fertilizante_id)
 
 	return render(request, 'agrosoft/fertilizantes/detalle_fertilizante.html', locals())
+
+# Eliminar Fertilizante registrado
+def eliminar_fertilizante(request, fertilizante_id):
+    fertilizante = Fertilizante.objects.get(id = fertilizante_id)
+    fertilizante.delete()
+    messages.info(request, 'Fertilizante eliminado')
+    return redirect('agrosoft:listarfertilizantes')

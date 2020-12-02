@@ -34,4 +34,5 @@ urlpatterns = [
 	path('fertilizantes/', views.listar_fertilizante, name='listarfertilizantes'),
 	path('fertilizantes/<int:fertilizante_id>/', views.detalle_fertilizante, name='detallefertilizante'),
 	path('fertilizantes/agregar/', views.agregar_fertilizante, name='agregarfertilizante'),
+	path('fertilizantes/eliminar/<int:fertilizante_id>/', views.eliminar_fertilizante, name='eliminarfertilizante'),
 ]
