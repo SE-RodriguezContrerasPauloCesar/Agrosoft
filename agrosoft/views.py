@@ -271,7 +271,7 @@ def agregar_fertilizante(request):
         if formulario.is_valid():
             cultivo = formulario.save()                        
             messages.info(request,'Fertilizante registrado con éxito')
-            return redirect(reverse('agrosoft:listarfertilizante'))
+            return redirect(reverse('agrosoft:listarfertilizantes'))
     else:
         formulario = FertilizanteFormulario()
     context = {
