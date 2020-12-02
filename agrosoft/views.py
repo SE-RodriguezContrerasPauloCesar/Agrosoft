@@ -336,3 +336,10 @@ def agregar_personal(request):
         'formulario': formulario
     }
     return render(request, 'agrosoft/personal/agregar_personal.html', context)
+
+# Eliminar personal registrado
+def eliminar_personal(request, personal_id):
+    personal = Trabajador.objects.get(id = personal_id)
+    personal.delete()
+    messages.info(request, 'Personal eliminado')
+    return redirect('agrosoft:listarpersonal')

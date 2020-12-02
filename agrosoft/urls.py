@@ -39,4 +39,5 @@ urlpatterns = [
 
 	path('personal/', views.listar_personal, name='listarpersonal'),
 	path('personal/agregar/', views.agregar_personal, name='agregarpersonal'),
+	path('personal/eliminar/<int:personal_id>/', views.eliminar_personal, name='eliminarpersonal'),
 ]
