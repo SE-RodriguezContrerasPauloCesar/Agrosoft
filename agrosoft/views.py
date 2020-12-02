@@ -204,7 +204,7 @@ def listar_enfermedad(request):
     context = {
         'enfermedades': enfermedades,        
     }
-    return render(request, 'agrosoft/enfermedades/listar_enfermedades.html', context)     
+    return render(request, 'agrosoft/enfermedades/listar_enfermedades.html', context)
 
 # Agregar nueva Enfermedad
 def agregar_enfermedad(request):
@@ -253,3 +253,28 @@ def eliminar_enfermedad(request, enfermedad_id):
     enfermedad.delete()
     messages.info(request, 'Enfermedad eliminada')
     return redirect('agrosoft:listarenfermedades')
+
+# Views de la Gestion de Fertilizante
+# Listar Fertilizantes Registradas
+def listar_fertilizante(request):
+    query_set = Fertilizante.objects.all()
+    fertilizantes = reversed(list(query_set))
+    context = {
+        'fertilizantes': fertilizantes,        
+    }
+    return render(request, 'agrosoft/fertilizantes/listar_fertilizantes.html', context)
+
+# Agregar nuevo Fertilizante
+def agregar_fertilizante(request):
+    if request.method == 'POST':
+        formulario = FertilizanteFormulario(request.POST)
+        if formulario.is_valid():
+            cultivo = formulario.save()                        
+            messages.info(request,'Fertilizante registrado con éxito')
+            return redirect(reverse('agrosoft:listarfertilizante'))
+    else:
+        formulario = FertilizanteFormulario()
+    context = {
+        'formulario': formulario
+    }
+    return render(request, 'agrosoft/fertilizantes/agregar_fertilizante.html', context)
