@@ -1,0 +1,33 @@
+{% include 'agrosoft/layout.html' with active_page='calendario' %}
+
+{% block title %}
+Event
+{% endblock %}
+
+{% block content %}
+<head>
+  <title>Calendario AGROSERVIC</title>
+</head>  
+<div class="main-panel">
+  <div class="content">
+      <div class="container-fluid shadow-sm bg-light p-3">
+
+<div class="clearfix">
+  <a class="btn btn-info left" href="{% url 'agrosoft:calendar' %}"> Volver al Calendario </a>
+</div>
+
+<form method="post">
+  {% csrf_token %}
+  <table class="form form-table">
+    {{ form }}
+    <tr><td colspan="2"><button type="submit" class="btn btn-info right"> Confirmar </button></td></tr>
+  </table>
+</form>
+{% endblock %}
+
+</div>    
+<!-- Footer -->
+{% include "agrosoft_web/footer-agrosoft.html" %}
+<!-- End Footer -->
+
+</div>   

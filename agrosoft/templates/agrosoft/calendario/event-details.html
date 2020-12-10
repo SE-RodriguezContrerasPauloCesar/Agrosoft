@@ -1,0 +1,63 @@
+{% include 'agrosoft/layout.html' with active_page='calendario' %}
+
+{% block title %}
+Event Details
+{% endblock %}
+
+{% block content %}
+<head>
+    <title>Calendario AGROSERVIC</title>
+</head>  
+<div class="main-panel">
+    <div class="content">
+        <div class="container-fluid shadow-sm bg-light p-3">
+
+   
+        <div class="clearfix">
+            <a class="btn btn-primary left" href="{% url 'agrosoft:calendar' %}"> Volver al Calendario </a>
+            <a class="btn btn-info right mr-2" href="{% url 'agrosoft:event_edit' event.pk %}"> Editar Evento </a>
+            <a class="btn btn-danger right mr-2" onclick="return confirm('¿Está seguro de eliminar este Evento?')" href="{% url 'agrosoft:eliminarevento' event.id %}"> Eliminar Evento</a>
+        </div>
+        
+        <div class="clearfix">
+            <h3>Nombre del Evento: {{ event.titulo }}</h3>
+            <p>Del <span style="color: gray;">{{ event.fecha_inicio }}</span> al <span style="color: gray;">{{ event.fecha_fin }}</span></p>
+            <hr>
+            <p>{{ event.descripcion }}</p>
+        </div>
+        <hr>
+        <div class="clearfix">
+            <h4 class="left" > Miembros de este evento</h4>
+            <a class="btn btn-success right" href="{% url 'agrosoft:add_eventmember' event.id %}"> Añadir Miembro </a>
+        </div>
+        <table class="table table-bordered">
+            <thead>                  
+                <tr>
+                  <th style="width: 10px">#</th>
+                  <th>Nombre</th>
+                  <th>Usuario</th>
+                  <th>Email</th>
+                  <th>Accion</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for member in eventmember %}
+                <tr role="row">
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ member.user.first_name }} {{ member.user.last_name }}</td>
+                    <td>{{ member.user.username }}</td>
+                    <td>{{ member.user.email }}</td>
+                    <td>
+                        <a class="btn btn-danger"  href="{% url 'agrosoft:remove_event' member.id %}">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+        </table>
+    </div>    
+    <!-- Footer -->
+    {% include "agrosoft_web/footer-agrosoft.html" %}
+    <!-- End Footer -->
+
+</div>   
+{% endblock %}
