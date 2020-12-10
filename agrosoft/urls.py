@@ -42,4 +42,13 @@ urlpatterns = [
 	path('personal/agregar/', views.agregar_personal, name='agregarpersonal'),
 	path('personal/editar/<int:personal_id>/', views.editar_personal, name='editarpersonal'),
 	path('personal/eliminar/<int:personal_id>/', views.eliminar_personal, name='eliminarpersonal'),
+	
+    path('calendario', views.CalendarView.as_view(), name='calendar'),
+    path('calendario/evento/new/', views.create_event, name='event_new'),
+    path('calendario/evento/edit/<int:pk>/', views.EventEdit.as_view(), name='event_edit'),
+    path('calendario/evento/<int:event_id>/details/', views.event_details, name='event-detail'),
+	path('calendario/add_eventmember/<int:event_id>', views.add_eventmember, name='add_eventmember'),
+    path('calendario/evento/<int:pk>/remove', views.EventMemberDeleteView.as_view(), name="remove_event"),
+	path('calendario/eliminar/<int:event_id>', views.eliminar_evento, name="eliminarevento"),
+
 ]

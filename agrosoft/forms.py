@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.forms import inlineformset_factory
+from django.forms import inlineformset_factory, DateInput
 from django import forms
 from .models import *
 
@@ -83,3 +83,24 @@ class PersonalFormulario(forms.ModelForm):
                     'class': 'form-control',                    
                 }
             )
+
+class EventForm(forms.ModelForm):
+    class Meta:
+        model = Event
+        # datetime-local is a HTML5 input type, format to make date time show on fields
+        widgets = {
+        'fecha_inicio': DateInput(attrs={'type': 'datetime-local'}, format='%Y-%m-%dT%H:%M'),
+        'fecha_fin': DateInput(attrs={'type': 'datetime-local'}, format='%Y-%m-%dT%H:%M'),
+        }
+        exclude = ['user']
+
+    def __init__(self, *args, **kwargs):
+        super(EventForm, self).__init__(*args, **kwargs)
+        # input_formats to parse HTML5 datetime-local input to datetime field
+        self.fields['fecha_inicio'].input_formats = ('%Y-%m-%dT%H:%M',)
+        self.fields['fecha_fin'].input_formats = ('%Y-%m-%dT%H:%M',)            
+
+class AddMemberForm(forms.ModelForm):
+  class Meta:
+    model = EventMember
+    fields = ['user']

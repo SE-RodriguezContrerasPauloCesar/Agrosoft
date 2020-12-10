@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.contrib.auth.models import User
 
 
@@ -73,6 +74,34 @@ class Inventario(models.Model):
     fecha_Ingreso = models.DateField('Fecha de Ingreso', null=False)
     fecha_Salida = models.DateField('Fecha de Salida', null=False)
     estadoRegistro = models.CharField('Estado de Registros', max_length=2)
+
+class Event(models.Model):    
+    titulo = models.CharField(max_length=200, unique=True)
+    descripcion = models.TextField()
+    fecha_inicio = models.DateTimeField()
+    fecha_fin = models.DateTimeField()
+    created_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.titulo
+    
+    def get_absolute_url(self):
+        return reverse('agrosoft:event-detail', args=(self.id,))
+
+    @property
+    def get_html_url(self):
+        url = reverse('agrosoft:event-detail', args=(self.id,))
+        return f'<a class="btn btn-sm btn-primary mb-1" href="{url}"> {self.titulo} </a>'
+
+class EventMember(models.Model):
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ['event', 'user']
+
+    def __str__(self):
+        return str(self.user)
 
 class Usuario(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE)
