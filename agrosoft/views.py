@@ -23,6 +23,10 @@ import csv
 import datetime
 import xlwt
 
+from .utils import render_to_pdf 
+from django.views.generic import View
+from django.template.loader import get_template
+
 # Views de la página web e inicio de sesión.
 # Checks if the user is user or admin type
 def system_home(request):	
@@ -609,3 +613,27 @@ def exportBienesEXCEL(request):
     wb.save(response)
 
     return response
+
+class GeneratePDF(View):
+    def get(self, request, *args, **kwargs):
+        template = get_template('agrosoft/inventario/pdf-output.html')
+        context = {
+            "invoice_id": 123,
+            "customer_name": "John Cooper",
+            "amount": 1399.99,
+            "today": "Today",
+        }
+        html = template.render(context)
+        pdf = render_to_pdf('agrosoft/inventario/pdf-output.html', context)
+        if pdf:
+            response = HttpResponse(pdf, content_type='application/pdf')            
+            filename = "BienesAgroservic_%s.pdf" %(str(datetime.datetime.now().replace(microsecond=0)))
+            content = "inline; filename=%s" %(filename)
+            download = request.GET.get("download")
+            if download:
+                content = "attachment; filename=%s" %(filename)
+            response['Content-Disposition'] = content
+            return response
+            
+        return HttpResponse("Not found")
+

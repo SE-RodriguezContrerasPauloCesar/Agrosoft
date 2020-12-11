@@ -61,6 +61,7 @@ urlpatterns = [
 
     path('inventario/export1', views.exportBienesCSV, name='export_bienes_csv'),
 	path('inventario/export2', views.exportBienesEXCEL, name='export_bienes_excel'),
+	path('inventario/export3', views.GeneratePDF.as_view(), name='export_bienes_pdf'),
 
 
 ]
