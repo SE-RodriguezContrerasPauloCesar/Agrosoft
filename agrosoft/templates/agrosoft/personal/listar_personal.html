@@ -16,9 +16,21 @@
             <div class="dropdown-divider"></div>
             <div class="call-add my-3">
                 {% if perms.auth.add_user %}
-                <a class="btn btn-agrosoft" href="{% url 'agrosoft:agregarpersonal' %}">
+                <a class="btn btn-agrosoft mr-2" href="{% url 'agrosoft:agregarpersonal' %}">
                     <i class="fa fa-plus-square"></i>
                     Agregar Personal
+                </a>
+                <a class="btn btn-primary mr-2" href="#">
+                    <i class="fa fa-plus-square"></i>
+                    Calcular Pago
+                </a>
+                <a class="btn btn-warning mr-2" href="#">
+                    <i class="fa fa-plus-square"></i>
+                    Historial de Asistencia
+                </a>
+                <a class="btn btn-dark mr-2" href="#">
+                    <i class="fa fa-plus-square"></i>
+                    Registro de Asistencia
                 </a>
                 {% endif %}
             </div>
