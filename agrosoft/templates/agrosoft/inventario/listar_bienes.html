@@ -29,6 +29,11 @@
                     <i class="fa fa-plus-square"></i>
                     Exportar a CSV
                 </a>
+                
+                <a class="btn btn-agrosoft mr-2" href="{% url 'agrosoft:export_bienes_excel' %}">
+                    <i class="fa fa-plus-square"></i>
+                    Exportar a Excel
+                </a>
                 {% endif %}
             </div>
             {% for message in messages %}

@@ -21,6 +21,7 @@ from django.db.models import Q
 
 import csv
 import datetime
+import xlwt
 
 # Views de la página web e inicio de sesión.
 # Checks if the user is user or admin type
@@ -581,4 +582,30 @@ def exportBienesCSV(request):
     for bien in bienes:
         writer.writerow([bien.nombre,bien.descripcion,bien.cantidad,bien.proveedor,bien.fecha_Ingreso,bien.fecha_Salida])
    
+    return response
+
+def exportBienesEXCEL(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition']='attachment; filename=BienesAGROSERVIC'+ str(datetime.datetime.now().replace(microsecond=0))+'.xls'
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Bienes')
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Nombre','Descripcion','Cantidad','Proveedor','Fecha Ingreso','Fecha Salida']   
+
+    for col_num in range(len(columns)):
+        ws.write(row_num,col_num,columns[col_num],font_style)
+    font_style = xlwt.XFStyle()
+
+    rows = Inventario.objects.values_list('nombre','descripcion','cantidad','proveedor','fecha_Ingreso','fecha_Salida')
+    
+    for row in rows:
+        row_num += 1
+        for col_num in range(len(row)):
+             ws.write(row_num,col_num,str(row[col_num]),font_style)
+
+    wb.save(response)
+
     return response

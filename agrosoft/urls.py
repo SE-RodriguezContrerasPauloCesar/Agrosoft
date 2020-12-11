@@ -59,6 +59,8 @@ urlpatterns = [
     path('calendario/evento/<int:pk>/remove', views.EventMemberDeleteView.as_view(), name="remove_event"),
 	path('calendario/eliminar/<int:event_id>', views.eliminar_evento, name="eliminarevento"),
 
-    path('inventario/export', views.exportBienesCSV, name='export_bienes_csv'),
+    path('inventario/export1', views.exportBienesCSV, name='export_bienes_csv'),
+	path('inventario/export2', views.exportBienesEXCEL, name='export_bienes_excel'),
+
 
 ]
