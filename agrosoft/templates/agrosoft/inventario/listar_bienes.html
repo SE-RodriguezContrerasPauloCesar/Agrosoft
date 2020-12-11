@@ -24,6 +24,11 @@
                     <i class="fa fa-plus-square"></i>
                     Registrar Entrada Salida
                 </a>
+
+                <a class="btn btn-agrosoft mr-2" href="{% url 'agrosoft:export_bienes_csv' %}">
+                    <i class="fa fa-plus-square"></i>
+                    Exportar a CSV
+                </a>
                 {% endif %}
             </div>
             {% for message in messages %}

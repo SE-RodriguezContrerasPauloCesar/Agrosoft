@@ -19,6 +19,9 @@ from django.urls import reverse
 from .models import *
 from django.db.models import Q
 
+import csv
+import datetime
+
 # Views de la página web e inicio de sesión.
 # Checks if the user is user or admin type
 def system_home(request):	
@@ -566,3 +569,16 @@ class EventMemberDeleteView(generic.DeleteView):
     template_name = 'agrosoft/calendario/event_delete.html'
     success_url = reverse_lazy('agrosoft:calendar')
 
+# GESTIÓN DE REPORTES
+# Reportes de bienes de la empresa
+def exportBienesCSV(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition']='attachment; filename=BienesAGROSERVIC'+ str(datetime.datetime.now().replace(microsecond=0))+'.csv'
+    writer = csv.writer(response)
+    writer.writerow(['Nombre','Descripcion','Cantidad','Proveedor','Fecha Ingreso','Fecha Salida'])
+    query_set = Inventario.objects.all()
+    bienes = reversed(list(query_set))    
+    for bien in bienes:
+        writer.writerow([bien.nombre,bien.descripcion,bien.cantidad,bien.proveedor,bien.fecha_Ingreso,bien.fecha_Salida])
+   
+    return response
