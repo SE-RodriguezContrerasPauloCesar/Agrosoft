@@ -24,7 +24,7 @@
 											<div class="col-7 d-flex align-items-center">
 												<div class="numbers">
 													<p class="card-category">Personal</p>
-													<h4 class="card-title">1,294</h4>
+													<h4 class="card-title">{{ personal_count }}</h4>
 												</div>
 											</div>
 										</div>
@@ -62,13 +62,14 @@
 											<div class="col-7 d-flex align-items-center">
 												<div class="numbers">
 													<p class="card-category">Lotes</p>
-													<h4 class="card-title">1303</h4>
+													<h4 class="card-title">{{ lotes_count }}</h4>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
+                            </div>
+                           
 							<div class="col-md-3">
 								<div class="card card-stats card-primary">
 									<div class="card-body ">
@@ -81,13 +82,15 @@
 											<div class="col-7 d-flex align-items-center">
 												<div class="numbers">
 													<p class="card-category">Inventario</p>
-													<h4 class="card-title">576</h4>
+													<h4 class="card-title">
+                                                        {{ bienes_count }}
+                                                    </h4>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
+                            </div>                           
 						</div>                       
 
             <h2>

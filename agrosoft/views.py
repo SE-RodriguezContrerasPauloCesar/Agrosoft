@@ -31,8 +31,16 @@ def system_home(request):
 def listar_lotes(request):
     query_set = Lote.objects.all()
     lotes = reversed(list(query_set))
+
+    lotes_count = Lote.objects.count()    
+    bienes_count = Inventario.objects.count()    
+    personal_count = Trabajador.objects.count()   
+
     context = {
-        'lotes': lotes,        
+        'lotes': lotes,  
+        'bienes_count': bienes_count, 
+        'lotes_count': lotes_count,   
+        'personal_count': personal_count,        
     }
     return render(request, 'agrosoft/lotes/listar_lotes.html', context)   
 
