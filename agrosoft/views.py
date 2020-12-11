@@ -1,4 +1,4 @@
-from datetime import datetime, date
+from datetime import date
 from datetime import timedelta
 import calendar
 from django.utils.safestring import mark_safe
@@ -20,7 +20,7 @@ from .models import *
 from django.db.models import Q
 
 import csv
-import datetime
+import datetime as dt
 import xlwt
 
 from .utils import render_to_pdf 
@@ -475,7 +475,7 @@ def get_date(req_day):
     if req_day:
         year, month = (int(x) for x in req_day.split('-'))
         return date(year, month, day=1)
-    return datetime.today()
+    return dt.date.today()
 
 def prev_month(d):
     first = d.replace(day=1)
@@ -578,7 +578,7 @@ class EventMemberDeleteView(generic.DeleteView):
 # Reportes de bienes de la empresa
 def exportBienesCSV(request):
     response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition']='attachment; filename=BienesAGROSERVIC'+ str(datetime.datetime.now().replace(microsecond=0))+'.csv'
+    response['Content-Disposition']='attachment; filename=BienesAGROSERVIC_'+ str(dt.date.today())+'.csv'
     writer = csv.writer(response)
     writer.writerow(['Nombre','Descripcion','Cantidad','Proveedor','Fecha Ingreso','Fecha Salida'])
     query_set = Inventario.objects.all()
@@ -590,7 +590,7 @@ def exportBienesCSV(request):
 
 def exportBienesEXCEL(request):
     response = HttpResponse(content_type='application/ms-excel')
-    response['Content-Disposition']='attachment; filename=BienesAGROSERVIC'+ str(datetime.datetime.now().replace(microsecond=0))+'.xls'
+    response['Content-Disposition']='attachment; filename=BienesAGROSERVIC_'+ str(dt.date.today())+'.xls'
     wb = xlwt.Workbook(encoding='utf-8')
     ws = wb.add_sheet('Bienes')
     row_num = 0
@@ -627,7 +627,7 @@ class GeneratePDF(View):
         pdf = render_to_pdf('agrosoft/inventario/pdf-output.html', context)
         if pdf:
             response = HttpResponse(pdf, content_type='application/pdf')            
-            filename = "BienesAgroservic_%s.pdf" %(str(datetime.datetime.now().replace(microsecond=0)))
+            filename = "BienesAgroservic_%s.pdf" %(str(dt.date.today()))
             content = "inline; filename=%s" %(filename)
             download = request.GET.get("download")
             if download:

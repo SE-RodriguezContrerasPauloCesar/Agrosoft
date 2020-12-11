@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap');
 
-.fondo {
-  background-image: url("../../static/img/universidad-min.jpg");
+.fondo {  
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
