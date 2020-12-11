@@ -42,6 +42,14 @@ urlpatterns = [
 	path('personal/agregar/', views.agregar_personal, name='agregarpersonal'),
 	path('personal/editar/<int:personal_id>/', views.editar_personal, name='editarpersonal'),
 	path('personal/eliminar/<int:personal_id>/', views.eliminar_personal, name='eliminarpersonal'),
+
+	path('inventario/', views.listar_bienes, name='listarbienes'),
+	path('inventario/<int:inventario_id>/', views.detalle_bien, name='detallebien'),
+	path('inventario/agregar/', views.agregar_bien, name='agregarbien'),
+	path('inventario/editar/<int:inventario_id>/', views.editar_bien, name='editarbien'),
+	path('inventario/eliminar/<int:inventario_id>/', views.eliminar_bien, name='eliminarbien'),
+	path('inventario/registrarES/', views.registrares_bien, name='registraresbien'),
+	
 	
     path('calendario', views.CalendarView.as_view(), name='calendar'),
     path('calendario/evento/new/', views.create_event, name='event_new'),

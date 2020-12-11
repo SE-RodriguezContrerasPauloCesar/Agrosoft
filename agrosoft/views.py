@@ -378,6 +378,81 @@ def editar_personal(request, personal_id):
             return redirect('agrosoft:listarpersonal')
     return render(request, 'agrosoft/personal/editar_personal.html', context)
 
+# Views de la Gestión de Inventario
+# Listar Bienes registrados
+def listar_bienes(request):
+    query_set = Inventario.objects.all()
+    bienes = reversed(list(query_set))
+    context = {
+        'bienes': bienes,        
+    }
+    return render(request, 'agrosoft/inventario/listar_bienes.html', context)      
+
+# Agregar un nuevo Bien
+def agregar_bien(request):    
+    
+    if request.method == 'POST':
+        formulario = InventarioFormulario(request.POST)
+        if formulario.is_valid():
+            bien = formulario.save()                        
+            messages.info(request,'Bien registrado con éxito')
+            return redirect(reverse('agrosoft:listarbienes'))
+    else:
+        formulario = InventarioFormulario()
+    context = {
+        'formulario': formulario
+    }
+    return render(request, 'agrosoft/inventario/agregar_bien.html', context)
+
+# Mostrar detalle de un Bien
+def detalle_bien(request, inventario_id):
+	title = 'Detalle de Cultivo'
+	bien = Inventario.objects.get(id = inventario_id)
+
+	return render(request, 'agrosoft/inventario/detalle_bien.html', locals())
+
+# Editar un Bien
+def editar_bien(request, inventario_id):
+    bien = Inventario.objects.get(id = inventario_id)
+    if request.method == 'GET':
+        form = InventarioFormulario(instance = bien)
+        context = {
+            'form': form
+        }
+    else:
+        form = InventarioFormulario(request.POST, instance = bien)
+        context = {
+            'form': form
+        }
+        if form.is_valid():
+            form.save()
+            messages.info(request, 'Bien actualizado')
+            return redirect('agrosoft:listarbienes')
+    return render(request, 'agrosoft/inventario/editar_bien.html', context)
+
+# Eliminar un Bien registrado
+def eliminar_bien(request, inventario_id):
+    bien = Inventario.objects.get(id = inventario_id)
+    bien.delete()
+    messages.info(request, 'Bien eliminado')
+    return redirect('agrosoft:listarbienes')
+
+# Registrar la E/S de un Bien
+def registrares_bien(request):    
+    if request.method == 'POST':
+        formulario = InventarioFormulario(request.POST)
+        if formulario.is_valid():
+            bien = formulario.save()                        
+            messages.info(request,'Bien registrado con éxito')
+            return redirect(reverse('agrosoft:listarbienes'))
+    else:
+        formulario = InventarioFormulario()
+    context = {
+        'formulario': formulario
+    }
+    return render(request, 'agrosoft/inventario/registroES_bien.html', context)
+
+
 # Views de la Gestion de Calendario
 # Obtener información necesaria para el calendario
 def get_date(req_day):

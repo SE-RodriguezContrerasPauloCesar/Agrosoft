@@ -84,6 +84,19 @@ class PersonalFormulario(forms.ModelForm):
                 }
             )
 
+class InventarioFormulario(forms.ModelForm):
+    class Meta:
+        model = Inventario
+        fields = ('nombre', 'descripcion', 'cantidad', 'proveedor', 'fecha_Ingreso', 'fecha_Salida')
+    def __init__(self, *args, **kwargs):
+        super(InventarioFormulario, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update(
+                {
+                    'class': 'form-control',                    
+                }
+            )
+
 class EventForm(forms.ModelForm):
     class Meta:
         model = Event
