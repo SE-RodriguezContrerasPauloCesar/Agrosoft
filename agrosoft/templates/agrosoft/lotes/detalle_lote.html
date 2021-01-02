@@ -1,49 +1,84 @@
-<div class="modal-lg" style="margin:auto; margin-top: -50px;">
+{% include 'agrosoft/layout.html' with active_page='lote' %}
+{% load static %}
+{% block container %}
+<div class="main-panel">
     <div class="content">
         <div class="container-fluid shadow-sm bg-light p-3">
-            <div class="modal-header">
-                <h1> <i class="fa fa-building" style="color: #01681e;"></i>
-                    <span class="text-success">{{title}}: </span><br>
-                    <span class="text-capitalize">{{lote.nombre}}</span>
-                </h1>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+            <h1> <i class="fa fa-building" style="color: #01681e;"></i>
+                <span class="text-success">{{title}}: </span>
+                <span class="text-capitalize">{{lote.nombre}}</span>
+            </h1>
+
+            <div class="dropdown-divider"></div>
+            <!-- Table of user information -->
+            <div class="table-responsive shadow-sm" style="border-radius: 9px;">
+                <table class="table table-head-bg-success table-striped table-hover">
+                    <thead style="background: linear-gradient(120deg,#19b648,#59d17b);">
+                        <tr>
+                            <th scope="col">Item</th>
+                            <th scope="col">Información</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Nombre de Lote</td>
+                            <td>{{lote.nombre}}</td>
+                        </tr>
+                        <tr>
+                            <td>Area</td>
+                            <td class="text-capitalize">{{lote.area}} &#13217;</td>
+                        </tr>
+                        <tr>
+                            <td>Fecha de Riego</td>
+                            <td class="text-capitalize">{{lote.fecha_riego}}</td>
+                        </tr>
+                        <tr>
+                            <td>Producción</td>
+                            <td class="text-capitalize">{{lote.produ}} cajas</td>
+                        </tr>
+                        <tr>
+                            <td>Cultivo plantado</td>
+                            <td class="text-capitalize">
+                                {% if lote.cultivo %}
+                                <span class="badge badge-success">{{lote.cultivo.nombre}}</span>
+                                {% else %}
+                                <span class="badge badge-danger">Sin cultivos registrados</span>
+                                {% endif %}                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>¿Posee enfermedades?</td>
+                            <td class="text-capitalize">
+                                
+                                {% if lote.enfermedad %}
+                                <span class="badge badge-success">{{lote.enfermedad.nombre}}</span>
+                                <!-- <a class="btn btn-danger" href="" data-toggle="tooltip" title="Editar" data-placement="top" onclick="recomendations()"><i class="fas fa-question-circle fa-lg"></i></a> -->
+                                {% else %}
+                                <span class="badge badge-danger">Sin enfermedad registrada</span>
+                                {% endif %}   
+                                
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Opciones</td>
+                            <td class="text-capitalize">
+                                <a class="btn btn-success" href="{% url 'agrosoft:editarlote' lote.id %}" data-toggle="tooltip"
+                                    title="Editar" data-placement="top"><i class="fas fa-edit fa-lg"></i></a>
+                                <a class="btn btn-success" href="{% url 'agrosoft:eliminarlote' lote.id %}"
+                                    onclick="return confirm('¿Está seguro de eliminar este Cultivo?')"
+                                    data-toggle="tooltip" title="Editar" data-placement="top"><i class="fas fa-trash"></i></a>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
             </div>
-            <div class="modal-body">
-                <!-- Table of user information -->
-                <div class="table-responsive shadow-sm" style="border-radius: 9px;">
-                    <table class="table table-head-bg-success table-striped table-hover">
-                        <thead style="background: linear-gradient(120deg,#19b648,#59d17b);">
-                            <tr>
-                                <th scope="col">Item</th>
-                                <th scope="col">Información</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Nombre de Lote</td>
-                                <td>{{lote.nombre}}</td>
-                            </tr>
-                            <tr>
-                                <td>Area</td>
-                                <td class="text-capitalize">{{lote.area}}</td>
-                            </tr>
-                            <tr>
-                                <td>Fecha de Riego</td>
-                                <td class="text-capitalize">{{lote.fecha_riego}}</td>
-                            </tr>
-                            <tr>
-                                <td>Producción</td>
-                                <td class="text-capitalize">{{lote.produ}}</td>
-                            </tr>
-                            
-                        </tbody>
-                    </table>
-                </div>
-                <a class="btn btn-jaku my-3" href="{% url 'agrosoft:listarlotes'%}">Volver a lista de lotes</a>
-                <!-- End of table of user information -->
-            </div>
+            <a class="btn btn-jaku my-3" href="{% url 'agrosoft:listarlotes'%}">Volver a lista de lotes</a>
+            <a class="btn btn-warning my-3" href="{% url 'agrosoft:produlote' lote.id %}"><i class="fa fa-plus-square"></i> Gestionar Producción</a>
+            <!-- End of table of user information -->
+
         </div>
     </div>
 </div>
+{% endblock %}
