@@ -17,8 +17,7 @@
                     {% for message in messages %}
                         {{ message }}
                     {% endfor %}
-                    <p>{{ form.nombre.errors.as_text }}</p>
-                    <p>{{ form.tipo.errors.as_text }}</p>
+                    <p>{{ form.nombre.errors.as_text }}</p>                    
                     <p>{{ form.precio.errors.as_text }}</p>                    
                 </div>
             {% endif %}
@@ -30,10 +29,7 @@
                         <label for="nombre">Nombre</label>
                         {{form.nombre}}
                     </div>
-                    <div>
-                        <label for="tipo">Tipo</label></br>
-                        {{form.tipo}}
-                    </div>
+                    
                     <div>
                         <label for="precio">Precio</label></br>
                         {{form.precio}}
