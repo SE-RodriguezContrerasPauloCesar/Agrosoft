@@ -7,11 +7,22 @@ urlpatterns = [
     path('', views.system_home, name='home'),  
     path('administrador/', views.listar_lotes, name='adminhome'),     
 
+	path('lotes/', views.listar_lotes, name='listarlotes'),
+	path('lotes/<int:lote_id>/', views.detalle_lote, name='detallelote'),
+	path('lotes/agregar/', views.agregar_lote, name='agregarlote'),
+	path('lotes/editar/<int:lote_id>/', views.editar_lote, name='editarlote'),
+	path('lotes/eliminar/<int:lote_id>/', views.eliminar_lote, name='eliminarlote'),
+	path('lotes/produccion/<int:lote_id>/', views.produccion_lote, name='produlote'),		
+	path('lotes/produccion/<int:lote_id>/eliminar/<int:produccion_id>/', views.eliminar_produccion, name='eliminarproduccion'),
+
+
 	path('usuario/', views.listar_usuario, name='listarusuarios'),
 	path('usuario/<int:usuario_id>/', views.detalle_usuario, name='detalleusuario'),
 	path('usuario/agregar/', views.agregar_usuario, name='agregarusuario'),
 	path('usuario/editar/<int:usuario_id>/', views.editar_usuario, name='editarusuario'),
 	path('usuario/eliminar/<int:usuario_id>/', views.eliminar_usuario, name='eliminarusuario'),
+
+
 
 	path('cultivo/', views.listar_cultivo, name='listarcultivos'),
 	path('cultivo/<int:cultivo_id>/', views.detalle_cultivo, name='detallecultivo'),
@@ -19,11 +30,7 @@ urlpatterns = [
 	path('cultivo/editar/<int:cultivo_id>/', views.editar_cultivo, name='editarcultivo'),
 	path('cultivo/eliminar/<int:cultivo_id>/', views.eliminar_cultivo, name='eliminarcultivo'),
 
-	path('lotes/', views.listar_lotes, name='listarlotes'),
-	path('lotes/<int:lote_id>/', views.detalle_lote, name='detallelote'),
-	path('lotes/agregar/', views.agregar_lote, name='agregarlote'),
-	path('lotes/editar/<int:lote_id>/', views.editar_lote, name='editarlote'),
-	path('lotes/eliminar/<int:lote_id>/', views.eliminar_lote, name='eliminarlote'),
+	
 
 	path('enfermedades/', views.listar_enfermedad, name='listarenfermedades'),
 	path('enfermedad/<int:enfermedad_id>/', views.detalle_enfermedad, name='detalleenfermedad'),
@@ -42,13 +49,17 @@ urlpatterns = [
 	path('personal/agregar/', views.agregar_personal, name='agregarpersonal'),
 	path('personal/editar/<int:personal_id>/', views.editar_personal, name='editarpersonal'),
 	path('personal/eliminar/<int:personal_id>/', views.eliminar_personal, name='eliminarpersonal'),
+	path('personal/registroasis/', views.registro_asistencia, name='registroasistencia'),
+	path('personal/historialasis/', views.historial_asistencia, name='historialasistencia'),
 
 	path('inventario/', views.listar_bienes, name='listarbienes'),
 	path('inventario/<int:inventario_id>/', views.detalle_bien, name='detallebien'),
 	path('inventario/agregar/', views.agregar_bien, name='agregarbien'),
 	path('inventario/editar/<int:inventario_id>/', views.editar_bien, name='editarbien'),
 	path('inventario/eliminar/<int:inventario_id>/', views.eliminar_bien, name='eliminarbien'),
-	path('inventario/registrarES/', views.registrares_bien, name='registraresbien'),
+	path('inventario/registrarES/<int:inventario_id>/', views.registrares_bien, name='registraresbien'),
+	path('inventario/registrarE/<int:inventario_id>/', views.registrare_bien, name='registrarebien'),
+	path('inventario/registrarS/<int:inventario_id>/', views.registrars_bien, name='registrarsbien'),
 	
 	
     path('calendario', views.CalendarView.as_view(), name='calendar'),

@@ -4,6 +4,11 @@ from django.contrib.auth.models import User
 
 
 # Create your models here.
+class Cultivo(models.Model):
+    nombre = models.CharField('Nombre', max_length=200)
+    tipo = models.CharField('Tipo', max_length=200)
+    precio = models.FloatField('Precio', null=False)
+    estadoRegistro = models.CharField('Estado de Registros', max_length=2)
 
 class Fertilizante(models.Model):
     nombre = models.CharField('Nombre', max_length=200)
@@ -15,7 +20,30 @@ class Fertilizante(models.Model):
 class Enfermedad(models.Model):
     nombre = models.CharField('Nombre', max_length=200)
     descripcion = models.TextField('Descripción', null=False)
-    estadoRegistro = models.CharField('Estado de Registros', max_length=2)
+    fertilizante = models.ForeignKey(Fertilizante, on_delete=models.CASCADE, null=True)    
+
+class Lote(models.Model):
+    fechariego_ = (
+        ('Lunes y Miercoles','Lunes y Miercoles'),
+        ('Martes y Jueves','Martes y Jueves')
+    )
+    nombre = models.CharField('Nombre', max_length=50)
+    area = models.IntegerField('Área', null=False)
+    fecha_riego = models.CharField('Fecha de Riego',  choices=fechariego_,max_length=50)
+    produ = models.IntegerField('Produccion', null=True, default="0")
+    cultivo = models.ForeignKey(Cultivo, on_delete=models.CASCADE, null=True)
+    enfermedad = models.ForeignKey(Enfermedad, on_delete=models.CASCADE, null=True)
+    estadoRegistro = models.CharField('Estado de Registro', max_length=2)
+
+
+class Produccion(models.Model):
+    lote = models.ForeignKey(Lote, on_delete=models.CASCADE)
+    cultivo = models.ForeignKey(Cultivo, on_delete=models.CASCADE)
+    cajas = models.IntegerField('Cajas', null=False)
+    kilogramos = models.IntegerField('KG', null=False)
+    fecha = models.DateField('Fecha de Registro', null=True, blank=True)	
+
+
 
 class Enfermedad_Fertelizante(models.Model):
     fertilizante_id = models.ForeignKey(Fertilizante, on_delete=models.CASCADE)
@@ -23,34 +51,23 @@ class Enfermedad_Fertelizante(models.Model):
     dosis = models.TextField('Dosis', null=False)
 
 class Trabajador(models.Model):
-    dni = models.IntegerField('DNI', null=False)
+    genero_ = (
+        ('Masculino','Masculino'),
+        ('Femenino','Femenino')
+    )
+    dni = models.IntegerField('DNI', null=True)
     nombre = models.CharField('Nombre', max_length=400)
     apellido = models.CharField('Apellidos', max_length=200)
-    fecha_nacimiento = models.DateField('Fecha de Nacimiento', null=False)
-    horas_trabajo = models.IntegerField('Horas de Trabajo', null=False)
-    genero = models.CharField('Género', max_length=50)
+    fecha_nacimiento = models.DateField('Fecha de Nacimiento', null=True)
+    horas_trabajo = models.IntegerField('Horas de Trabajo', null=True)
+    genero = models.CharField('Género',  choices=genero_, max_length=50)
     estadoRegistro = models.CharField('Estado de Registros', max_length=2)
-
-class Cultivo(models.Model):
-    nombre = models.CharField('Nombre', max_length=200)
-    tipo = models.CharField('Tipo', max_length=200)
-    precio = models.FloatField('Precio', null=False)
-    estadoRegistro = models.CharField('Estado de Registros', max_length=2)
-
-
-class Lote(models.Model):
-    nombre = models.CharField('Nombre', max_length=200)
-    area = models.IntegerField('Área', null=False)
-    fecha_riego = models.DateField('Fecha de Riego', null=False)
-    produ = models.IntegerField('Produccion', null=False)
-    estadoRegistro = models.CharField('Estado de Registros', max_length=2)
-
-class Produccion(models.Model):
-    lote_id = models.ForeignKey(Lote, on_delete=models.CASCADE)
-    cultivo_id = models.ForeignKey(Cultivo, on_delete=models.CASCADE)
-    cajas = models.IntegerField('Cajas', null=False)
-    kilogramos = models.IntegerField('KG', null=False)
-    total = models.IntegerField('Total', null=False)    
+    
+class Asistencia(models.Model):
+    trabajador_id = models.ForeignKey(Trabajador, on_delete=models.CASCADE)
+    fecha = models.DateField('Fecha de Asistencia', null=True)
+    hora_entrada = models.TimeField('Hora de Entrada', null=True)
+    hora_salida = models.TimeField('Hora de Salida', null=True)        
 
 class Trabajador_Lote(models.Model):
     trabajador_id = models.ForeignKey(Trabajador, on_delete=models.CASCADE)
@@ -62,17 +79,17 @@ class Enfermedad_Lote(models.Model):
 
 class Inventario(models.Model):
     estado_ = (
-        ('1','Retirado'),
-        ('2','En Inventario')
+        ('Retirado','Retirado'),
+        ('En Inventario','En Inventario')
     )
     nombre = models.CharField('Nombre', max_length=200)
     descripcion = models.TextField('Descripción', null=False)
     cantidad = models.IntegerField('Cantidad', null=False)
     proveedor = models.CharField('Proveedor', max_length=200)
-    estado = models.CharField('Estado', choices=estado_, max_length=1)
+    estado = models.CharField('Estado', choices=estado_, max_length=20,  null=True)
     encargado = models.CharField('Encargado', max_length=200)
-    fecha_Ingreso = models.DateField('Fecha de Ingreso', null=False)
-    fecha_Salida = models.DateField('Fecha de Salida', null=False)
+    fecha_Ingreso = models.DateField('Fecha de Ingreso', null=True)
+    fecha_Salida = models.DateField('Fecha de Salida', null=True)
     estadoRegistro = models.CharField('Estado de Registros', max_length=2)
 
 class Event(models.Model):    
@@ -95,13 +112,13 @@ class Event(models.Model):
 
 class EventMember(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    lote = models.ForeignKey(Lote, on_delete=models.CASCADE)
 
     class Meta:
-        unique_together = ['event', 'user']
+        unique_together = ['event', 'lote']
 
     def __str__(self):
-        return str(self.user)
+        return str(self.lote)
 
 class Usuario(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE)

@@ -6,9 +6,11 @@ from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .utils import Calendar
 from django.urls import reverse_lazy
-
+from django.db.models import Sum
 from django.contrib.auth import authenticate, login, logout
-from django.shortcuts import redirect, render
+from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
+
+
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import Group
 from django.contrib.auth.forms import UserCreationForm
@@ -36,6 +38,7 @@ def system_home(request):
 		return redirect(reverse('agrosoft_accounts:login'))
 
 # Views de la Gestión de Lotes
+# Listar lotes registrados y mostrar información en dashboard
 def listar_lotes(request):
     query_set = Lote.objects.all()
     lotes = reversed(list(query_set))
@@ -44,53 +47,156 @@ def listar_lotes(request):
     bienes_count = Inventario.objects.count()    
     personal_count = Trabajador.objects.count()   
 
+    lotes_sorted = Lote.objects.order_by('-produ', 'nombre')    
+
+    menor = min(lotes_sorted,key=lambda x: x.produ)
+    mayor = max(lotes_sorted,key=lambda x: x.produ)
+    produ_total = Lote.objects.aggregate(Sum('produ'))
+    
+    #Falta produccion total en soles jalar de gestion de produccion
+
     context = {
         'lotes': lotes,  
         'bienes_count': bienes_count, 
         'lotes_count': lotes_count,   
-        'personal_count': personal_count,        
+        'personal_count': personal_count,
+        'lotes_sorted': lotes_sorted,  
+        'menor': menor,  
+        'mayor': mayor,     
+        'produ_total': produ_total,        
     }
     return render(request, 'agrosoft/lotes/listar_lotes.html', context)   
 
 # Agregar un nuevo Lote
-def agregar_lote(request):    
-    
+def agregar_lote(request):     
+    cultivos = Cultivo.objects.all()   
+    enfermedades = Enfermedad.objects.all()
+
     if request.method == 'POST':
         formulario = LoteFormulario(request.POST)
+        context = {
+			"form": formulario,		
+            "cultivos": cultivos,
+            "enfermedades": enfermedades
+		}
         if formulario.is_valid():            
-            lote = formulario.save()                        
-            messages.info(request,'Lote registrado con éxito')
+            lote = formulario.save()                                    
+            messages.info(request,'Lote registrado con éxito!')
             return redirect(reverse('agrosoft:listarlotes'))
     else:
         formulario = LoteFormulario()
+        context = {
+			"form": formulario,            
+			"cultivos": cultivos,
+            "enfermedades": enfermedades
+		}
     context = {
-        'formulario': formulario
+        'formulario': formulario,
+        "cultivos": cultivos,
+        "enfermedades": enfermedades
     }
-    return render(request, 'agrosoft/lotes/agregar_lote.html', context)
+    return render(request, 'agrosoft/lotes/agregar_lote.html', locals())
 
-# Mostrar detalle de un Lote
+    
+
+# Mostrar detalle de un Lote y Gestionar diferentes aspectos del mismo
 def detalle_lote(request, lote_id):
-	title = 'Detalle de Lote'
-	lote = Lote.objects.get(id = lote_id)
-
+	title = 'Gestión de Lote'
+	lote = Lote.objects.get(id = lote_id)    
 	return render(request, 'agrosoft/lotes/detalle_lote.html', locals())
+
+# Produccion de un Lote
+def produccion_lote(request, lote_id):   
+    title = 'Producción de Lote'  
+    lote = Lote.objects.get(pk=lote_id)        
+    cultivos = Cultivo.objects.all()    
+    producciones = Produccion.objects.filter(lote__id=lote_id)
+    
+    
+    caja_total = Produccion.objects.filter(lote__id=lote_id).aggregate(Sum('cajas'))           
+
+    if request.method == 'GET':
+        return render(request, 'agrosoft/lotes/produccion_lote.html', locals())   
+	
+    new_fecha = request.POST.getlist('fecha')	
+    assign_to_ids = request.POST.getlist('cultivos')	
+    assigned_dates = request.POST.getlist('fecha')	
+    cajas = request.POST.getlist('cajas')
+	
+    kilogramos = request.POST.getlist('kilogramos')
+    assigned_cultivos = []
+
+    # Contar cajas totales , este procedimiento sera igual para mostrar en la tabal de lotes la produccion
+    
+    
+    for a in assign_to_ids:	
+    	if a == 'Ninguno':	
+    		assigned_cultivos.append(a)	
+    	else:		        
+    		#assigned_cultivos.append(Cultivo.objects.get(id=a))  
+            assigned_cultivos.append(Cultivo.objects.get(id=a))
+            
+            
+    d=0
+    for t, af, b ,c in zip(new_fecha, assigned_dates, cajas, kilogramos):
+        if t == '' and assigned_cultivos[c] == 'Ninguno' and b == '' and c == '':
+			
+            return redirect(reverse('agrosoft:produlote', kwargs={'lote_id':lote_id}))
+        else:					
+            if assigned_cultivos[d] == 'Ninguno':				
+                if af == '':									
+                    task = Produccion(fecha=af, lote=lote)
+                else:
+                    task =Produccion(fecha=af, lote=lote, cajas=b, kilogramos=c)			
+            else:
+				
+                if af == '':
+					
+                    task = Produccion(fecha=af, lote=lote, cultivo=assigned_cultivos[d])
+				
+                else:
+					
+                   
+                    task = Produccion(fecha=af, lote=lote, cultivo=assigned_cultivos[d], cajas=b, kilogramos=c)                   		
+			
+            d = d+1
+			
+            task.save()	
+            
+    d = 0
+		     
+    return redirect(reverse('agrosoft:produlote', kwargs={'lote_id':lote_id}))
+		
+
+  
 
 # Editar un Lote
 def editar_lote(request, lote_id):
-    lote = Lote.objects.get(id = lote_id)
+    lote = Lote.objects.get(id = lote_id)    
+    cultivos = Cultivo.objects.all()   
+    enfermedades = Enfermedad.objects.all()    
+    lote_produ = lote.produ
+    
     if request.method == 'GET':
         form = LoteFormulario(instance = lote)
         context = {
-            'form': form
+            'form': form,
+            "cultivos": cultivos,
+            "enfermedades": enfermedades,
+            "lote_produ": lote_produ,
+
         }
     else:
         form = LoteFormulario(request.POST, instance = lote)
         context = {
-            'form': form
+            'form': form,
+            "cultivos": cultivos,
+            "enfermedades": enfermedades,
+            "lote_produ": lote_produ,
         }
         if form.is_valid():
             form.save()
-            messages.info(request, 'Lote actualizado')
+            messages.info(request, 'Lote actualizado con éxito!')
             return redirect('agrosoft:listarlotes')
     return render(request, 'agrosoft/lotes/editar_lote.html', context)
 
@@ -98,8 +204,19 @@ def editar_lote(request, lote_id):
 def eliminar_lote(request, lote_id):
     lote = Lote.objects.get(id = lote_id)
     lote.delete()
-    messages.info(request, 'Lote eliminado')
+    messages.info(request, 'Lote eliminado con éxito!')
     return redirect('agrosoft:listarlotes')
+
+
+# Views de la Gestión de Producción
+
+# Eliminar un Produccion registrado
+def eliminar_produccion(request, lote_id, produccion_id):    
+	task = get_object_or_404(Produccion, pk=produccion_id)
+	task.delete()
+
+	return redirect(reverse('agrosoft:produlote', kwargs={'lote_id':lote_id}))
+
 
 # Views de la Gestión de Usuarios
 # Listar Usuarios registrados
@@ -112,14 +229,14 @@ def listar_usuario(request):
 
 # Agregar un nuevo Usuario
 def agregar_usuario(request):
-    groups = Group.objects.exclude(name='Administrador').exclude(name='Personal')
-    
+    group = Group.objects.get(name='Administrador')     
+
     if request.method == 'POST':
         formulario = UsuarioFormulario(request.POST)
         if formulario.is_valid():
             usuario = formulario.save()
-            grupo = Group.objects.get(name='Administrador')
-            usuario.groups.add(grupo)
+            group = Group.objects.get(name='Administrador')
+            usuario.groups.add(group)
             messages.info(request,'Usuario registrado con éxito')
             return redirect(reverse('agrosoft:listarusuarios'))
     else:
@@ -198,21 +315,25 @@ def detalle_cultivo(request, cultivo_id):
 # Editar un Cultivo
 def editar_cultivo(request, cultivo_id):
     cultivo = Cultivo.objects.get(id = cultivo_id)
+    fertilizantes = Fertilizante.objects.all()    
     if request.method == 'GET':
         form = CultivoFormulario(instance = cultivo)
         context = {
-            'form': form
+            'form': form,
+            "fertilizantes": fertilizantes,
         }
     else:
         form = CultivoFormulario(request.POST, instance = cultivo)
         context = {
-            'form': form
+            'form': form,
+            "fertilizantes": fertilizantes,
         }
         if form.is_valid():
             form.save()
             messages.info(request, 'Cultivo actualizado')
             return redirect('agrosoft:listarcultivos')
     return render(request, 'agrosoft/cultivos/editar_cultivo.html', context)
+
 
 # Eliminar un Cultivo registrado
 def eliminar_cultivo(request, cultivo_id):
@@ -233,18 +354,29 @@ def listar_enfermedad(request):
 
 # Agregar nueva Enfermedad
 def agregar_enfermedad(request):
+    fertilizantes = Fertilizante.objects.all()   
     if request.method == 'POST':
         formulario = EnfermedadFormulario(request.POST)
+        context = {
+			"formulario": formulario,		
+            "fertilizantes": fertilizantes,            
+		}
         if formulario.is_valid():
-            cultivo = formulario.save()                        
+            enfermedad = formulario.save()                        
             messages.info(request,'Enfermedad registrada con éxito')
             return redirect(reverse('agrosoft:listarenfermedades'))
     else:
         formulario = EnfermedadFormulario()
+        context = {
+			"formulario": formulario,		
+            "fertilizantes": fertilizantes,            
+		}
     context = {
-        'formulario': formulario
+        'formulario': formulario,
+        'fertilizantes': fertilizantes
     }
-    return render(request, 'agrosoft/enfermedades/agregar_enfermedad.html', context)
+    return render(request, 'agrosoft/enfermedades/agregar_enfermedad.html', locals())
+
 
 # Editar un Enfermedad
 def editar_enfermedad(request, enfermedad_id):
@@ -394,6 +526,18 @@ def editar_personal(request, personal_id):
             return redirect('agrosoft:listarpersonal')
     return render(request, 'agrosoft/personal/editar_personal.html', context)
 
+# Mostrar detalle de Personal
+def registro_asistencia(request):
+	title = 'Registro de Asistencia de Personal'
+	
+	return render(request, 'agrosoft/personal/registro_asistencia.html', locals())
+
+# Mostrar detalle de Personal
+def historial_asistencia(request):
+	title = 'Detalle de Personal'
+	
+	return render(request, 'agrosoft/personal/historial_asistencia.html', locals())
+
 # Views de la Gestión de Inventario
 # Listar Bienes registrados
 def listar_bienes(request):
@@ -422,7 +566,7 @@ def agregar_bien(request):
 
 # Mostrar detalle de un Bien
 def detalle_bien(request, inventario_id):
-	title = 'Detalle de Cultivo'
+	title = 'Detalle de Bien'
 	bien = Inventario.objects.get(id = inventario_id)
 
 	return render(request, 'agrosoft/inventario/detalle_bien.html', locals())
@@ -454,20 +598,48 @@ def eliminar_bien(request, inventario_id):
     return redirect('agrosoft:listarbienes')
 
 # Registrar la E/S de un Bien
-def registrares_bien(request):    
+def registrares_bien(request, inventario_id):    
+    bien = Inventario.objects.get(id = inventario_id)
+    return render(request, 'agrosoft/inventario/registroES_bien.html', locals())
+	
+# Editar un Bien
+def registrare_bien(request, inventario_id):
+    bien = Inventario.objects.get(id = inventario_id)
+    bien.estado= '2'
+    bien.encargado=""
+    bien.save()
     if request.method == 'POST':
-        formulario = InventarioFormulario(request.POST)
+        formulario = InventarioEFormulario(request.POST,instance = bien)
         if formulario.is_valid():
             bien = formulario.save()                        
             messages.info(request,'Bien registrado con éxito')
             return redirect(reverse('agrosoft:listarbienes'))
     else:
-        formulario = InventarioFormulario()
+        formulario = InventarioEFormulario(instance = bien)
     context = {
         'formulario': formulario
     }
-    return render(request, 'agrosoft/inventario/registroES_bien.html', context)
+    return render(request, 'agrosoft/inventario/registroE.html', context)
+    
 
+    # Editar un Bien
+def registrars_bien(request, inventario_id):    
+    bien = Inventario.objects.get(id = inventario_id)
+    bien.estado= '1'
+    bien.save()
+    if request.method == 'POST':
+        formulario = InventarioSFormulario(request.POST,instance = bien)
+        if formulario.is_valid():
+            bien = formulario.save()                        
+            messages.info(request,'Bien registrado con éxito')
+            return redirect(reverse('agrosoft:listarbienes'))
+    else:
+        formulario = InventarioSFormulario(instance = bien)
+    context = {
+        'formulario': formulario
+    }
+    return render(request, 'agrosoft/inventario/registroS.html', context)
+    
 
 # Views de la Gestion de Calendario
 # Obtener información necesaria para el calendario
@@ -549,22 +721,25 @@ def event_details(request, event_id):
 # Añadir un usuario registrado a un determinado evento
 def add_eventmember(request, event_id):
     forms = AddMemberForm()
+    lotes = Lote.objects.all()
     if request.method == 'POST':
         forms = AddMemberForm(request.POST)
         if forms.is_valid():
             member = EventMember.objects.filter(event=event_id)
             event = Event.objects.get(id=event_id)
             if member.count() <= 9:
-                user = forms.cleaned_data['user']
+                lote = forms.cleaned_data['lote']
                 EventMember.objects.create(
                     event=event,
-                    user=user
+                    lote=lote
                 )
                 return redirect('agrosoft:calendar')
+                
             else:
                 print('--------------User limit exceed!-----------------')
     context = {
-        'form': forms
+        'form': forms,
+        'lotes': lotes
     }
     return render(request, 'agrosoft/calendario/add_member.html', context)
 
