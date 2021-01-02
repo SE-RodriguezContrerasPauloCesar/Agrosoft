@@ -27,16 +27,16 @@ Event Details
         </div>
         <hr>
         <div class="clearfix">
-            <h4 class="left" > Miembros de este evento</h4>
-            <a class="btn btn-success right" href="{% url 'agrosoft:add_eventmember' event.id %}"> Añadir Miembro </a>
+            <h4 class="left" > Lotes relacionados a este evento</h4>
+            <a class="btn btn-success right" href="{% url 'agrosoft:add_eventmember' event.id %}"> Añadir Lote </a>
         </div>
         <table class="table table-bordered">
             <thead>                  
                 <tr>
                   <th style="width: 10px">#</th>
                   <th>Nombre</th>
-                  <th>Usuario</th>
-                  <th>Email</th>
+                  <th>Fecha de Riego</th>
+                  <th>Produccion</th>
                   <th>Accion</th>
                 </tr>
               </thead>
@@ -44,9 +44,9 @@ Event Details
                 {% for member in eventmember %}
                 <tr role="row">
                     <td>{{ forloop.counter }}</td>
-                    <td>{{ member.user.first_name }} {{ member.user.last_name }}</td>
-                    <td>{{ member.user.username }}</td>
-                    <td>{{ member.user.email }}</td>
+                    <td>{{ member.lote.nombre }} </td>
+                    <td>{{ member.lote.fecha_riego }}</td>
+                    <td>{{ member.lote.produ }} cajas</td>
                     <td>
                         <a class="btn btn-danger"  href="{% url 'agrosoft:remove_event' member.id %}">Eliminar</a>
                     </td>
