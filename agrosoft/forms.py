@@ -7,7 +7,7 @@ from .models import *
 class UsuarioFormulario(UserCreationForm):
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'password1', 'password2')
+        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
     def __init__(self, *args, **kwargs):
         super(UsuarioFormulario, self).__init__(*args, **kwargs)
         for field in self.fields:
@@ -22,7 +22,7 @@ class UsuarioFormulario(UserCreationForm):
 class CultivoFormulario(forms.ModelForm):
     class Meta:
         model = Cultivo
-        fields = ('nombre', 'tipo', 'precio')
+        fields = ('nombre', 'precio')
     def __init__(self, *args, **kwargs):
         super(CultivoFormulario, self).__init__(*args, **kwargs)
         for field in self.fields:
@@ -32,10 +32,30 @@ class CultivoFormulario(forms.ModelForm):
                 }
             )
 
+# Create event form 
+class ProduccionForm(forms.ModelForm):
+    class Meta:
+        model = Produccion
+        fields = '__all__'
+    # Set required and widgets for fields
+    def __init__(self, *args, **kwargs):
+        super(ProduccionForm, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update(
+                {
+                    'class': 'form-control',
+                }
+            )
+
+    def validate_date(self):
+        if date < datetime.date.today():
+            raise forms.ValidationError("The date cannot be in the past!")
+        return date
+
 class LoteFormulario(forms.ModelForm):
     class Meta:
         model = Lote
-        fields = ('nombre', 'area', 'fecha_riego', 'produ')
+        exclude = ('produ','estadoRegistro')
     def __init__(self, *args, **kwargs):
         super(LoteFormulario, self).__init__(*args, **kwargs)
         for field in self.fields:
@@ -48,7 +68,7 @@ class LoteFormulario(forms.ModelForm):
 class EnfermedadFormulario(forms.ModelForm):
     class Meta:
         model = Enfermedad
-        fields = ('nombre', 'descripcion')
+        fields = '__all__'
     def __init__(self, *args, **kwargs):
         super(EnfermedadFormulario, self).__init__(*args, **kwargs)
         for field in self.fields:
@@ -74,7 +94,7 @@ class FertilizanteFormulario(forms.ModelForm):
 class PersonalFormulario(forms.ModelForm):
     class Meta:
         model = Trabajador
-        fields = ('dni', 'nombre', 'apellido', 'fecha_nacimiento', 'horas_trabajo', 'genero')
+        fields = ('nombre', 'apellido', 'genero')
     def __init__(self, *args, **kwargs):
         super(PersonalFormulario, self).__init__(*args, **kwargs)
         for field in self.fields:
@@ -87,9 +107,35 @@ class PersonalFormulario(forms.ModelForm):
 class InventarioFormulario(forms.ModelForm):
     class Meta:
         model = Inventario
-        fields = ('nombre', 'descripcion', 'cantidad', 'proveedor', 'fecha_Ingreso', 'fecha_Salida')
+        fields = ('nombre', 'descripcion', 'cantidad', 'proveedor')
     def __init__(self, *args, **kwargs):
         super(InventarioFormulario, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update(
+                {
+                    'class': 'form-control',                    
+                }
+            )
+
+class InventarioSFormulario(forms.ModelForm):
+    class Meta:
+        model = Inventario
+        fields = ('encargado', 'fecha_Salida')
+    def __init__(self, *args, **kwargs):
+        super(InventarioSFormulario, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update(
+                {
+                    'class': 'form-control',                    
+                }
+            )
+
+class InventarioEFormulario(forms.ModelForm):
+    class Meta:
+        model = Inventario
+        fields = ('fecha_Ingreso', )
+    def __init__(self, *args, **kwargs):
+        super(InventarioEFormulario, self).__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs.update(
                 {
@@ -116,4 +162,4 @@ class EventForm(forms.ModelForm):
 class AddMemberForm(forms.ModelForm):
   class Meta:
     model = EventMember
-    fields = ['user']
+    fields = ['lote']
