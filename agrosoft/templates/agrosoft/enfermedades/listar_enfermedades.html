@@ -11,7 +11,7 @@
         <div class="container-fluid shadow-sm bg-light p-3">
             <h2>
                 <i class="fa fa-heartbeat" style="color: #73daad;"></i>
-                Mis Enfermedades
+                Enfermedades
             </h2>
             <div class="dropdown-divider"></div>
             <div class="call-add my-3">
@@ -36,6 +36,7 @@
                         <tr>
                             <th scope="col">Nombre</th>
                             <th scope="col">Descripción</th>
+                            <th scope="col">Fertilizante</th>
                             <th scope="col">Acciones</th>
                         </tr>
                     </thead>
@@ -43,6 +44,7 @@
                         {% for p in enfermedades %}
                         <tr>
                             <td> {{p.nombre}}</td>
+                            <td> {{p.fertilizante.nombre}}</td>
                             <td> {{p.descripcion}}</td>
                             <td class="jaku-actions">
                                 <ul>
