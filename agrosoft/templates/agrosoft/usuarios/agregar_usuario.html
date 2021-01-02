@@ -30,7 +30,7 @@
                     <div>
                         <label for="username">Usuario</label></br>
                         <input type="text" id="username" name="username" class="form-control" required pattern="^((\S+ )*\S+)?$" 
-                        title="No poner espacios en blanco al inicio, al final o seguidos." data-toggle="tooltip" data-placement="left">
+                         data-toggle="tooltip" data-placement="left">
                     </div>
                     
                     <div>
@@ -40,11 +40,20 @@
                     <div>
                         <label for="last_name">Apellidos</label></br>
                         <input type="text" id="last_name" name="last_name" class="form-control" equired pattern="^((\S+ )*\S+)?$">
+                    </div> 
+                    <div>
+                        <label for="email">Correo electrónico:</label>
+						<div class="input-group ">
+							<div class="input-group-prepend">
+								<div class="input-group-text">@</div>
+							</div>
+							<input type="email" id="email" name="email" class="form-control" required data-toggle="tooltip" data-placement="left">
+						</div>
                     </div>                    
                     <div>
                         <label for="password1">Contraseña</label></br>
                         <input type="password" id="password1" name="password1" class="form-control" required pattern="^\S+$" 
-                        title="No se aceptan espacios en blanco en la contraseña." data-toggle="tooltip" data-placement="left">
+                         data-toggle="tooltip" data-placement="left">
                     </div>
                     <ul>
                         <li>La contraseña no puede asemejarse tanto a su información de Usuario.</li>
@@ -54,7 +63,7 @@
                     </ul>
                     <div>
                         <label for="password2">Repita su Contraseña</label></br>
-                        <input type="password" id="password2" name="password2" class="form-control" required pattern="^\S+$" title="No se aceptan espacios en blanco en la contraseña." data-toggle="tooltip" data-placement="left">
+                        <input type="password" id="password2" name="password2" class="form-control" required pattern="^\S+$"  data-toggle="tooltip" data-placement="left">
                     </div>
                     
                 </div>

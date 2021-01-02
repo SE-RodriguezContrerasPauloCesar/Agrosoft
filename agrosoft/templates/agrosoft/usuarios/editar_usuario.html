@@ -19,6 +19,7 @@
                     {% endfor %}
                     <p>{{ form.first_name.errors.as_text }}</p>
                     <p>{{ form.last_name.errors.as_text }}</p>
+                    <p>{{ form.email.errors.as_text }}</p>
                     <p>{{ form.password1.errors.as_text }}</p>
                     <p>{{ form.password2.errors.as_text }}</p>
                 </div>
@@ -39,6 +40,10 @@
                         <label for="last_name">Apellidos</label></br>
                         {{form.last_name}}
                     </div>
+                    <div>
+                        <label for="email">Email</label></br>
+                        {{form.email}}
+                    </div>  
                     <div>
                         <label for="password1">Contraseña</label></br>
                         {{form.password1}}
