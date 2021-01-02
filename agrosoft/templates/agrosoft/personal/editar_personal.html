@@ -1,4 +1,4 @@
-{% include 'agrosoft/layout.html' with active_page='fertilizante' %}
+{% include 'agrosoft/layout.html' with active_page='personal' %}
 {% load static %}
 {% block container %}
 <div class="main-panel">
@@ -22,23 +22,13 @@
             {% endif %}
             
             <form method="POST" enctype="multipart/form-data" class="was-validated required">
-                {% csrf_token %}
-                <div>DNI</div>
-                {{form.dni}}
+                {% csrf_token %}               
                 <div>Nombre</div>
                 {{form.nombre}}
                 <div>Apellidos</div>
                 {{form.apellido}}
                 <div>Género</div>
-                {{form.genero}}
-                
-                <div>
-                    <label for="fecha_nacimiento">Fecha Nacimiento</label></br>
-                    <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" class="form-control">
-                </div> 
-                
-                <div>Horas de Trabajo</div>
-                {{form.horas_trabajo}}
+                {{form.genero}}                                                           
                 <button type="submit" class="btn btn-agrosoft px-4 my-3">Modificar Personal</button>
                 <a href="{% url 'agrosoft:listarpersonal' %}" class="btn btn-agrosoft px-4 my-3">Cancelar</a>
             </form>

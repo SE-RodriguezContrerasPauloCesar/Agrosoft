@@ -1,4 +1,4 @@
-{% include 'agrosoft/layout.html' with active_page='fertilizante' %}
+{% include 'agrosoft/layout.html' with active_page='personal' %}
 {% load static %}
 {% block container %}
 
@@ -19,18 +19,14 @@
                 <a class="btn btn-agrosoft mr-2" href="{% url 'agrosoft:agregarpersonal' %}">
                     <i class="fa fa-plus-square"></i>
                     Agregar Personal
-                </a>
-                <a class="btn btn-primary mr-2" href="#">
-                    <i class="fa fa-plus-square"></i>
-                    Calcular Pago
-                </a>
+                </a>                
                 <a class="btn btn-warning mr-2" href="#">
                     <i class="fa fa-plus-square"></i>
-                    Historial de Asistencia
+                    Registro de Asistencia
                 </a>
                 <a class="btn btn-dark mr-2" href="#">
                     <i class="fa fa-plus-square"></i>
-                    Registro de Asistencia
+                    Historial de Asistencia
                 </a>
                 {% endif %}
             </div>
@@ -46,20 +42,18 @@
                 <table class="table table-bordered">
                     <thead style="background: linear-gradient(120deg,#37db73,#3adf97);" class="text-center">
                         <tr>
-                            <th scope="col">DNI</th>
-                            <th scope="col">Apellidos, Nombre</th>
-                            <th scope="col">Género</th>
-                            <th scope="col">Horas de Trabajo</th>
+                            <th scope="col">Código</th>
+                            <th scope="col">Apellidos y Nombres</th>
+                            <th scope="col">Género</th>                           
                             <th scope="col">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for p in personal %}
                         <tr>
-                            <td> {{p.dni}}</td>
+                            <td> 00{{p.id}}</td>
                             <td> {{p.apellido}}, {{p.nombre}}</td>
-                            <td> {{p.genero}}</td>
-                            <td> {{p.horas_trabajo}}</td>
+                            <td> {{p.genero}}</td>                           
                             <td class="jaku-actions">
                                 <ul>
 									<li>                                        
