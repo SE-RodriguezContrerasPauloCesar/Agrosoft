@@ -5,32 +5,36 @@
 <head>
     <meta charset="UTF-8">
     <link rel="shortcut icon" href="{% static 'img/icono.ico'%}" type="image/x-icon">
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+        name='viewport' />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet" href="{% static 'css/layout-administrador.css'%}">
     <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/admi.css' %}"/> -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 </head>
 
 <body>
     <!-- Header Administrator -->
     <div class="main-header">
-        <div class="logo-header">    
+        <div class="logo-header">
             <div class="text-center">
                 <a href="{% url 'agrosoft:listarlotes' %}">
-                    <img src="{% static 'img/agrosoftlogo.png' %}"  width="150" height="55" class="d-inline-block align-top " alt="Dashboard">
-                </a>      
+                    <img src="{% static 'img/agrosoftlogo.png' %}" width="150" height="55"
+                        class="d-inline-block align-top " alt="Dashboard">
+                </a>
             </div>
-            
+
             <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse"
                 data-target="collapse" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
             </button>
             <button class="topbar-toggler more"><i class="fa fa-ellipsis-v"></i></button>
         </div>
-        
+
         <nav class="navbar navbar-header navbar-expand-lg">
             <div class="container-fluid">
                 {% if request.user.is_authenticated %}
@@ -64,7 +68,8 @@
                                 </div>
                             </li>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{% url 'agrosoft_accounts:logout' %}"><i class="fa fa-power-off"></i>
+                            <a class="dropdown-item" href="{% url 'agrosoft_accounts:logout' %}"><i
+                                    class="fa fa-power-off"></i>
                                 Cerrar Sesión</a>
                         </ul>
                     </li>
@@ -101,8 +106,7 @@
             </div>
             <!-- Admin Managements-->
             <ul class="nav">
-                <li class="nav-item {% if active_page == 'lote' %} active{% endif %}" 
-                    style="max-width: 90%;">
+                <li class="nav-item {% if active_page == 'lote' %} active{% endif %}" style="max-width: 90%;">
                     <a href="{% url 'agrosoft:listarlotes' %}">
                         <i class="fa fa-building"></i>
                         <p>Gestión de Lotes</p>
@@ -113,46 +117,46 @@
                     <a href="{% url 'agrosoft:listarusuarios' %}">
                         <i class="fa fa-users"></i>
                         <p>Gestión de Usuarios</p>
-                    </a>                                                    
+                    </a>
                 </li>
                 <li class="nav-item d-inline-flex {% if active_page == 'cultivo' %} active{% endif %}"
                     style="max-width: 100%;">
                     <a href="{% url 'agrosoft:listarcultivos' %}">
                         <i class="fa fa-leaf"></i>
                         <p>Gestión de Cultivos</p>
-                    </a>                                    
+                    </a>
                 </li>
-                <li class="nav-item d-inline-flex {% if active_page == 'event' %} active{% endif %}"
+                <li class="nav-item d-inline-flex {% if active_page == 'personal' %} active{% endif %}"
                     style="max-width: 100%;">
                     <a href="{% url 'agrosoft:listarpersonal' %}">
                         <i class="fa fa-universal-access"></i>
                         <p>Gestión de Personal</p>
-                    </a>                                    
+                    </a>
                 </li>
                 <li class="nav-item {% if active_page == 'inventario' %} active{% endif %}" style="max-width: 100%;">
                     <a href="{% url 'agrosoft:listarbienes' %}">
                         <i class="fa fa-book"></i>
                         <p>Gestión de Inventario</p>
                     </a>
-                </li>   
-                <li class="nav-item {% if active_page == 'new' %} active{% endif %}" style="max-width: 100%;">
+                </li>
+                <li class="nav-item {% if active_page == 'enfermedad' %} active{% endif %}" style="max-width: 100%;">
                     <a href="{% url 'agrosoft:listarenfermedades' %}">
                         <i class="fa fa-heartbeat"></i>
                         <p>Gestión de Enfermedad</p>
                     </a>
-                </li>  
+                </li>
                 <li class="nav-item {% if active_page == 'new' %} active{% endif %}" style="max-width: 100%;">
                     <a href="{% url 'agrosoft:listarfertilizantes' %}">
                         <i class="fa fa-tint"></i>
                         <p>Gestión de Fertilizante</p>
                     </a>
-                </li>  
+                </li>
                 <li class="nav-item {% if active_page == 'calendario' %} active{% endif %}" style="max-width: 100%;">
                     <a href="{% url 'agrosoft:calendar' %}">
                         <i class="fa fa-calendar"></i>
                         <p>Calendario</p>
                     </a>
-                </li>                     
+                </li>
             </ul>
         </div>
     </div>
@@ -168,7 +172,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+        integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
     {% block scripts %}
     <script type="text/javascript">
         $(function () { $('[data-toggle="tooltip"]').tooltip() }), $(document).ready(function () {
@@ -192,9 +197,12 @@
                 $(this).modal('show');
             });
         }
-        
+        function recomendations() {           
+            confirm("Recomendaciones:")                        
+        }
     </script>
     {% load static %}
-    <script src="{% static 'js/validation-form.js'%}"></script>    
+    <script src="{% static 'js/validation-form.js'%}"></script>
 </body>
+
 </html>

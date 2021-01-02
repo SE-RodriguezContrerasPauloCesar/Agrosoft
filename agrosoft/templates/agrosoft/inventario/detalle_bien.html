@@ -3,7 +3,7 @@
         <div class="container-fluid shadow-sm bg-light p-3">
             <div class="modal-header">
                 <h1> <i class="fa fa-leaf" style="color: #01681e;"></i>
-                    <span class="text-success">{{title}}: </span><br>
+                    <span class="text-success">{{title}}: </span>
                     <span class="text-capitalize">{{bien.nombre}}</span>
                 </h1>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -34,22 +34,28 @@
                                 <td class="text-capitalize">{{bien.cantidad}}</td>
                             </tr>
                             <tr>
-                                <td>Proveedor</td>
+                                <td>Proveedor/Marca</td>
                                 <td class="text-capitalize">{{bien.proveedor}}</td>
-                            </tr>
+                            </tr>        
                             <tr>
-                                <td>Fecha_Ingreso</td>
-                                <td class="text-capitalize">{{bien.fecha_Ingreso}}</td>
-                            </tr>
-                            <tr>
-                                <td>Fecha_Salida</td>
-                                <td class="text-capitalize">{{bien.fecha_Salida}}</td>
-                            </tr>
+                                <td>Estado</td>
+                                <td class="text-capitalize">
+                                    {% if bien.estado == "1" %}
+                                    <span class="badge badge-danger">Retirado</span>
+                                    {% else %}
+                                    <span class="badge badge-success">En Inventario</span>
+                                    {% endif %}
+                                </td>
+                            </tr>                   
                             
                         </tbody>
                     </table>
                 </div>
-                <a class="btn btn-jaku my-3" href="{% url 'agrosoft:listarbienes'%}">Volver a lista de bienes</a>
+
+                <div class="row justify-content-md-center" >
+                    <a class="btn btn-jaku my-3" href="{% url 'agrosoft:listarbienes'%}">Volver a lista de bienes</a>
+                </div>
+                
                 <!-- End of table of user information -->
             </div>
         </div>

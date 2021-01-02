@@ -1,60 +1,118 @@
 {% include 'agrosoft/layout.html' with active_page='inventario' %}
 {% load static %}
 {% block container %}
+
+<!-- List of registered calls  -->
+
+<head>
+    <title>Lista de Bienes</title>
+</head>
 <div class="main-panel">
     <div class="content">
         <div class="container-fluid shadow-sm bg-light p-3">
-            <h1>  
-                <i class="fas fa-folder-plus" style="color: #31c536"></i> 
-                Agregar Nuevo Bien
-            </h1>
+            <h2>
+                <i class="fa fa-leaf" style="color: #73daad;"></i>
+                Registrar Entrada/Salida de " {{ bien.nombre}} "
+            </h2>
             <div class="dropdown-divider"></div>
-            {% if form.errors %}
-            <div class="alert alert-danger" role="alert">
-                {% if form.bienes.errors %}
-                    <p>* Ya existe un bien con este Nombre</p>
+            <div class="call-add my-3">
+                {% if perms.auth.add_user %}
+                {% if bien.estado == "1" %}
+                <a class="btn btn-info" href="{% url 'agrosoft:registrarebien' bien.id %}">
+                    <i class="fa fa-reply"></i>
+                    Registrar Entrada
+                </a>
+                {% else %}
+                <a class="btn btn-dark" href="{% url 'agrosoft:registrarsbien' bien.id%}">
+                    <i class="fa fa-share"></i>
+                    Registrar Salida
+                </a>
                 {% endif %}
-                {% for message in messages %}
-                    {{ message }}
-                {% endfor %}
-                <p>{{ form.nombre.errors.as_text }}</p>                               
+
+
+                {% endif %}
             </div>
-        {% endif %}
-            
-            <form method="POST" action="" class="needs-validation required"  novalidate enctype="multipart/form-data">
-                {% csrf_token %}
-                <div>
-                    <div>
-                        <label for="nombre">Nombre</label></br>
-                        <input type="text" id="nombre" name="nombre" class="form-control" required pattern="[a-zA-Z]+">
-                    </div>
-                    
-                    <div>
-                        <label for="descripcion">Descripcion</label></br>
-                        <input type="text" id="descripcion" name="descripcion" class="form-control">
-                    </div>
-                    <div>
-                        <label for="cantidad">Cantidad</label></br>
-                        <input type="number" id="cantidad" name="cantidad" class="form-control">
-                    </div>                                                                             
-                    <div>
-                        <label for="proveedor">Proveedor</label></br>
-                        <input type="text" id="proveedor" name="proveedor" class="form-control">
-                    </div>
-                    <div>
-                        <label for="fecha_Ingreso">Fecha Ingreso</label></br>
-                        <input type="date" id="fecha_Ingreso" name="fecha_Ingreso" class="form-control">
-                    </div>
-                    <div>
-                        <label for="fecha_Salida">Fecha Salida</label></br>
-                        <input type="date" id="fecha_Salida" name="fecha_Salida" class="form-control">
-                    </div>
+            {% for message in messages %}
+            <div class="alert alert-primary" role="alert">
+                {{ message }}
+            </div>
+            {% endfor %}
+
+            <!-- Table of registers  -->
+            {% if bien %}
+            <div class="table-responsive shadow-sm" style="border-radius: 9px;">
+                <table class="table table-head-bg-success table-striped table-hover">
+                    <thead style="background: linear-gradient(120deg,#19b648,#59d17b);">
+                        <tr>
+                            <th scope="col">Item</th>
+                            <th scope="col">Información</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Nombre de bien</td>
+                            <td>{{bien.nombre}}</td>
+                        </tr>
+                        <tr>
+                            <td>Descripcion</td>
+                            <td class="text-capitalize">{{bien.descripcion}}</td>
+                        </tr>
+                        <tr>
+                            <td>Estado</td>
+                            <td class="text-capitalize">
+                                {% if bien.estado == "1" %}
+                                <span class="badge badge-danger">Retirado</span>
+                                {% else %}
+                                <span class="badge badge-success">En Inventario</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Encargado</td>
+                            {% if bien.estado == "1" %}
+                                <td class="text-capitalize"><span class="badge badge-success">{{bien.encargado}}</span></td>
+                            {% else %}
+                                <td class="text-capitalize"><span class="badge badge-danger">En espera de salida</span></td>
+                            {% endif %}  
+                        </tr>
+                        <tr>
+                            <td>Fecha Ingreso</td>
+                            {% if bien.estado == "1" %}
+                                <td class="text-capitalize"><span class="badge badge-danger">En espera de devolución</span></td>
+                            {% else %}
+                                <td class="text-capitalize"><span class="badge badge-success">{{bien.fecha_Ingreso}}</span></td>
+                            {% endif %}                            
+                        </tr>
+                        <tr>
+                            <td>Fecha Salida</td>
+                            {% if bien.estado == "1" %}
+                                <td class="text-capitalize"><span class="badge badge-success">{{bien.fecha_Salida}}</span></td>
+                            {% else %}
+                                <td class="text-capitalize"><span class="badge badge-danger">En espera de salida</span></td>
+                            {% endif %}                              
+                        </tr>
+
+                    </tbody>
+                </table>
+                <a class="btn btn-jaku my-3 ml-2" href="{% url 'agrosoft:listarbienes'%}">Volver a lista de bienes</a>
+            </div>
+
+
+            <!-- End of table of registers  -->
+            {% else %}
+            <div class="container-fluid">
+                <div class="alert alert-primary">
+                    <p>No tiene entradas/salidas registrados.</p>
                 </div>
-                <button type="submit" class="btn btn-agrosoft px-4 my-3">Agregar Bien</button>
-                <a href="{% url 'agrosoft:listarbienes' %}" class="btn btn-agrosoft px-4 my-3">Cancelar</a>
-            </form>
+            </div>
+            {% endif %}
         </div>
     </div>
-</div>
+    <div class="modal" id="mostrar"></div>
+    <!-- Footer -->
+    {% include "agrosoft_web/footer-agrosoft.html" %}
+    <!-- End Footer -->
 
+</div>
 {% endblock %}

@@ -16,26 +16,23 @@
             <div class="dropdown-divider"></div>
             <div class="call-add my-3">
                 {% if perms.auth.add_user %}
-                <a class="btn btn-agrosoft" href="{% url 'agrosoft:agregarbien' %}">
+                <a class="btn btn-agrosoft mr-2" href="{% url 'agrosoft:agregarbien' %}">
                     <i class="fa fa-plus-square"></i>
                     Agregar Bien
                 </a>
-                <a class="btn btn-agrosoft mr-2" href="{% url 'agrosoft:registraresbien' %}">
-                    <i class="fa fa-plus-square"></i>
-                    Registrar Entrada Salida
-                </a>
+               
 
                 <a class="btn btn-agrosoft mr-2" href="{% url 'agrosoft:export_bienes_csv' %}">
-                    <i class="fa fa-plus-square"></i>
+                    <i class="fa fa-file-archive-o"></i>
                     Exportar a CSV
                 </a>
                 
                 <a class="btn btn-agrosoft mr-2" href="{% url 'agrosoft:export_bienes_excel' %}">
-                    <i class="fa fa-plus-square"></i>
+                    <i class="fa fa-file-excel-o"></i>
                     Exportar a Excel
                 </a>
-                <a class="btn btn-agrosoft mr-2" target="_blank" href="{% url 'agrosoft:export_bienes_pdf' %}">
-                    <i class="fa fa-plus-square"></i>
+                <a class="btn btn-agrosoft mr-2" target="_blank" href="#">
+                    <i class="fa fa-file-pdf-o"></i>
                     Exportar a PDF
                 </a>
                 {% endif %}
@@ -55,9 +52,8 @@
                             <th scope="col">Nombre</th>
                             <th scope="col">Descripcion</th>
                             <th scope="col">Cantidad</th>
-                            <th scope="col">Proveedor</th>
-                            <th scope="col">Fecha Ingreso</th>
-                            <th scope="col">Fecha Salida</th>
+                            <th scope="col">Proveedor/Marca</th>                            
+                            <th scope="col">Estado</th>  
                             <th scope="col">Acciones</th>
                         </tr>
                     </thead>
@@ -68,9 +64,15 @@
                             <td> {{p.nombre}}</td>
                             <td> {{p.descripcion}}</td>
                             <td> {{p.cantidad}}</td>
-                            <td> {{p.proveedor}}</td>
-                            <td> {{p.fecha_Ingreso}}</td>
-                            <td> {{p.fecha_Salida}}</td>
+                            <td> {{p.proveedor}}</td>                           
+                            <td> 
+                               
+                                {% if p.estado == "1" %}
+                                    <span class="badge badge-danger">Retirado</span>
+                                {% else %}
+                                    <span class="badge badge-success">En Inventario</span>
+                                {% endif %}   
+                            </td>  
                             <td class="jaku-actions">
                                 <ul>
 									<li>                                        
@@ -79,7 +81,16 @@
                                         <a class="editar" href="{% url 'agrosoft:editarbien' p.id %}" data-toggle="tooltip"
                                         title="Editar" data-placement="top"><i class="fas fa-edit fa-lg"></i></a>
                                         <a class="eliminar" href="{% url 'agrosoft:eliminarbien' p.id %}" onclick="return confirm('¿Está seguro de eliminar este Cultivo?')" data-toggle="tooltip"
-                                        title="Editar" data-placement="top"><i class="fas fa-trash"></i></a>																				
+                                        title="Editar" data-placement="top"><i class="fas fa-trash"></i></a>
+                                        {% if p.estado == "1" %}
+                                            <a class="ver" href="{% url 'agrosoft:registraresbien' p.id %}">
+                                                <i class="fa fa-reply"></i> Registrar Entrada
+                                            </a>
+                                        {% else %}
+                                            <a class="eliminar" href="{% url 'agrosoft:registraresbien' p.id%}">
+                                                <i class="fa fa-share"></i> Registrar Salida
+                                            </a>
+                                        {% endif %}                                        																				
                                     </li>
                                 </ul>                     
                             </td>
@@ -88,6 +99,8 @@
                     </tbody>
                     
                 </table>
+
+                
             </div>
             <!-- End of table of registers  -->
             {% else %}
