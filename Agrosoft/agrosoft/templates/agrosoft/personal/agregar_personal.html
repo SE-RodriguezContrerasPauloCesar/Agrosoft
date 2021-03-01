@@ -1,0 +1,42 @@
+{% include 'agrosoft/layout.html' with active_page='personal' %}
+{% load static %}
+{% block container %}
+<div class="main-panel">
+    <div class="content">
+        <div class="container-fluid shadow-sm bg-light p-3">
+            <h1>  
+                <i class="fas fa-folder-plus" style="color: #31c536"></i> 
+                Agregar Nuevo Personal
+            </h1>
+            <div class="dropdown-divider"></div>
+            
+            
+            <form method="POST" action="" class="needs-validation required"  novalidate enctype="multipart/form-data">                
+                {% csrf_token %}                
+
+                <div>
+                    <div>
+                        <label for="nombre">Nombres</label></br>
+                        <input type="text" id="nombre" name="nombre" class="form-control">
+                    </div>
+                    <div>
+                        <label for="apellido">Apellidos</label></br>
+                        <input type="text" id="apellido" name="apellido" class="form-control">
+                    </div>
+                    <div>                        
+                        <label for="genero">Género</label></br>
+                        <select class="form-control" id="genero" name="genero">
+                            <option>Masculino</option>    
+                            <option>Femenino</option>    
+                        </select>
+                    </div>        
+                </div>
+
+                <button type="submit" class="btn btn-agrosoft px-4 my-3">Agregar Personal</button>
+                <a href="{% url 'agrosoft:listarpersonal' %}" class="btn btn-agrosoft px-4 my-3">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

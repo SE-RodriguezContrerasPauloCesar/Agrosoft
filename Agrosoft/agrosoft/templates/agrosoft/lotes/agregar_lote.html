@@ -1,0 +1,83 @@
+{% include 'agrosoft/layout.html' with active_page='lote' %}
+{% load static %}
+{% block container %}
+<div class="main-panel">
+    <div class="content">
+        <div class="container-fluid shadow-sm bg-light p-3">
+            <h1>
+                <i class="fas fa-folder-plus" style="color: #31c536"></i>
+                Agregar Nuevo Lote
+            </h1>
+            <div class="dropdown-divider"></div>
+            {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+                {% if form.lotes.errors %}
+                <p>* Ya existe un lote con este Nombre</p>
+                {% endif %}
+                {% for message in messages %}
+                {{ message }}
+                {% endfor %}
+                <p>{{ form.nombre.errors.as_text }}</p>
+                <p>{{ form.area.errors.as_text }}</p>
+                <p>{{ form.fecha_riego.errors.as_text }}</p>
+                <p>{{ form.produ.errors.as_text }}</p>
+            </div>
+            {% endif %}
+
+            <form method="POST" action="" class="needs-validation required" novalidate enctype="multipart/form-data">
+                {% csrf_token %}
+                <div>
+                    <div>
+                        <label for="nombre">Nombre</label></br>
+                        <input type="text" id="nombre" name="nombre" class="form-control">
+                    </div>
+                    <div>
+                        <label for="area">Area</label></br>
+                        <input type="number" id="area" name="area" class="form-control">
+                    </div>
+                    <div>                        
+                        <label for="fecha_riego">Fecha Riego</label></br>
+                        <select class="form-control" id="fecha_riego" name="fecha_riego">
+                            <option>Lunes y Miercoles</option>    
+                            <option>Martes y Jueves</option>    
+                        </select>
+                    </div>                    
+                    <div>
+                        <label for="entity">Tipo de Cultivo:</label><br>
+                        {% if cultivos %}
+                        <select name="cultivo" id="cultivo" class="form-control">
+                            <option selected>Ninguno</option>
+                            {%for e in cultivos%}
+                            <option value="{{e.id}}">{{e.nombre}}</option>
+                            {%endfor%}
+                        </select>
+                        {% else %}
+                        <div class="alert alert-warning" role="alert">No existen CULTIVOS creadas.</div>
+                        {% endif %}								
+                    </div>
+                    <div>
+                        <label for="entity">Tipo de Enfermedad:</label><br>
+                        {% if enfermedades %}
+                        <select name="enfermedad" id="enfermedad" class="form-control">
+                            <option selected>Ninguno</option>
+                            {%for i in enfermedades%}
+                            <option value="{{i.id}}">{{i.nombre}}</option>
+                            {%endfor%}
+                        </select>
+                        {% else %}
+                        <div class="alert alert-warning" role="alert">No existen ENFERMEDADES creadas.</div>
+                        {% endif %}								
+                    </div>
+                    <div>
+                        <label for="produ">Producción</label></br>
+                        <input type="number" id="produ" name="produ" class="form-control" value="0" disabled>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-agrosoft px-4 my-3">Agregar Lote</button>
+                <a href="{% url 'agrosoft:listarlotes' %}" class="btn btn-agrosoft px-4 my-3">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

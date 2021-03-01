@@ -1,0 +1,241 @@
+{% include 'agrosoft/layout.html' with active_page='lote' %}
+{% load static %}
+{% block container %}
+
+<head>
+    <title>Lotes de la Empresa</title>
+</head>
+<div class="main-panel">
+    <div class="content">
+        <div class="container-fluid shadow-sm bg-light p-3">
+            <h4 class="page-title">Resumen</h4>
+            <div class="row">
+                <!-- SECTION INFORMATION 1-->
+                <div class="col-md-3">
+                    <div class="card card-stats card-warning">
+                        <div class="card-body ">
+                            <div class="row">
+                                <div class="col-5">
+                                    <div class="icon-big text-center">
+                                        <i class="fa fa-users"></i>
+                                    </div>
+                                </div>
+                                <div class="col-7 d-flex align-items-center">
+                                    <div class="numbers">
+                                        <p class="card-category">Personal</p>
+                                        <h4 class="card-title">{{ personal_count }} personas</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card card-stats card-success">
+                        <div class="card-body ">
+                            <div class="row">
+                                <div class="col-5">
+                                    <div class="icon-big text-center">
+                                        <i class="fa fa-bar-chart"></i>
+                                    </div>
+                                </div>
+                                <div class="col-7 d-flex align-items-center">
+                                    <div class="numbers">
+                                        <p class="card-category">Producción</p>
+                                        <h4 class="card-title">{{ produ_total.produ__sum }} Cajas</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card card-stats card-danger">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-5">
+                                    <div class="icon-big text-center">
+                                        <i class="fa fa-building"></i>
+                                    </div>
+                                </div>
+                                <div class="col-7 d-flex align-items-center">
+                                    <div class="numbers">
+                                        <p class="card-category">Lotes</p>
+                                        <h4 class="card-title">
+                                            {{ lotes_count }} lotes
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card card-stats card-primary">
+                        <div class="card-body ">
+                            <div class="row">
+                                <div class="col-5">
+                                    <div class="icon-big text-center">
+                                        <i class="fa fa-truck"></i>
+                                    </div>
+                                </div>
+                                <div class="col-7 d-flex align-items-center">
+                                    <div class="numbers">
+                                        <p class="card-category">Inventario</p>
+                                        <h4 class="card-title">
+                                            {{ bienes_count }} bienes
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION LOTES-->
+            <h2>
+                <i class="fa fa-building" style="color: #73daad;"></i>
+                Mis Lotes
+            </h2>
+            <div class="dropdown-divider"></div>
+            <div class="call-add my-3">
+                <a class="btn btn-agrosoft" href="{% url 'agrosoft:agregarlote' %}">
+                    <i class="fa fa-plus-square"></i> Agregar Nuevo Lote
+                </a>
+            </div>
+            {% for message in messages %}
+            <div class="alert alert-primary" role="alert">
+                {{ message }}
+            </div>
+            {% endfor %}
+
+            <!-- Table of registers  -->
+            {% if lotes %}
+            <div class="table-responsive shadow-sm" style="border-radius: 9px;">
+                <table class="table table-bordered">
+                    <thead style="background: linear-gradient(120deg,#37db73,#3adf97);" class="text-center">
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Área en &#13217;</th>
+                            <th scope="col">Fecha de Riego</th>
+                            <th scope="col">Producción</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for p in lotes %}
+                        <tr>
+                            <td> {{p.nombre}}</td>
+                            <td> {{p.area}} &#13217;</td>
+                            <td> {{p.fecha_riego}}
+                            <td> {{p.produ}} cajas
+                            <td class="jaku-actions">
+                                <ul>
+                                    <li>                                        
+                                        <a class="editar" href="{% url 'agrosoft:editarlote' p.id %}"
+                                            data-toggle="tooltip" title="Editar" data-placement="top"><i
+                                                class="fas fa-edit fa-lg"></i></a>
+                                        <a class="eliminar" href="{% url 'agrosoft:eliminarlote' p.id %}"
+                                            onclick="return confirm('¿Está seguro de eliminar este Cultivo?')"
+                                            data-toggle="tooltip" title="Editar" data-placement="top"><i
+                                                class="fas fa-trash"></i></a>
+                                        <a href="{% url 'agrosoft:detallelote' p.id %}"  class="evaluation" data-toggle="tooltip" title="Gestionar producción"
+                                            data-placement="top">
+                                            <i class="fas fa-star fa-lg"></i> Ver y Gestionar
+                                        </a>                                       
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        {% endfor %}                        
+                    </tbody>
+
+                </table>
+            </div>
+            <!-- End of table of registers  -->
+            {% else %}
+            <div class="container-fluid">
+                <div class="alert alert-primary">
+                    <p>No tiene lotes registrados!</p>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- SECTION INFORMATION 2-->
+            <div class="row row-card-no-pd">
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="fw-bold mt-0">Producción Total</p>
+                            <h4><b>{{ produ_total.produ__sum }} Cajas</b></h4>                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="fw-bold mt-0"><b>Ranking Producción</b></p>
+                            {% for item in lotes_sorted %}                       
+                            <div class="progress-card">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span class="text-muted">#{{forloop.counter}} {{ item.nombre }}</span>
+                                    <span class="text-muted fw-bold"><b>{{ item.produ }} cajas</b></span>
+                                </div>
+                                <div class="progress mb-2" style="height: 7px;">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 100%"
+                                        aria-valuenow="78" aria-valuemin="0" aria-valuemax="100" data-toggle="tooltip"
+                                        data-placement="top" title="78%"></div>
+                                </div>
+                            </div>
+                            {% endfor %}                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card card-stats">
+                        <div class="card-body">
+                            <p class="fw-bold mt-0"><b>Estadisticas</b></p>
+                            <div class="row">
+                                <div class="col-5">
+                                    <div class="icon-big text-center icon-warning">
+                                        <i class="fa fa-thumbs-up text-success"></i>
+                                    </div>
+                                </div>
+                                <div class="col-7 d-flex align-items-center">
+                                    <div class="numbers">
+                                        <p class="card-category">Lote con mayor producción</p>
+                                        <h4 class="card-title">{{ mayor.nombre }}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="col-5">
+                                    <div class="icon-big text-center">
+                                        <i class="fa fa-thumbs-down text-danger"></i>
+                                    </div>
+                                </div>
+                                <div class="col-7 d-flex align-items-center">
+                                    <div class="numbers">
+                                        <p class="card-category">Lote con menor producción</p>
+                                        <h4 class="card-title">{{ menor.nombre }}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="mostrar"></div>
+    <!-- Footer -->
+    {% include "agrosoft_web/footer-agrosoft.html" %}
+    <!-- End Footer -->
+
+</div>
+{% endblock %}

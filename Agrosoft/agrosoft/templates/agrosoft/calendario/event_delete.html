@@ -1,0 +1,28 @@
+<!-- templates/article_delete.html -->
+{% include 'agrosoft/layout.html' with active_page='calendario' %}
+
+{% block title %}
+Event Delete
+{% endblock %}
+
+{% block content %}
+<head>
+    <title>Calendario AGROSERVIC</title>
+  </head>  
+  <div class="main-panel">
+    <div class="content">
+        <div class="container-fluid shadow-sm bg-light p-3">
+            
+            <h1>Eliminar Lote del Evento</h1>
+            <form action="" method="post">{% csrf_token %}
+                <p>Estas seguro de eliminar el lote de este evento?</p>
+                <button class="btn btn-danger ml-2" type="submit">Confirmar</button>
+            </form>
+
+    </div>    
+    <!-- Footer -->
+    {% include "agrosoft_web/footer-agrosoft.html" %}
+    <!-- End Footer -->
+
+</div>
+{% endblock content %}

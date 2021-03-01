@@ -1,0 +1,121 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="{% static 'images/icono.ico'%}" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/css/swiper.min.css">
+    <link rel="stylesheet" href="{% static 'css/header.css'%}">
+    <link rel="stylesheet" href="{% static 'css/footer.css'%}">
+    <link rel="stylesheet" href="{% static 'css/webpage.css'%}">
+    <link rel="stylesheet" href="{% static 'css/info-agroservic.css'%}">
+<body>
+    <div class="container-jaku">       
+        <div class="logo-jaku">
+            <img style="padding: 0px;margin: 10px;margin-left: 0px;width: 200px;" src="{% static 'images/agrosoftlogo.png' %}">
+            <img class="float-right" style="padding: 0px;margin: 10px;width: 110px;margin-right: 0px;"
+                src="{% static 'images/berry-icon.jpg' %}">
+        </div>
+        <div class="text-uppercase header-blue sticky-top">
+            <nav class="navbar navbar-light navbar-expand-lg nav-bar-effect">
+                <div class="container-fluid" style="background: linear-gradient(120deg,#188d28,#119754);border-bottom: 1px solid #ffffff;">
+                    <button data-toggle="collapse" class="navbar-toggler border rounded float-right"
+                        data-target="#navbar-head"
+                        style="padding: 0px 15px;margin: 3px 5px;background-color: rgba(255,255,255,0.54);">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbar-head" style="width: 100%;">
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item nav-bar-effect" role="presentation"><a class="nav-link" href="{% url 'agrosoft_web:home' %}"><i
+                                        class="fa fa-dot-circle-o"></i>Inicio<br></a></li>
+                            <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" data-toggle="dropdown"
+                                    aria-expanded="false" href=""><i class="fa fa-dot-circle-o"></i>Conócenos</a>
+                                <div class="dropdown-menu" role="menu">
+                                    <a class="dropdown-item" role="presentation" href="{% url 'agrosoft_web:home_historia' %}">
+                                        <i class="fa fa-dot-circle-o"></i>Historia</a>                                   
+                                    <a class="dropdown-item" role="presentation" href="{% url 'agrosoft_web:home_misionvision' %}">
+                                        <i class="fa fa-dot-circle-o"></i>Vision / Mision</a>                                   
+                            </li>
+                            <li class="nav-item" role="presentation" style="min-width: 200px;"><a class="nav-link" href="{% url 'agrosoft_web:home_productos' %}"><i
+                                        class="fa fa-dot-circle-o"></i>Productos y Servicios</a></li>                        
+                            <li class="nav-item" role="presentation" style="min-width: 200px;"><a class="nav-link" href="{% url 'agrosoft_web:home_contact' %}"><i
+                                        class="fa fa-dot-circle-o"></i>Contáctenos</a></li>
+                            <li class="nav-item" role="presentation" style="min-width: 200px;"><a class="nav-link" href="{% url 'agrosoft:home' %}"><i
+                                        class="fa fa-dot-circle-o"></i>Sistema en linea</a></li>                            
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>       
+        {% block container %}
+
+        {% endblock %}
+        <!-- Footer Jaku -->
+        <footer class="footer-jaku">
+            <div class="row">
+                <!-- Column Logo -->
+                <div class="col-sm-6 col-md-4 footer-navigation"><img src="{% static 'images/agrosoftlogotrans.png' %}"
+                        width="100%">
+                    <p class="company-name">Company Name © 2020</p>
+                </div>
+                <!-- End Column Logo -->
+                <!-- Column Contacts -->
+                <div class="col-sm-6 col-md-4 footer-contacts">
+                    <div><span class="fa fa-map-marker footer-contacts-icon"> </span>
+                        <p><span class="text-uppercase new-line-span">Dirección</span>Distrito de Uchumayo<br>Irrigación el Cural, Lateral 7, Lote 334</p>
+                    </div>
+                    <div><span class="fa fa-map-marker footer-contacts-icon"> </span>
+                        <p>Cercado, Arequipa<br>Urb. Juan el Bueno E-23</p>
+                    </div>
+                    <div><i class="fa fa-phone footer-contacts-icon"></i>
+                        <p class="footer-center-info email text-left"> 054 215098 <br> +51 971 971 383 </p>
+                    </div>
+                    <div><i class="fa fa-envelope footer-contacts-icon"></i>
+                        <p> <a href="#" target="_blank">agroservic@outlook.com</a></p>
+                    </div>
+                    <div><span class="fa fa-clock-o footer-contacts-icon"> </span>
+                        <p><span class="text-uppercase new-line-span">Horario</span> 07:00 a 17:00 hrs de Lunes a Sábado</p>
+                    </div>
+                </div>
+                <!-- End Column Contacts-->
+                <!-- Column About -->
+                <div class="col-md-4 footer-about">
+                    <h3 class="text-uppercase">AGROSERVIC S.R.L.</h3>
+                    <p> Somos la empresa de mejor calidad en fresas de caracterizándonos por tener una cosecha continua los 12 meses del año gracias a los diferentes campos que poseemos y al manejo especializado de la cosecha</p>
+                    <div class="social-links social-icons">
+                        <a href="#" target="_blank"><i class="fa fa-facebook"></i></a>
+                        <a href="#" target="_blank"><i class="fa fa-twitter"></i></a>
+                        <a href="#" target="_blank"><i class="fa fa-linkedin"></i></a>
+                        <a href="" target="_blank"><i class="fa fa-instagram"></i></a>
+                    </div>
+                </div>
+                <!-- End Column About-->
+            </div>
+        </footer>
+        <!-- End Footer Jaku -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Bootstrap core JavaScript -->
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.jquery.min.js"></script>
+    {% block scripts %}
+    <script src="{% static 'js/slider.js'%}"></script>
+    {% endblock %}
+</body>
+
+</html>

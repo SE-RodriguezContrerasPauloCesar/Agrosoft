@@ -1,0 +1,38 @@
+{% include 'agrosoft/layout.html' with active_page='inventario' %}
+{% load static %}
+{% block container %}
+<div class="main-panel">
+    <div class="content">
+        <div class="container-fluid shadow-sm bg-light p-3">
+            <h1>  
+                <i class="fas fa-share" style="color: #31c536"></i> 
+                Registrar Salida Bien
+            </h1>
+            <div class="dropdown-divider"></div>            
+            
+            <form method="POST" enctype="multipart/form-data" class="was-validated required">
+                {% csrf_token %}
+                <div>                   
+                    <div>
+                        <label for="encargado">Asignar Encargado</label>
+                        <input type="text" id="encargado" name="encargado" class="form-control">  
+                    </div>
+                    <div>
+                        <label for="fecha_Salida">Fecha de Salida</label></br>
+                        <input type="date" id="fecha_Salida" name="fecha_Salida" class="form-control">                        
+                    </div>                    
+                                                        
+                </div>
+                <button type="submit" class="btn btn-agrosoft px-4 my-3">Registrar Salida Bien</button>
+                <a href="{% url 'agrosoft:listarbienes'%}" class="btn btn-agrosoft px-4 my-3">Cancelar</a>
+            </form>
+            
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+        
+        
+    
